@@ -3,7 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -11,7 +14,7 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +22,15 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'role_id',
+        'company_id',
         'name',
-        'email',
+        'phone',
+        'avatar',
+        'salary',
+        'device_token',
         'password',
+        'status',
     ];
 
     /**
@@ -42,8 +51,9 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
+            'phone_verified_at' => 'datetime',
             'password' => 'hashed',
+            'status' => UserStatus::class,
         ];
     }
 }
