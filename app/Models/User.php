@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Attributes\UserAttribute;
 use App\Enums\UserStatus;
 use App\Models\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +17,7 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens, SoftDeletes, UserScope;
+    use HasFactory, Notifiable, HasApiTokens, SoftDeletes, UserScope, UserAttribute;
 
     /**
      * The attributes that are mass assignable.
