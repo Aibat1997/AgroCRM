@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserLoginRequest extends FormRequest
+class UserRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,12 +17,15 @@ class UserLoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'phone' => 'required|string|size:11|starts_with:7|exists:users,phone,deleted_at,NULL',
+            'role_id' => 'required|integer|exists:user_roles,id',
+            'company_id' => 'required|integer|exists:companies,id',
+            'name' => 'required|string',
+            'phone' => 'required|string|size:11|starts_with:7|unique:users,phone,NULL,deleted_at',
             'password' => 'required|string',
             'device_token' => 'sometimes|required|string',
         ];

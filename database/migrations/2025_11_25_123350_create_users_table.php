@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedMediumInteger('salary')->nullable();
             $table->string('device_token')->nullable();
             $table->string('password');
-            $table->string('status')->default(UserStatus::CONFIRMED->value);
+            $table->string('status')->default(UserStatus::PENDING->value);
             $table->rememberToken();
             $table->timestamp('phone_verified_at')->nullable();
             $table->timestamps();

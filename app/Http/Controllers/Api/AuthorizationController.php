@@ -4,14 +4,23 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\UserLoginRequest;
+use App\Http\Requests\Api\Auth\UserRegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserAuthController extends Controller
+class AuthorizationController extends Controller
 {
+    public function register(UserRegisterRequest $request)
+    {
+        $user = User::create($request->validated());
+        $user_token = $user->createToken('User Personal Token')->accessToken;
+
+        return $this->return_success(['user_token' => $user_token, 'user' => new UserResource($user)]);
+    }
+
     public function login(UserLoginRequest $request)
     {
         $user = User::filter($request->only('phone'))->first();
