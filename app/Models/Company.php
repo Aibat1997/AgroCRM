@@ -52,4 +52,14 @@ class Company extends Model
     {
         return $this->hasMany(Warehouse::class, 'company_id', 'id');
     }
+
+    /**
+     * Get all of the machineries for the Company
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function machineries(): HasMany
+    {
+        return $this->hasMany(Machinery::class, 'company_id', 'id');
+    }
 }
