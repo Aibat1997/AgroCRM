@@ -42,4 +42,14 @@ class Company extends Model
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
+
+    /**
+     * Get all of the warehouses for the Company
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function warehouses(): HasMany
+    {
+        return $this->hasMany(Warehouse::class, 'company_id', 'id');
+    }
 }
