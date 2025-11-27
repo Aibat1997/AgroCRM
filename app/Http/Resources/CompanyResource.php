@@ -18,6 +18,7 @@ class CompanyResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'logo' => $this->logo,
+            'childs' => CompanyResource::collection($this->childs),
         ];
     }
 }

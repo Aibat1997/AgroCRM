@@ -11,7 +11,7 @@ class CompanyController extends Controller
 {
     public function index(Request $request)
     {
-        $companies = Company::all();
+        $companies = Company::whereNull('parent_id')->with('childs')->get();
         return $this->return_success(CompanyResource::collection($companies));
     }
 }
