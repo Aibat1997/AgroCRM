@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthorizationController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\WarehouseController;
 
 Route::name('api.')->group(function () {
     Route::post('register', [AuthorizationController::class, 'register']);
@@ -14,5 +15,8 @@ Route::name('api.')->group(function () {
 
     Route::middleware(['auth:api'])->group(function () {
         Route::post('logout', [AuthorizationController::class, 'logout']);
+
+        Route::get('warehouses', [WarehouseController::class, 'index']);
+        Route::apiResource('warehouse', WarehouseController::class)->except(['index']);
     });
 });
