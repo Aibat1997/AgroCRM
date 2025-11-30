@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Attributes\WarehouseItemAttribute;
+use App\Models\Scopes\WarehouseItemScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class WarehouseItem extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, WarehouseItemScope, WarehouseItemAttribute;
 
     /**
      * The attributes that are mass assignable.

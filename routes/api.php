@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\WarehouseController;
+use App\Http\Controllers\Api\WarehouseItemController;
 
 Route::name('api.')->group(function () {
     Route::post('register', [AuthorizationController::class, 'register']);
@@ -18,5 +19,8 @@ Route::name('api.')->group(function () {
 
         Route::get('warehouses', [WarehouseController::class, 'index']);
         Route::apiResource('warehouse', WarehouseController::class)->except(['index']);
+
+        Route::get('warehouse-items/{warehouse}', [WarehouseItemController::class, 'index']);
+        Route::apiResource('warehouse-item', WarehouseItemController::class)->except(['index']);
     });
 });

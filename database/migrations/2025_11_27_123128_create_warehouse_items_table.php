@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->unsignedMediumInteger('quantity')->default(0);
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
-            $table->unsignedMediumInteger('unit_price')->default(0);
+            $table->double('unit_price')->unsigned()->default(0);
             $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
