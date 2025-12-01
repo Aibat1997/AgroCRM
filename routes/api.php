@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthorizationController;
+use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\RoleController;
@@ -23,6 +24,9 @@ Route::name('api.')->group(function () {
 
         Route::get('employees', [EmployeeController::class, 'index']);
         Route::apiResource('employee', EmployeeController::class)->except(['index']);
+
+        Route::get('clients', [ClientController::class, 'index']);
+        Route::apiResource('client', ClientController::class)->except(['index']);
 
         Route::get('warehouses', [WarehouseController::class, 'index']);
         Route::apiResource('warehouse', WarehouseController::class)->except(['index']);
