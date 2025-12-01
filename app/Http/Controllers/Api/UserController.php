@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class UserController extends Controller
+{
+    function profile()
+    {
+        $user = Auth::user();
+        return $this->return_success(new UserResource($user));
+    }
+}
