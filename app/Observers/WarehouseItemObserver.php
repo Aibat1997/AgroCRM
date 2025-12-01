@@ -8,7 +8,7 @@ use App\Models\WarehouseItem;
 class WarehouseItemObserver
 {
     /**
-     * Handle the User "saving" event.
+     * Handle the WarehouseItem "saving" event.
      */
     public function saving(WarehouseItem $warehouseItem): void
     {

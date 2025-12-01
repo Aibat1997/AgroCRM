@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use App\Models\WarehouseItem;
+use App\Observers\UserObserver;
 use App\Observers\WarehouseItemObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,5 +24,6 @@ class ObserverServiceProvider extends ServiceProvider
     public function boot(): void
     {
         WarehouseItem::observe(WarehouseItemObserver::class);
+        User::observe(UserObserver::class);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthorizationController;
 use App\Http\Controllers\Api\CompanyController;
+use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,9 @@ Route::name('api.')->group(function () {
         Route::post('logout', [AuthorizationController::class, 'logout']);
 
         Route::get('user', [UserController::class, 'profile']);
+
+        Route::get('employees', [EmployeeController::class, 'index']);
+        Route::apiResource('employee', EmployeeController::class)->except(['index']);
 
         Route::get('warehouses', [WarehouseController::class, 'index']);
         Route::apiResource('warehouse', WarehouseController::class)->except(['index']);
