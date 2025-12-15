@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('machineries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
-            $table->foreignId('transport_type_id')->constrained('transport_types')->onDelete('cascade');
+            $table->foreignId('driver_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('title');
+            $table->string('identifier')->nullable();
+            $table->unsignedMediumInteger('quantity')->default(0);
+            $table->text('note')->nullable();
+            $table->text('comment')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

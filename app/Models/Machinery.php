@@ -17,8 +17,12 @@ class Machinery extends Model
      */
     protected $fillable = [
         'company_id',
-        'transport_type_id',
+        'driver_id',
         'title',
+        'identifier',
+        'quantity',
+        'note',
+        'comment',
     ];
 
     /**
@@ -32,12 +36,12 @@ class Machinery extends Model
     }
 
     /**
-     * Get the transport_type that owns the Machinery
+     * Get the driver that owns the Machinery
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function transport_type(): BelongsTo
+    public function driver(): BelongsTo
     {
-        return $this->belongsTo(TransportType::class, 'transport_type_id', 'id');
+        return $this->belongsTo(User::class, 'driver_id', 'id');
     }
 }
