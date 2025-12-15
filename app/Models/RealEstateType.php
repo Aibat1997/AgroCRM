@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Attributes\TitleAttribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RealEstateType extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, TitleAttribute;
 
     /**
      * Indicates if the model should be timestamped.
