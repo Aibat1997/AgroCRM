@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             UnitSeeder::class,
             WarehouseSeeder::class,
+            RealEstateTypeSeeder::class,
         ]);
     }
 }
