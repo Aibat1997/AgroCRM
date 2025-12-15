@@ -5,7 +5,9 @@ use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\MachineryController;
+use App\Http\Controllers\Api\RealEstateController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\WarehouseController;
@@ -16,6 +18,7 @@ Route::name('api.')->group(function () {
     Route::post('login', [AuthorizationController::class, 'login']);
 
     Route::get('roles', [RoleController::class, 'index']);
+    Route::get('units', [UnitController::class, 'index']);
     Route::get('companies', [CompanyController::class, 'index']);
 
     Route::middleware(['auth:api'])->group(function () {
