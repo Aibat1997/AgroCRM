@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthorizationController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\MachineryController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +34,8 @@ Route::name('api.')->group(function () {
 
         Route::get('warehouse-items/{warehouse}', [WarehouseItemController::class, 'index']);
         Route::apiResource('warehouse-item', WarehouseItemController::class)->except(['index']);
+
+        Route::get('machineries', [MachineryController::class, 'index']);
+        Route::apiResource('machinery', MachineryController::class)->except(['index']);
     });
 });

@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\MachineryScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Machinery extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, MachineryScope;
 
     /**
      * The attributes that are mass assignable.
