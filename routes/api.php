@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthorizationController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\LaboratoryCalculationController;
 use App\Http\Controllers\Api\MachineryController;
 use App\Http\Controllers\Api\RealEstateController;
 use App\Http\Controllers\Api\RealEstateTypeController;
@@ -45,5 +46,8 @@ Route::name('api.')->group(function () {
 
         Route::get('real-estates', [RealEstateController::class, 'index']);
         Route::apiResource('real-estate', RealEstateController::class)->except(['index']);
+
+        Route::get('laboratory-calculations', [LaboratoryCalculationController::class, 'index']);
+        Route::apiResource('laboratory-calculation', LaboratoryCalculationController::class)->except(['index']);
     });
 });

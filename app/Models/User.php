@@ -9,6 +9,7 @@ use App\Enums\UserStatus;
 use App\Models\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -78,5 +79,15 @@ class User extends Authenticatable
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id', 'id');
+    }
+
+    /**
+     * Get all of the laboratory_calculations for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function laboratory_calculations(): HasMany
+    {
+        return $this->hasMany(LaboratoryCalculation::class, 'user_id', 'id');
     }
 }
