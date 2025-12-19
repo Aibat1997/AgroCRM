@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\LaboratoryCalculationController;
 use App\Http\Controllers\Api\MachineryController;
+use App\Http\Controllers\Api\PaymentFrequencyController;
 use App\Http\Controllers\Api\RealEstateController;
 use App\Http\Controllers\Api\RealEstateTypeController;
 use App\Http\Controllers\Api\RoleController;
@@ -23,6 +24,7 @@ Route::name('api.')->group(function () {
     Route::get('units', [UnitController::class, 'index']);
     Route::get('real-estate-types', [RealEstateTypeController::class, 'index']);
     Route::get('companies', [CompanyController::class, 'index']);
+    Route::get('payment-frequencies', [PaymentFrequencyController::class, 'index']);
 
     Route::middleware(['auth:api'])->group(function () {
         Route::post('logout', [AuthorizationController::class, 'logout']);
