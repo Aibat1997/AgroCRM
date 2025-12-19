@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Company;
 use App\Models\User;
+use App\Observers\CompanyObserver;
 use App\Models\WarehouseItem;
 use App\Observers\UserObserver;
 use App\Observers\WarehouseItemObserver;
@@ -25,5 +27,6 @@ class ObserverServiceProvider extends ServiceProvider
     {
         WarehouseItem::observe(WarehouseItemObserver::class);
         User::observe(UserObserver::class);
+        Company::observe(CompanyObserver::class);
     }
 }

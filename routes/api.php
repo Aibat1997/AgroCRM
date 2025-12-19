@@ -29,6 +29,8 @@ Route::name('api.')->group(function () {
 
         Route::get('user', [UserController::class, 'profile']);
 
+        Route::apiResource('company', CompanyController::class)->except(['index']);
+
         Route::get('employees', [EmployeeController::class, 'index']);
         Route::apiResource('employee', EmployeeController::class)->except(['index']);
 
