@@ -27,6 +27,13 @@ class RealEstate extends Model
     ];
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['real_estate_type'];
+
+    /**
      * Get the real_estate_type that owns the RealEstate
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

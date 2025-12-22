@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\LaboratoryCalculationController;
 use App\Http\Controllers\Api\MachineryController;
 use App\Http\Controllers\Api\PaymentFrequencyController;
 use App\Http\Controllers\Api\RealEstateController;
+use App\Http\Controllers\Api\RealEstateRentalController;
 use App\Http\Controllers\Api\RealEstateTypeController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UnitController;
@@ -53,5 +54,8 @@ Route::name('api.')->group(function () {
 
         Route::get('laboratory-calculations', [LaboratoryCalculationController::class, 'index']);
         Route::apiResource('laboratory-calculation', LaboratoryCalculationController::class)->except(['index']);
+
+        Route::get('real-estate-rentals', [RealEstateRentalController::class, 'index']);
+        Route::apiResource('real-estate-rental', RealEstateRentalController::class)->except(['index']);
     });
 });

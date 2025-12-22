@@ -9,13 +9,13 @@ trait WarehouseItemScope
     public function scopeFilter(Builder $query, $filters = []): void
     {
         $id = (array)($filters['id'] ?? []);
-        $warehouse_id = $filters['warehouse_id'] ?? null;
+        $warehouseId = $filters['warehouse_id'] ?? null;
         $title = $filters['title'] ?? null;
 
         $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
-        })->when($warehouse_id, function (Builder $q, int $warehouse_id) {
-            $q->where('warehouse_id', $warehouse_id);
+        })->when($warehouseId, function (Builder $q, int $warehouseId) {
+            $q->where('warehouse_id', $warehouseId);
         })->when($title, function (Builder $q, string $title) {
             $q->where('title', 'LIKE', "%{$title}%");
         });
