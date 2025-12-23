@@ -21,9 +21,9 @@ return new class extends Migration
             $table->unsignedSmallInteger('gross_weight');
             $table->unsignedSmallInteger('container_weight');
             $table->unsignedSmallInteger('physical_weight');
-            $table->double('actual_contamination');
+            $table->decimal('actual_contamination', 8, 2);
             $table->unsignedSmallInteger('estimated_weight');
-            $table->double('actual_humidity');
+            $table->decimal('actual_humidity', 8, 2);
             $table->unsignedSmallInteger('conditioned_weight');
             $table->timestamps();
             $table->softDeletes();
