@@ -43,7 +43,7 @@ Route::name('api.')->group(function () {
         Route::get('warehouses', [WarehouseController::class, 'index']);
         Route::apiResource('warehouse', WarehouseController::class)->except(['index']);
 
-        Route::get('warehouse-items/{warehouse}', [WarehouseItemController::class, 'index']);
+        Route::get('warehouse-items', [WarehouseItemController::class, 'index']);
         Route::apiResource('warehouse-item', WarehouseItemController::class)->except(['index']);
 
         Route::get('machineries', [MachineryController::class, 'index']);
