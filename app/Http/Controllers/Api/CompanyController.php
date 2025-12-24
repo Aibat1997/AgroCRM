@@ -13,9 +13,7 @@ class CompanyController extends Controller
 {
     public function index(Request $request)
     {
-        $parents_id = Company::whereNotNull('parent_id')->pluck('parent_id')->toArray();
-        $companies = Company::whereNotIn('id', $parents_id)->get();
-
+        $companies = Company::with('childs')->whereNull('parent_id')->get();
         return $this->return_success(CompanyResource::collection($companies));
     }
 
