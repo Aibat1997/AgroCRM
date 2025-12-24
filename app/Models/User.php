@@ -90,4 +90,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(LaboratoryCalculation::class, 'user_id', 'id');
     }
+
+    /**
+     * Get all of the tasks for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(UserTask::class, 'user_id', 'id');
+    }
 }

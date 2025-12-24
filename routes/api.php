@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\RealEstateTypeController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\UserTaskController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\WarehouseController;
 use App\Http\Controllers\Api\WarehouseItemController;
@@ -57,5 +58,8 @@ Route::name('api.')->group(function () {
 
         Route::get('real-estate-rentals', [RealEstateRentalController::class, 'index']);
         Route::apiResource('real-estate-rental', RealEstateRentalController::class)->except(['index']);
+
+        Route::get('user-tasks', [UserTaskController::class, 'index']);
+        Route::apiResource('user-task', UserTaskController::class)->except(['index']);
     });
 });
