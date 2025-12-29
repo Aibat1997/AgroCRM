@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApplicationController;
 use App\Http\Controllers\Api\AuthorizationController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\CompanyController;
@@ -61,5 +62,8 @@ Route::name('api.')->group(function () {
 
         Route::get('user-tasks', [UserTaskController::class, 'index']);
         Route::apiResource('user-task', UserTaskController::class)->except(['index']);
+
+        Route::get('applications', [ApplicationController::class, 'index']);
+        Route::apiResource('application', ApplicationController::class)->except(['index']);
     });
 });
