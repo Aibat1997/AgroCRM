@@ -4,8 +4,8 @@ use App\Http\Controllers\Api\ApplicationController;
 use App\Http\Controllers\Api\AuthorizationController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\CompanyController;
+use App\Http\Controllers\Api\CottonPreparationController;
 use App\Http\Controllers\Api\EmployeeController;
-use App\Http\Controllers\Api\LaboratoryCalculationController;
 use App\Http\Controllers\Api\MachineryController;
 use App\Http\Controllers\Api\PaymentFrequencyController;
 use App\Http\Controllers\Api\RealEstateController;
@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\UserTaskController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\WarehouseController;
 use App\Http\Controllers\Api\WarehouseItemController;
+use App\Models\CottonPreparation;
 
 Route::name('api.')->group(function () {
     Route::post('register', [AuthorizationController::class, 'register']);
@@ -54,8 +55,10 @@ Route::name('api.')->group(function () {
         Route::get('real-estates', [RealEstateController::class, 'index']);
         Route::apiResource('real-estate', RealEstateController::class)->except(['index']);
 
-        Route::get('laboratory-calculations', [LaboratoryCalculationController::class, 'index']);
-        Route::apiResource('laboratory-calculation', LaboratoryCalculationController::class)->except(['index']);
+        Route::get('cotton-preparations', [CottonPreparationController::class, 'index']);
+        Route::post('cotton-preparation-weigher', [CottonPreparationController::class, 'storeWeigherData'])->can('storeWeigherData', CottonPreparation::class);
+        Route::post('cotton-preparation-laboratorian/{cottonPreparation}', [CottonPreparationController::class, 'storeLaboratorianData'])->can('storeLaboratorianData', CottonPreparation::class);
+        Route::apiResource('cotton-preparation', CottonPreparationController::class)->except(['index', 'store']);
 
         Route::get('real-estate-rentals', [RealEstateRentalController::class, 'index']);
         Route::apiResource('real-estate-rental', RealEstateRentalController::class)->except(['index']);

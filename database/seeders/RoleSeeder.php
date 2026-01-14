@@ -18,6 +18,22 @@ class RoleSeeder extends Seeder
                 'title_ru' => 'Администратор',
                 'code_type' => 'admin',
             ],
+            [
+                'title_ru' => 'Лаборант',
+                'code_type' => 'laboratorian',
+            ],
+            [
+                'title_ru' => 'Весовщик',
+                'code_type' => 'weigher',
+            ],
+            [
+                'title_ru' => 'Экономист',
+                'code_type' => 'economist',
+            ],
+            [
+                'title_ru' => 'Бухгалтер',
+                'code_type' => 'accountant',
+            ],
         ]);
     }
 }
