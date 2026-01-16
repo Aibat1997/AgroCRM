@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\FileSystem\UploadImage;
 use App\Models\WarehouseItem;
+use App\Services\CacheService;
 
 class WarehouseItemObserver
 {
@@ -16,6 +17,9 @@ class WarehouseItemObserver
             $image = (new UploadImage(request()->image))->save('warehouse-items');
             $warehouseItem->image = $image;
         }
+
+        $locale_currency_rate = CacheService::getCurrencyById($warehouseItem->currency_id)['in_local_currency'] ?? 1;
+        $warehouseItem->unit_price = $warehouseItem->original_unit_price * $locale_currency_rate;
     }
 
     /**

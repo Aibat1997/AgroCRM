@@ -13,7 +13,7 @@ class WarehouseItemController extends Controller
 {
     public function index(Request $request)
     {
-        $warehouseItems = WarehouseItem::with('warehouse')->filter($request->all())->paginate(15);
+        $warehouseItems = WarehouseItem::with(['warehouse', 'unit', 'currency'])->filter($request->all())->paginate(15);
         return WarehouseItemResource::collection($warehouseItems)->additional(['success' => true]);
     }
 

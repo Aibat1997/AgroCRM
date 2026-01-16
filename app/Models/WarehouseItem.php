@@ -22,7 +22,10 @@ class WarehouseItem extends Model
         'title',
         'quantity',
         'unit_id',
+        'currency_id',
+        'original_unit_price',
         'unit_price',
+        'supplier',
         'image',
     ];
 
@@ -44,5 +47,15 @@ class WarehouseItem extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_id', 'id');
+    }
+
+    /**
+     * Get the currency that owns the WarehouseItem
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class, 'currency_id', 'id');
     }
 }

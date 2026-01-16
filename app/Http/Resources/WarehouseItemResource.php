@@ -19,7 +19,10 @@ class WarehouseItemResource extends JsonResource
             'title' => $this->title,
             'quantity' => $this->quantity,
             'unit' =>  new UnitResource($this->unit),
+            'currency' =>  new CurrencyResource($this->currency),
+            'original_unit_price' => $this->original_unit_price,
             'unit_price' => $this->unit_price,
+            'supplier' => $this->supplier,
             'image' => $this->image,
             'warehouse' => new WarehouseResource($this->whenLoaded('warehouse')),
         ];

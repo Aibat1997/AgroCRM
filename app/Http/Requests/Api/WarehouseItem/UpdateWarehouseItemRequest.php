@@ -26,7 +26,9 @@ class UpdateWarehouseItemRequest extends FormRequest
             'title' => 'required|string',
             'quantity' => 'required|integer',
             'unit_id' => 'required|integer|exists:units,id,deleted_at,NULL',
-            'unit_price' => 'required|numeric',
+            'currency_id' => 'required|integer|exists:currencies,id,deleted_at,NULL',
+            'original_unit_price' => 'required|numeric',
+            'supplier' => 'nullable|string',
             'image' => 'nullable|image',
         ];
     }
