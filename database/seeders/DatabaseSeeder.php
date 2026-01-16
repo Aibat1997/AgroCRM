@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             UnitSeeder::class,
+            CurrencySeeder::class,
             WarehouseSeeder::class,
             RealEstateTypeSeeder::class,
             PaymentFrequencySeeder::class,

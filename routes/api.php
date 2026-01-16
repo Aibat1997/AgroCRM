@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthorizationController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\CottonPreparationController;
+use App\Http\Controllers\Api\CurrencyController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\MachineryController;
 use App\Http\Controllers\Api\PaymentFrequencyController;
@@ -26,6 +27,7 @@ Route::name('api.')->group(function () {
 
     Route::get('roles', [RoleController::class, 'index']);
     Route::get('units', [UnitController::class, 'index']);
+    Route::get('currencies', [CurrencyController::class, 'index']);
     Route::get('real-estate-types', [RealEstateTypeController::class, 'index']);
     Route::get('companies', [CompanyController::class, 'index']);
     Route::get('payment-frequencies', [PaymentFrequencyController::class, 'index']);
