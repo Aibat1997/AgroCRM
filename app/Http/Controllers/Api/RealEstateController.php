@@ -13,7 +13,7 @@ class RealEstateController extends Controller
 {
     public function index(Request $request)
     {
-        $realEstates = RealEstate::with(['real_estate_type'])->filter($request->all())->paginate(15);
+        $realEstates = RealEstate::filter($request->all())->paginate(15);
         return RealEstateResource::collection($realEstates)->additional(['success' => true]);
     }
 

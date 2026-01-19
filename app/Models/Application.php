@@ -19,7 +19,6 @@ class Application extends Model
      */
     protected $fillable = [
         'user_id',
-        'accountant_id',
         'description',
         'status',
     ];
@@ -44,15 +43,5 @@ class Application extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    /**
-     * Get the accountant that owns the Application
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function accountant(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'accountant_id', 'id');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Currency;
 
-abstract class CacheService
+final class CacheService
 {
     public static function getCurrencies(): array
     {

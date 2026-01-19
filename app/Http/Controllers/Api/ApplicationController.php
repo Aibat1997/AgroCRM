@@ -8,18 +8,22 @@ use App\Http\Requests\Api\Application\UpdateApplicationRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
     public function index(Request $request)
     {
-        $applications = Application::with(['user', 'accountant'])->filter($request->all())->paginate(15);
+        $applications = Application::with('user')->filter($request->all())->paginate(15);
         return ApplicationResource::collection($applications)->additional(['success' => true]);
     }
 
     public function store(StoreApplicationRequest $request)
     {
-        $application = Application::create($request->validated());
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $application = $user->applications()->create($request->validated());
+
         return $this->return_success(new ApplicationResource($application->fresh()));
     }
 

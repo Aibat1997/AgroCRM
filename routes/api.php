@@ -22,8 +22,8 @@ use App\Http\Controllers\Api\WarehouseItemController;
 use App\Models\CottonPreparation;
 
 Route::name('api.')->group(function () {
-    Route::post('register', [AuthorizationController::class, 'register']);
-    Route::post('login', [AuthorizationController::class, 'login']);
+    Route::post('register', [AuthorizationController::class, 'register'])->middleware('throttle:3,1');
+    Route::post('login', [AuthorizationController::class, 'login'])->middleware('throttle:3,1');
 
     Route::get('roles', [RoleController::class, 'index']);
     Route::get('units', [UnitController::class, 'index']);

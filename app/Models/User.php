@@ -90,4 +90,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserTask::class, 'user_id', 'id');
     }
+
+    /**
+     * Get all of the applications for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class, 'user_id', 'id');
+    }
 }

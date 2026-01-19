@@ -35,7 +35,6 @@ class ObserverServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Company::observe(CompanyObserver::class);
         RealEstateRental::observe(RealEstateRentalObserver::class);
-        Application::observe(ApplicationObserver::class);
         CottonPreparation::observe(CottonPreparationObserver::class);
     }
 }
