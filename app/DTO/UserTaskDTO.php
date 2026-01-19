@@ -6,9 +6,6 @@ use App\Enums\UserTaskStatus;
 
 class UserTaskDTO
 {
-    public ?int $author_id = null;
-    public ?int $user_id = null;
-
     public function __construct(
         public readonly string $title,
         public readonly string $description,
@@ -31,8 +28,6 @@ class UserTaskDTO
     public function toArray(): array
     {
         return [
-            'author_id' => $this->author_id,
-            'user_id' => $this->user_id,
             'title' => $this->title,
             'description' => $this->description,
             'start_date' => $this->start_date,

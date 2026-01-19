@@ -25,7 +25,7 @@ class AuthorizationController extends Controller
     {
         $user = User::filter($request->only('phone'))->first();
 
-        if (Hash::check($request->password, $user->password)) {
+        if ($user && Hash::check($request->password, $user->password)) {
             $user_token = $user->createToken('User Personal Token')->accessToken;
             $user->update(['device_token' => $request->device_token]);
 

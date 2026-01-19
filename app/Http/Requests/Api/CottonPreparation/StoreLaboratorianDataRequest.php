@@ -30,7 +30,7 @@ class StoreLaboratorianDataRequest extends FormRequest
             'picking_type' => 'required|string',
             'contamination' => 'required|numeric|min:0|max:100',
             'humidity' => 'required|numeric|min:0|max:100',
-            'laboratory_date' => 'required|date|after_or_equal:today',
+            'laboratory_date' => 'required|date|after_or_equal:' . today()->toDateString(),
         ];
     }
 }

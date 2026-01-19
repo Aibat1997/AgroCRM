@@ -15,6 +15,10 @@ class RoleSeeder extends Seeder
     {
         DB::table('user_roles')->insert([
             [
+                'title_ru' => 'Владелец',
+                'code_type' => 'owner',
+            ],
+            [
                 'title_ru' => 'Администратор',
                 'code_type' => 'admin',
             ],
@@ -33,6 +37,10 @@ class RoleSeeder extends Seeder
             [
                 'title_ru' => 'Бухгалтер',
                 'code_type' => 'accountant',
+            ],
+            [
+                'title_ru' => 'Менеджер',
+                'code_type' => 'manager',
             ],
         ]);
     }

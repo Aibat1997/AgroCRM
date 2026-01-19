@@ -85,8 +85,6 @@ class UploadImage
 
     public function resizeWatermarkByImage(Image $image, Image $watermark): Image
     {
-        $watermarkSize = $image->width() - 20; //size of the image minus 20 margins
-        $watermarkSize = $image->width() / 2; //half of the image size
         $resizePercentage = 70; //70% less then an actual image (play with this value)
         $watermarkSize = round($image->width() * ((100 - $resizePercentage) / 100), 2); //watermark will be $resizePercentage less then the actual width of the image
         $watermark->scale($watermarkSize, null);

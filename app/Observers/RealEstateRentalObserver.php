@@ -8,7 +8,7 @@ use App\Models\RealEstateRental;
 class RealEstateRentalObserver
 {
     /**
-     * Handle the Company "saving" event.
+     * Handle the RealEstateRental "saving" event.
      */
     public function saving(RealEstateRental $realEstateRental): void
     {

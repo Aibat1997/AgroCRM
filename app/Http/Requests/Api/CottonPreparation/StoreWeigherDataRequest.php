@@ -27,8 +27,8 @@ class StoreWeigherDataRequest extends FormRequest
             'supplier' => 'required|string',
             'supplier_identifier' => 'required|string',
             'gross_weight' => 'required|integer',
-            'container_weight' => 'required|integer',
-            'weighing_date' => 'required|date|after_or_equal:today',
+            'container_weight' => 'required|integer|lt:gross_weight',
+            'weighing_date' => 'required|date|after_or_equal:' . today()->toDateString(),
         ];
     }
 }

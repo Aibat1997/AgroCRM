@@ -24,7 +24,7 @@ class UserTaskController extends Controller
         $dto = UserTaskDTO::fromArray($request->validated());
         $userTask = UserTaskService::store($dto);
 
-        return $this->return_success(new UserTaskResource($userTask->fresh()));
+        return $this->return_success(new UserTaskResource($userTask));
     }
 
     public function show(UserTask $userTask)

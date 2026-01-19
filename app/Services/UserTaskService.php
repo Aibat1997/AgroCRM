@@ -12,21 +12,18 @@ class UserTaskService
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
-        $dto->author_id = $user->id;
-        $dto->user_id = $user->id;
-
-        $userTask = UserTask::create($dto->toArray());
+        $userTask = UserTask::create([
+            ...$dto->toArray(),
+            'author_id' => $user->id,
+            'user_id' => $user->id,
+        ]);
 
         return $userTask;
     }
 
     public static function update(UserTaskDTO $dto, UserTask $userTask): UserTask
     {
-        $dto->author_id = $userTask->author_id;
-        $dto->user_id = $userTask->user_id;
-
         $userTask->update($dto->toArray());
-
         return $userTask;
     }
 }

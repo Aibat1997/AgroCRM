@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTO\CottonPreparationLaboratorianDTO;
 use App\DTO\CottonPreparationWeigherDTO;
+use App\Enums\CottonPreparationStatus;
 use App\Models\CottonPreparation;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,8 +14,10 @@ class CottonPreparationService
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
-        $dto->weigher_id = $user->id;
-        $cottonPreparation = CottonPreparation::create($dto->toArray());
+        $cottonPreparation = CottonPreparation::create([
+            ...$dto->toArray(),
+            'weigher_id' => $user->id,
+        ]);
 
         return $cottonPreparation;
     }
@@ -23,10 +26,11 @@ class CottonPreparationService
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
-        $dto->laboratorian_id = $user->id;
-        $dto->estimated_weight = round(((100 - $dto->contamination) / (100 - 2)) * $cottonPreparation->physical_weight);
-        $dto->conditioned_weight = round(((100 + 9) / (100 + $dto->humidity)) * $dto->estimated_weight);
-        $cottonPreparation->update($dto->toArray());
+        $cottonPreparation->update([
+            ...$dto->toArray(),
+            'laboratorian_id' => $user->id,
+            'status' => CottonPreparationStatus::ECONOMIST_DECISION->value,
+        ]);
 
         return $cottonPreparation;
     }
