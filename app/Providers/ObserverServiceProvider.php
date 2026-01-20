@@ -2,14 +2,12 @@
 
 namespace App\Providers;
 
-use App\Models\Application;
 use App\Models\Company;
 use App\Models\CottonPreparation;
 use App\Models\RealEstateRental;
 use App\Models\User;
-use App\Observers\CompanyObserver;
 use App\Models\WarehouseItem;
-use App\Observers\ApplicationObserver;
+use App\Observers\CompanyObserver;
 use App\Observers\CottonPreparationObserver;
 use App\Observers\RealEstateRentalObserver;
 use App\Observers\UserObserver;
