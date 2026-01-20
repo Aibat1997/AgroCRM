@@ -4,9 +4,11 @@ namespace App\Enums;
 
 enum UserRoleId: int
 {
-    case ADMIN = 1;
-    case LABORATORIAN = 2;
-    case WEIGHER = 3;
-    case ECONOMIST = 4;
-    case ACCOUNTANT = 5;
+    case OWNER = 1;
+    case ADMIN = 2;
+    case LABORATORIAN = 3;
+    case WEIGHER = 4;
+    case ECONOMIST = 5;
+    case ACCOUNTANT = 6;
+    case MANAGER = 7;
 }
