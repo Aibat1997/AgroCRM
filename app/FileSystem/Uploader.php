@@ -2,6 +2,7 @@
 
 namespace App\FileSystem;
 
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -63,12 +64,20 @@ abstract class Uploader
             $storedPath = $this->file->store($path, $disk);
         }
 
-        return Storage::url($storedPath);
+        return $this->storageUrl($disk, $storedPath);
     }
 
-    private function normalizeFileName(string $newFileName): string
+    protected function normalizeFileName(string $newFileName): string
     {
         $pathInfo = pathinfo($newFileName);
         return isset($pathInfo['extension']) ? $newFileName : "{$newFileName}.{$this->extension}";
+    }
+
+    protected function storageUrl(string $disk, string $path): string
+    {
+        /** @var FilesystemAdapter $fs */
+        $fs = Storage::disk($disk);
+
+        return $fs->url($path);
     }
 }
