@@ -12,6 +12,8 @@ abstract class Uploader
     protected string $originalName;
     protected string $extension;
     protected int $size;
+    protected ?string $newFileName = null;
+    protected string $disk = 'public';
 
     public function __construct(UploadedFile $file)
     {
@@ -53,18 +55,30 @@ abstract class Uploader
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
 
-    public function save(string $path, ?string $newFileName = null, string $disk = 'public'): string
+    public function rename(string $newFileName): static
+    {
+        $this->newFileName = $this->normalizeFileName($newFileName);
+        return $this;
+    }
+
+    public function disk(string $disk): static
+    {
+        $this->disk = $disk;
+        return $this;
+    }
+
+    public function save(string $path): string
     {
         $path = trim($path, '/');
 
-        if (!is_null($newFileName)) {
-            $newFileName = $this->normalizeFileName($newFileName);
-            $storedPath = $this->file->storeAs($path, $newFileName, $disk);
+        if (!is_null($this->newFileName)) {
+            $newFileName = $this->normalizeFileName($this->newFileName);
+            $storedPath = $this->file->storeAs($path, $newFileName, $this->disk);
         } else {
-            $storedPath = $this->file->store($path, $disk);
+            $storedPath = $this->file->store($path, $this->disk);
         }
 
-        return $this->storageUrl($disk, $storedPath);
+        return $this->storageUrl($this->disk, $storedPath);
     }
 
     protected function normalizeFileName(string $newFileName): string

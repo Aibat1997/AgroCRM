@@ -23,18 +23,18 @@ class UploadImage extends Uploader
         $this->image = $this->imageManager->read($file->getRealPath());
     }
 
-    public function save(string $path, ?string $newFileName = null, string $disk = 'public'): string
+    public function save(string $path): string
     {
         $path = trim($path, '/');
-        $fileName = $newFileName ? $this->normalizeFileName($newFileName) : (string)Str::ulid() . '.' . $this->extension;
+        $fileName = $this->newFileName ?? (string)Str::ulid() . '.' . $this->extension;
         $filePath = $path . '/' . $fileName;
 
-        Storage::disk($disk)->put(
+        Storage::disk($this->disk)->put(
             $filePath,
             $this->image->encodeByExtension($this->extension, quality: 70)
         );
 
-        return $this->storageUrl($disk, $filePath);
+        return $this->storageUrl($this->disk, $filePath);
     }
 
     public function addWatermark(string $watermarkPath): self

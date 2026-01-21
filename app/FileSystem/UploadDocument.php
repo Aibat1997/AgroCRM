@@ -6,8 +6,8 @@ use Illuminate\Http\UploadedFile;
 
 class UploadDocument extends Uploader
 {
-    public function __construct(UploadedFile $file, string $folder_name = 'documents', ?string $new_file_name = null)
+    public function __construct(UploadedFile $file)
     {
-        parent::__construct($file, $folder_name, $new_file_name);
+        parent::__construct($file);
     }
 }

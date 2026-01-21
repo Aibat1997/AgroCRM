@@ -30,6 +30,13 @@ class WarehouseItem extends Model
     ];
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['warehouse'];
+
+    /**
      * Get the warehouse that owns the WarehouseItem
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
