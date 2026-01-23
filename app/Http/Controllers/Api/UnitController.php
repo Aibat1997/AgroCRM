@@ -11,7 +11,7 @@ class UnitController extends Controller
 {
     public function index(Request $request)
     {
-        $units = Unit::all();
+        $units = Unit::filter($request->all())->get();
         return $this->return_success(UnitResource::collection($units));
     }
 }

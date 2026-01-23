@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Attributes\TitleAttribute;
+use App\Enums\UnitType;
+use App\Models\Scopes\UnitScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Unit extends Model
 {
-    use SoftDeletes, TitleAttribute;
+    use SoftDeletes, TitleAttribute, UnitScope;
 
     /**
      * Indicates if the model should be timestamped.
@@ -25,5 +27,18 @@ class Unit extends Model
     protected $fillable = [
         'title_ru',
         'title_kk',
+        'type',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'type' => UnitType::class,
+        ];
+    }
 }

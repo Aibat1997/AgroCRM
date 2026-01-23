@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title_ru');
             $table->string('title_kk')->nullable();
+            $table->string('type');
             $table->softDeletes();
         });
     }
