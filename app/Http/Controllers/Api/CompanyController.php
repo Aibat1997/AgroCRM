@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\DTO\CompanyDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Company\StoreCompanyRequest;
 use App\Http\Requests\Api\Company\UpdateCompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
+use App\Services\CompanyService;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
+    public function __construct(private readonly CompanyService $companyService) {}
+
     public function index(Request $request)
     {
         $companies = Company::with('childs')->whereNull('parent_id')->get();
@@ -19,7 +23,9 @@ class CompanyController extends Controller
 
     public function store(StoreCompanyRequest $request)
     {
-        $company = Company::create($request->validated());
+        $dto = CompanyDTO::fromArray($request->validated());
+        $company = $this->companyService->store($dto);
+
         return $this->return_success(new CompanyResource($company));
     }
 
@@ -30,7 +36,9 @@ class CompanyController extends Controller
 
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        $company->update($request->validated());
+        $dto = CompanyDTO::fromArray($request->validated());
+        $this->companyService->update($dto, $company);
+
         return $this->return_success(new CompanyResource($company));
     }
 
