@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Currency;
+use App\Services\CurrencyCacheService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -22,7 +23,7 @@ class GetFreshCurrency extends Command
      */
     protected $description = 'Get fresh currency rates';
 
-    public function handle()
+    public function handle(CurrencyCacheService $currencyCacheService)
     {
         $url = 'https://nationalbank.kz/rss/rates_all.xml';
         $currencies = Currency::all();
@@ -56,6 +57,8 @@ class GetFreshCurrency extends Command
                 Currency::where('title_ru', $code)->update(['in_local_currency' => (float) $item->description]);
             }
         }
+
+        $currencyCacheService->warmupCache();
 
         $this->info('Currency rates updated successfully.');
     }
