@@ -28,7 +28,8 @@ class UpdateUserTaskRequest extends FormRequest
             'description' => 'nullable|string',
             'start_date' => 'required|date|after_or_equal:' . today()->toDateString(),
             'finish_date' => 'required|date|after_or_equal:start_date',
-            'status' => ['sometimes', 'string', Rule::enum(UserTaskStatus::class)],
+            'user_id' => 'sometimes|integer|integer|exists:users,id,deleted_at,NULL',
+            'status' => ['required', 'string', Rule::enum(UserTaskStatus::class)],
         ];
     }
 }

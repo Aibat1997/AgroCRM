@@ -26,6 +26,7 @@ class StoreUserTaskRequest extends FormRequest
             'description' => 'nullable|string',
             'start_date' => 'required|date|after_or_equal:' . today()->toDateString(),
             'finish_date' => 'required|date|after_or_equal:start_date',
+            'user_id' => 'nullable|integer|exists:users,id,deleted_at,NULL',
         ];
     }
 }

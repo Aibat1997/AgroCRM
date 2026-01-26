@@ -4,26 +4,35 @@ namespace App\Services;
 
 use App\DTO\UserTaskDTO;
 use App\Models\UserTask;
-use Illuminate\Support\Facades\Auth;
 
 class UserTaskService
 {
-    public static function store(UserTaskDTO $dto): UserTask
+    public function store(UserTaskDTO $dto, int $authorId): UserTask
     {
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
-        $userTask = UserTask::create([
-            ...$dto->toArray(),
-            'author_id' => $user->id,
-            'user_id' => $user->id,
+        return UserTask::create([
+            'author_id' => $authorId,
+            'user_id' => $dto->user_id ?? $authorId,
+            'title' => $dto->title,
+            'description' => $dto->description,
+            'start_date' => $dto->start_date,
+            'finish_date' => $dto->finish_date,
+            'status' => $dto->status,
         ]);
-
-        return $userTask;
     }
 
-    public static function update(UserTaskDTO $dto, UserTask $userTask): UserTask
+    public function update(UserTaskDTO $dto, UserTask $userTask): UserTask
     {
-        $userTask->update($dto->toArray());
+        $updatedData = array_filter([
+            'user_id' => $dto->user_id,
+            'title' => $dto->title,
+            'description' => $dto->description,
+            'start_date' => $dto->start_date,
+            'finish_date' => $dto->finish_date,
+            'status' => $dto->status,
+        ]);
+
+        $userTask->update($updatedData);
+
         return $userTask;
     }
 }

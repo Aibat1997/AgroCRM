@@ -10,9 +10,12 @@ use App\Http\Resources\UserTaskResource;
 use App\Models\UserTask;
 use App\Services\UserTaskService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserTaskController extends Controller
 {
+    public function __construct(private readonly UserTaskService $userTaskService) {}
+
     public function index(Request $request)
     {
         $userTasks = UserTask::with(['author', 'user'])->filter($request->all())->paginate(15);
@@ -22,7 +25,7 @@ class UserTaskController extends Controller
     public function store(StoreUserTaskRequest $request)
     {
         $dto = UserTaskDTO::fromArray($request->validated());
-        $userTask = UserTaskService::store($dto);
+        $userTask = $this->userTaskService->store($dto, Auth::id());
 
         return $this->return_success(new UserTaskResource($userTask));
     }
@@ -35,7 +38,7 @@ class UserTaskController extends Controller
     public function update(UpdateUserTaskRequest $request, UserTask $userTask)
     {
         $dto = UserTaskDTO::fromArray($request->validated());
-        $userTask = UserTaskService::update($dto, $userTask);
+        $this->userTaskService->update($dto, $userTask);
 
         return $this->return_success(new UserTaskResource($userTask));
     }
