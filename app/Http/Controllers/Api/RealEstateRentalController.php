@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\DTO\RealEstateRentalDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\RealEstateRental\RealEstateRentalRequest;
 use App\Http\Resources\RealEstateRentalResource;
 use App\Models\RealEstateRental;
+use App\Services\RealEstateRentalService;
 use Illuminate\Http\Request;
 
 class RealEstateRentalController extends Controller
 {
+    public function __construct(private readonly RealEstateRentalService $realEstateRentalService) {}
+
     public function index(Request $request)
     {
         $realEstateRentals = RealEstateRental::with(['real_estate', 'payment_frequency'])->filter($request->all())->paginate(15);
@@ -18,7 +22,9 @@ class RealEstateRentalController extends Controller
 
     public function store(RealEstateRentalRequest $request)
     {
-        $realEstateRental = RealEstateRental::create($request->validated());
+        $dto = RealEstateRentalDTO::fromArray($request->validated());
+        $realEstateRental = $this->realEstateRentalService->store($dto);
+
         return $this->return_success(new RealEstateRentalResource($realEstateRental));
     }
 
@@ -29,7 +35,9 @@ class RealEstateRentalController extends Controller
 
     public function update(RealEstateRentalRequest $request, RealEstateRental $realEstateRental)
     {
-        $realEstateRental->update($request->validated());
+        $dto = RealEstateRentalDTO::fromArray($request->validated());
+        $this->realEstateRentalService->update($dto, $realEstateRental);
+
         return $this->return_success(new RealEstateRentalResource($realEstateRental));
     }
 

@@ -27,6 +27,7 @@ class RealEstateRental extends Model
         'payment_frequency_id',
         'amount',
         'area',
+        'unit_id',
         'contract',
         'note',
     ];
@@ -36,7 +37,7 @@ class RealEstateRental extends Model
      *
      * @var array
      */
-    protected $with = ['real_estate', 'payment_frequency'];
+    protected $with = ['real_estate', 'payment_frequency', 'unit'];
 
     /**
      * Get the real_estate that owns the RealEstateRental
@@ -56,5 +57,15 @@ class RealEstateRental extends Model
     public function payment_frequency(): BelongsTo
     {
         return $this->belongsTo(PaymentFrequency::class, 'payment_frequency_id', 'id');
+    }
+
+    /**
+     * Get the unit that owns the RealEstateRental
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class, 'unit_id', 'id');
     }
 }

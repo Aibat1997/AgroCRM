@@ -3,9 +3,7 @@
 namespace App\Providers;
 
 use App\Models\CottonPreparation;
-use App\Models\RealEstateRental;
 use App\Observers\CottonPreparationObserver;
-use App\Observers\RealEstateRentalObserver;
 use Illuminate\Support\ServiceProvider;
 
 class ObserverServiceProvider extends ServiceProvider
@@ -23,7 +21,6 @@ class ObserverServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RealEstateRental::observe(RealEstateRentalObserver::class);
         CottonPreparation::observe(CottonPreparationObserver::class);
     }
 }

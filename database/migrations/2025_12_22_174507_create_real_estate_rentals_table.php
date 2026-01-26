@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('payment_frequency_id')->constrained('payment_frequencies')->onDelete('cascade');
             $table->unsignedMediumInteger('amount');
             $table->decimal('area', 8, 2)->nullable();
+            $table->foreignId('unit_id')->nullable()->constrained('units')->onDelete('cascade');
             $table->string('contract')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();

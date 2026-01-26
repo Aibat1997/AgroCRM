@@ -25,6 +25,7 @@ class RealEstateRentalResource extends JsonResource
             'payment_frequency' => new PaymentFrequencyResource($this->payment_frequency),
             'amount' => $this->amount,
             'area' => $this->area,
+            'unit' =>  new UnitResource($this->unit),
             'contract' => $this->contract,
             'note' => $this->note,
             'created_at' => $this->created_at,

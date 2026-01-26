@@ -29,8 +29,9 @@ class RealEstateRentalRequest extends FormRequest
             'from_date' => 'required|date',
             'to_date' => 'nullable|date|after:from_date',
             'payment_frequency_id' => 'required|exists:payment_frequencies,id',
-            'amount' => 'required|numeric|min:0',
-            'area' => 'nullable|string|max:100',
+            'amount' => 'required|integer|min:0',
+            'area' => 'nullable|numeric',
+            'unit_id' => 'nullable|integer|exists:units,id,deleted_at,NULL',
             'contract' => 'nullable|file|mimes:pdf,doc,docx',
             'note' => 'nullable|string',
         ];
