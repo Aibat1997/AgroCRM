@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('real_estate_type_id')->constrained('real_estate_types')->onDelete('cascade');
             $table->string('address');
             $table->decimal('area', 8, 2);
+            $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
             $table->string('cadastral_number')->nullable();
             $table->date('rented_from')->nullable();
             $table->date('rented_to')->nullable();

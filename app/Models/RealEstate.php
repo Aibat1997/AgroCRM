@@ -20,6 +20,7 @@ class RealEstate extends Model
         'real_estate_type_id',
         'address',
         'area',
+        'unit_id',
         'cadastral_number',
         'rented_from',
         'rented_to',
@@ -31,7 +32,7 @@ class RealEstate extends Model
      *
      * @var array
      */
-    protected $with = ['real_estate_type'];
+    protected $with = ['real_estate_type', 'unit'];
 
     /**
      * Get the real_estate_type that owns the RealEstate
@@ -41,5 +42,15 @@ class RealEstate extends Model
     public function real_estate_type(): BelongsTo
     {
         return $this->belongsTo(RealEstateType::class, 'real_estate_type_id', 'id');
+    }
+
+    /**
+     * Get the unit that owns the RealEstate
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class, 'unit_id', 'id');
     }
 }

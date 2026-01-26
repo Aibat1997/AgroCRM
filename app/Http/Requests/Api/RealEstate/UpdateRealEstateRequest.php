@@ -25,6 +25,7 @@ class UpdateRealEstateRequest extends FormRequest
             'real_estate_type_id' => 'required|integer|exists:real_estate_types,id',
             'address' => 'required|string',
             'area' => 'required|numeric',
+            'unit_id' => 'required|integer|exists:units,id,deleted_at,NULL',
             'cadastral_number' => 'nullable|string',
             'rented_from' => 'nullable|date',
             'rented_to' => 'nullable|date|after:rented_from',
