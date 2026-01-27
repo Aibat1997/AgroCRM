@@ -37,7 +37,7 @@ return new class extends Migration
             $table->unsignedInteger('total_price')->nullable();
             $table->date('weighing_date');
             $table->date('laboratory_date')->nullable();
-            $table->string('status')->default(CottonPreparationStatus::IN_LABORATORY->value);
+            $table->string('status')->default(CottonPreparationStatus::AWAITING_LABORATORIAN->value);
             $table->timestamps();
             $table->softDeletes();
         });

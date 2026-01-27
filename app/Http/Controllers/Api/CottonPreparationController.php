@@ -11,9 +11,12 @@ use App\Http\Resources\CottonPreparationResource;
 use App\Models\CottonPreparation;
 use App\Services\CottonPreparationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CottonPreparationController extends Controller
 {
+    public function __construct(private readonly CottonPreparationService $cottonPreparationService) {}
+
     public function index(Request $request)
     {
         $cottonPreparations = CottonPreparation::with(['weigher', 'laboratorian'])->filter($request->all())->paginate(15);
@@ -23,7 +26,7 @@ class CottonPreparationController extends Controller
     public function storeWeigherData(StoreWeigherDataRequest $request)
     {
         $dto = CottonPreparationWeigherDTO::fromArray($request->validated());
-        $weigherData = CottonPreparationService::storeWeigherData($dto);
+        $weigherData = $this->cottonPreparationService->storeWeigherData($dto, Auth::id());
 
         return $this->return_success(new CottonPreparationResource($weigherData));
     }
@@ -31,7 +34,7 @@ class CottonPreparationController extends Controller
     public function storeLaboratorianData(StoreLaboratorianDataRequest $request, CottonPreparation $cottonPreparation)
     {
         $dto = CottonPreparationLaboratorianDTO::fromArray($request->validated());
-        $laboratorianData = CottonPreparationService::storeLaboratorianData($dto, $cottonPreparation);
+        $laboratorianData = $this->cottonPreparationService->storeLaboratorianData($dto, $cottonPreparation, Auth::id());
 
         return $this->return_success(new CottonPreparationResource($laboratorianData));
     }

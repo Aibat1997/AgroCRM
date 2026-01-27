@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum CottonPreparationStatus: string
 {
-    case IN_LABORATORY = 'in_laboratory';
-    case ECONOMIST_DECISION = 'economist_decision';
-    case ACCOUNTANT_DECISION = 'accountant_decision';
+    case AWAITING_LABORATORIAN = 'awaiting_laboratorian';
+    case AWAITING_ECONOMIST = 'awaiting_economist';
+    case AWAITING_ACCOUNTANT = 'awaiting_accountant';
     case PREPARED = 'prepared';
 }

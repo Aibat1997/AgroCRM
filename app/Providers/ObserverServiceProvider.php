@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\CottonPreparation;
-use App\Observers\CottonPreparationObserver;
 use Illuminate\Support\ServiceProvider;
 
 class ObserverServiceProvider extends ServiceProvider
@@ -21,6 +19,6 @@ class ObserverServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        CottonPreparation::observe(CottonPreparationObserver::class);
+        //
     }
 }
