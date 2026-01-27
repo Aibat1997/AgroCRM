@@ -35,6 +35,8 @@ class CottonPreparationResource extends JsonResource
             'estimated_weight' => $this->estimated_weight,
             'humidity' => $this->humidity,
             'conditioned_weight' => $this->conditioned_weight,
+            'price_per_kg' => $this->price_per_kg,
+            'total_price' => $this->total_price,
             'weighing_date' => $this->weighing_date,
             'laboratory_date' => $this->laboratory_date,
             'status' => $this->status,

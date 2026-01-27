@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             WarehouseSeeder::class,
             RealEstateTypeSeeder::class,
             PaymentFrequencySeeder::class,
+            CottonPurchasePriceSeeder::class,
         ]);
     }
 }

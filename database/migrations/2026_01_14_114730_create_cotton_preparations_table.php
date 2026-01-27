@@ -33,6 +33,8 @@ return new class extends Migration
             $table->unsignedMediumInteger('estimated_weight')->nullable();
             $table->decimal('humidity', 8, 2)->nullable();
             $table->unsignedMediumInteger('conditioned_weight')->nullable();
+            $table->unsignedSmallInteger('price_per_kg')->nullable();
+            $table->unsignedInteger('total_price')->nullable();
             $table->date('weighing_date');
             $table->date('laboratory_date')->nullable();
             $table->string('status')->default(CottonPreparationStatus::IN_LABORATORY->value);

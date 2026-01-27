@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthorizationController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\CottonPreparationController;
+use App\Http\Controllers\Api\CottonPurchasePriceController;
 use App\Http\Controllers\Api\CurrencyController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\MachineryController;
@@ -31,6 +32,7 @@ Route::name('api.')->group(function () {
     Route::get('real-estate-types', [RealEstateTypeController::class, 'index']);
     Route::get('companies', [CompanyController::class, 'index']);
     Route::get('payment-frequencies', [PaymentFrequencyController::class, 'index']);
+    Route::get('cotton-purchase-price', [CottonPurchasePriceController::class, 'index']);
 
     Route::middleware(['auth:api'])->group(function () {
         Route::post('logout', [AuthorizationController::class, 'logout']);

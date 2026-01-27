@@ -37,6 +37,8 @@ class CottonPreparation extends Model
         'estimated_weight',
         'humidity',
         'conditioned_weight',
+        'price_per_kg',
+        'total_price',
         'weighing_date',
         'laboratory_date',
         'status',
