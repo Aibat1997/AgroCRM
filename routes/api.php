@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\WarehouseController;
 use App\Http\Controllers\Api\WarehouseItemController;
 use App\Models\CottonPreparation;
+use App\Models\CottonPurchasePrice;
 
 Route::name('api.')->group(function () {
     Route::post('register', [AuthorizationController::class, 'register'])->middleware('throttle:3,1');
@@ -63,6 +64,8 @@ Route::name('api.')->group(function () {
         Route::post('cotton-preparation-weigher', [CottonPreparationController::class, 'storeWeigherData'])->can('storeWeigherData', CottonPreparation::class);
         Route::post('cotton-preparation-laboratorian/{cottonPreparation}', [CottonPreparationController::class, 'storeLaboratorianData'])->can('storeLaboratorianData', CottonPreparation::class);
         Route::apiResource('cotton-preparation', CottonPreparationController::class)->except(['index', 'store']);
+
+        Route::post('cotton-purchase-price', [CottonPurchasePriceController::class, 'store'])->can('create', CottonPurchasePrice::class);
 
         Route::get('real-estate-rentals', [RealEstateRentalController::class, 'index']);
         Route::apiResource('real-estate-rental', RealEstateRentalController::class)->except(['index']);

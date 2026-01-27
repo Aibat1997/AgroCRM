@@ -58,6 +58,7 @@ class GetFreshCurrency extends Command
             }
         }
 
+        $currencyCacheService->clearCache();
         $currencyCacheService->warmupCache();
 
         $this->info('Currency rates updated successfully.');
