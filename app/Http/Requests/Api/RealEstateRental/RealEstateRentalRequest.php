@@ -25,7 +25,7 @@ class RealEstateRentalRequest extends FormRequest
             'real_estate_id' => 'required|integer|exists:real_estates,id',
             'tenant_name' => 'required|string',
             'tenant_phone' => 'required|string|size:11|starts_with:7',
-            'tenant_identifier' => 'nullable|string',
+            'tenant_identifier' => 'required|string|size:12',
             'from_date' => 'required|date',
             'to_date' => 'nullable|date|after:from_date',
             'payment_frequency_id' => 'required|exists:payment_frequencies,id',

@@ -19,9 +19,7 @@ class RealEstateRental extends Model
      */
     protected $fillable = [
         'real_estate_id',
-        'tenant_name',
-        'tenant_phone',
-        'tenant_identifier',
+        'client_id',
         'from_date',
         'to_date',
         'payment_frequency_id',
@@ -47,6 +45,16 @@ class RealEstateRental extends Model
     public function real_estate(): BelongsTo
     {
         return $this->belongsTo(RealEstate::class, 'real_estate_id', 'id');
+    }
+
+    /**
+     * Get the client that owns the RealEstateRental
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class, 'client_id', 'id');
     }
 
     /**

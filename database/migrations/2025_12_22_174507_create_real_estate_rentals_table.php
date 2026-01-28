@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('real_estate_rentals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('real_estate_id')->constrained('real_estates')->onDelete('cascade');
-            $table->string('tenant_name');
-            $table->string('tenant_phone');
-            $table->string('tenant_identifier')->nullable();
+            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
             $table->date('from_date');
             $table->date('to_date')->nullable();
             $table->foreignId('payment_frequency_id')->constrained('payment_frequencies')->onDelete('cascade');

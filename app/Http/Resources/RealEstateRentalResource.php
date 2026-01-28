@@ -17,9 +17,7 @@ class RealEstateRentalResource extends JsonResource
         return [
             'id' => $this->id,
             'real_estate' => new MinimalRealEstateResource($this->real_estate),
-            'tenant_name' => $this->tenant_name,
-            'tenant_phone' => $this->tenant_phone,
-            'tenant_identifier' => $this->tenant_identifier,
+            'client' => new ClientResource($this->client),
             'from_date' => $this->from_date,
             'to_date' => $this->to_date,
             'payment_frequency' => new PaymentFrequencyResource($this->payment_frequency),

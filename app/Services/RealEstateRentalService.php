@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\DTO\ClientDTO;
 use App\DTO\RealEstateRentalDTO;
+use App\Models\Client;
 use App\Models\RealEstateRental;
 use App\Services\Contracts\DocumentUploadServiceInterface;
 use Exception;
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 class RealEstateRentalService
 {
     public function __construct(
+        private readonly ClientService $clientService,
         private readonly DocumentUploadServiceInterface $documentUploadService,
     ) {}
 
@@ -25,12 +28,11 @@ class RealEstateRentalService
     {
         try {
             $documentUrl = $this->handleDocumentUpload($dto->contract);
+            $client = $this->findOrCreateClient($dto);
 
             return RealEstateRental::create([
                 'real_estate_id' => $dto->real_estate_id,
-                'tenant_name' => $dto->tenant_name,
-                'tenant_phone' => $dto->tenant_phone,
-                'tenant_identifier' => $dto->tenant_identifier,
+                'client_id' => $client->id,
                 'from_date' => $dto->from_date,
                 'to_date' => $dto->to_date,
                 'payment_frequency_id' => $dto->payment_frequency_id,
@@ -57,11 +59,11 @@ class RealEstateRentalService
     public function update(RealEstateRentalDTO $dto, RealEstateRental $realEstateRental): RealEstateRental
     {
         try {
+            $client = $this->findOrCreateClient($dto);
+
             $updateData = [
                 'real_estate_id' => $dto->real_estate_id,
-                'tenant_name' => $dto->tenant_name,
-                'tenant_phone' => $dto->tenant_phone,
-                'tenant_identifier' => $dto->tenant_identifier,
+                'client_id' => $client->id,
                 'from_date' => $dto->from_date,
                 'to_date' => $dto->to_date,
                 'payment_frequency_id' => $dto->payment_frequency_id,
@@ -103,5 +105,25 @@ class RealEstateRentalService
             Log::error('Document upload failed', ['error' => $e->getMessage()]);
             throw new Exception('Failed to upload document: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Find existing client or create a new one
+     */
+    private function findOrCreateClient(RealEstateRentalDTO $dto): Client
+    {
+        $client = Client::where('identifier', $dto->tenant_identifier)->first();
+
+        if (!$client) {
+            $clientDTO = new ClientDTO(
+                name: $dto->tenant_name,
+                identifier: $dto->tenant_identifier,
+                phone: $dto->tenant_phone
+            );
+
+            $client = $this->clientService->store($clientDTO);
+        }
+
+        return $client;
     }
 }
