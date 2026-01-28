@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\CottonPreparationController;
 use App\Http\Controllers\Api\CottonPurchasePriceController;
 use App\Http\Controllers\Api\CurrencyController;
+use App\Http\Controllers\Api\DebtController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\MachineryController;
 use App\Http\Controllers\Api\PaymentFrequencyController;
@@ -75,5 +76,8 @@ Route::name('api.')->group(function () {
 
         Route::get('applications', [ApplicationController::class, 'index']);
         Route::apiResource('application', ApplicationController::class)->except(['index']);
+
+        Route::get('debts', [DebtController::class, 'index']);
+        Route::apiResource('debt', DebtController::class)->except(['index']);
     });
 });
