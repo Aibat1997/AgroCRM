@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
             'role_id' => 'required|integer|exists:user_roles,id,deleted_at,NULL',
             'company_id' => 'required|integer|exists:companies,id,deleted_at,NULL',
             'name' => 'required|string',
-            'phone' => 'required|string|size:11|starts_with:7|unique:users,phone,NULL,deleted_at',
+            'phone' => 'required|string|size:11|starts_with:7|unique:users,phone,NULL,id,deleted_at,NULL',
             'avatar' => 'nullable|image',
             'salary' => 'nullable|numeric',
             'password' => 'required|string',

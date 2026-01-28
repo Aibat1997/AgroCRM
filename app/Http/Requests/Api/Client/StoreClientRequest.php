@@ -23,8 +23,8 @@ class StoreClientRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'phone' => 'required|string|size:11|starts_with:7|unique:clients,phone,NULL,deleted_at',
-            'identifier' => 'required|string|size:12|unique:clients,identifier,NULL,deleted_at',
+            'phone' => 'required|string|size:11|starts_with:7|unique:clients,phone,NULL,id,deleted_at,NULL',
+            'identifier' => 'required|string|size:12|unique:clients,identifier,NULL,id,deleted_at,NULL',
         ];
     }
 }

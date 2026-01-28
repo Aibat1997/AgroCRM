@@ -25,7 +25,7 @@ class UserRegisterRequest extends FormRequest
             'role_id' => 'required|integer|exists:user_roles,id',
             'company_id' => 'required|integer|exists:companies,id',
             'name' => 'required|string',
-            'phone' => 'required|string|size:11|starts_with:7|unique:users,phone,NULL,deleted_at',
+            'phone' => 'required|string|size:11|starts_with:7|unique:users,phone,NULL,id,deleted_at,NULL',
             'password' => 'required|string',
             'device_token' => 'sometimes|required|string',
         ];
