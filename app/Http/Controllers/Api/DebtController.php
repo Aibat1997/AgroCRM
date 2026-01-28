@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\DTO\DebtDTO;
+use App\Enums\DebtStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Debt\DebtRequest;
 use App\Http\Resources\DebtResource;
 use App\Models\Debt;
 use App\Services\DebtService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DebtController extends Controller
 {
@@ -37,6 +39,17 @@ class DebtController extends Controller
     {
         $dto = DebtDTO::fromArray($request->validated());
         $this->debtService->update($dto, $debt);
+
+        return $this->return_success(new DebtResource($debt));
+    }
+
+    public function updateStatus(Request $request, Debt $debt)
+    {
+        $request->validate([
+            'status' => ['required', 'string', Rule::enum(DebtStatus::class)],
+        ]);
+
+        $debt->update(['status' => $request->input('status')]);
 
         return $this->return_success(new DebtResource($debt));
     }

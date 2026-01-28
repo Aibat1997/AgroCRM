@@ -79,5 +79,6 @@ Route::name('api.')->group(function () {
 
         Route::get('debts', [DebtController::class, 'index']);
         Route::apiResource('debt', DebtController::class)->except(['index']);
+        Route::post('debt/{debt}/status', [DebtController::class, 'updateStatus']);
     });
 });
