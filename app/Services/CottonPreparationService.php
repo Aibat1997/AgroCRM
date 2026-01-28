@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\DTO\ClientDTO;
 use App\DTO\CottonPreparationLaboratorianDTO;
 use App\DTO\CottonPreparationWeigherDTO;
 use App\Enums\CottonPreparationStatus;
+use App\Models\Client;
 use App\Models\CottonPreparation;
 
 class CottonPreparationService
@@ -12,16 +14,20 @@ class CottonPreparationService
     const DEFAULT_CONTAMINATION_RATE = 2;
     const DEFAULT_HUMIDITY_RATE = 9;
 
-    public function __construct(private readonly CottonPurchasePriceCacheService $cottonPurchasePrice) {}
+    public function __construct(
+        private readonly CottonPurchasePriceCacheService $cottonPurchasePrice,
+        private readonly ClientService $clientService
+    ) {}
 
     public function storeWeigherData(CottonPreparationWeigherDTO $dto, int $weigher_id): CottonPreparation
     {
+        $client = $this->findOrCreateClient($dto);
+
         $cottonPreparation = CottonPreparation::create([
+            'client_id' => $client->id,
             'weigher_id' => $weigher_id,
             'invoice_number' => $dto->invoice_number,
             'transport' => $dto->transport,
-            'supplier' => $dto->supplier,
-            'supplier_identifier' => $dto->supplier_identifier,
             'gross_weight' => $dto->gross_weight,
             'container_weight' => $dto->container_weight,
             'physical_weight' => $dto->gross_weight - $dto->container_weight,
@@ -56,5 +62,25 @@ class CottonPreparationService
         ]);
 
         return $cottonPreparation;
+    }
+
+    /**
+     * Find existing client or create a new one
+     */
+    private function findOrCreateClient(CottonPreparationWeigherDTO $dto): Client
+    {
+        $client = Client::where('identifier', $dto->supplier_identifier)->first();
+
+        if (!$client) {
+            $clientDTO = new ClientDTO(
+                name: $dto->supplier_name,
+                identifier: $dto->supplier_identifier,
+                phone: $dto->supplier_phone
+            );
+
+            $client = $this->clientService->store($clientDTO);
+        }
+
+        return $client;
     }
 }

@@ -24,8 +24,9 @@ class StoreWeigherDataRequest extends FormRequest
         return [
             'invoice_number' => 'required|integer',
             'transport' => 'required|string',
-            'supplier' => 'required|string',
-            'supplier_identifier' => 'required|string',
+            'supplier_name' => 'required|string',
+            'supplier_phone' => 'required|string|size:11|starts_with:7',
+            'supplier_identifier' => 'required|string|size:12',
             'gross_weight' => 'required|integer',
             'container_weight' => 'required|integer|lt:gross_weight',
             'weighing_date' => 'required|date|after_or_equal:' . today()->toDateString(),

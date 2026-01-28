@@ -14,12 +14,11 @@ return new class extends Migration
     {
         Schema::create('cotton_preparations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('weigher_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('laboratorian_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('client_id')->constrained('clients')->onDelete('restrict');
+            $table->foreignId('weigher_id')->constrained('users')->onDelete('restrict');
+            $table->foreignId('laboratorian_id')->nullable()->constrained('users')->onDelete('restrict');
             $table->unsignedMediumInteger('invoice_number');
             $table->string('transport');
-            $table->string('supplier');
-            $table->string('supplier_identifier');
             $table->unsignedMediumInteger('gross_weight');
             $table->unsignedMediumInteger('container_weight');
             $table->unsignedMediumInteger('physical_weight');

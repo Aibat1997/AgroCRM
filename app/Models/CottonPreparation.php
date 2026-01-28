@@ -18,12 +18,11 @@ class CottonPreparation extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'client_id',
         'weigher_id',
         'laboratorian_id',
         'invoice_number',
         'transport',
-        'supplier',
-        'supplier_identifier',
         'gross_weight',
         'container_weight',
         'physical_weight',
@@ -54,6 +53,16 @@ class CottonPreparation extends Model
         return [
             'status' => CottonPreparationStatus::class,
         ];
+    }
+
+    /**
+     * Get the client that owns the CottonPreparation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class, 'client_id', 'id');
     }
 
     /**
