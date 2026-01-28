@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\FileSystem\UploadImage;
-use App\Services\Contracts\ImageUploadServiceInterface;
+use App\Contracts\ImageUploadServiceInterface;
 use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;

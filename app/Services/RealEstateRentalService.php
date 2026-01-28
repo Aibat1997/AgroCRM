@@ -6,7 +6,7 @@ use App\DTO\ClientDTO;
 use App\DTO\RealEstateRentalDTO;
 use App\Models\Client;
 use App\Models\RealEstateRental;
-use App\Services\Contracts\DocumentUploadServiceInterface;
+use App\Contracts\DocumentUploadServiceInterface;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;

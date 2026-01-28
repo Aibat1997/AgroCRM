@@ -5,7 +5,7 @@ namespace App\Services;
 use App\DTO\WarehouseItemDTO;
 use App\Models\Currency;
 use App\Models\WarehouseItem;
-use App\Services\Contracts\ImageUploadServiceInterface;
+use App\Contracts\ImageUploadServiceInterface;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;

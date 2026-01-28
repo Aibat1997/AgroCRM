@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\Contracts\DocumentUploadServiceInterface;
-use App\Services\Contracts\ImageUploadServiceInterface;
+use App\Contracts\DocumentUploadServiceInterface;
+use App\Contracts\ImageUploadServiceInterface;
 use App\Services\DocumentUploadService;
 use App\Services\ImageUploadService;
 use Illuminate\Support\ServiceProvider;

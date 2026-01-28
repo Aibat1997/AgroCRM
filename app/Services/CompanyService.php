@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\DTO\CompanyDTO;
 use App\Models\Company;
-use App\Services\Contracts\ImageUploadServiceInterface;
+use App\Contracts\ImageUploadServiceInterface;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;

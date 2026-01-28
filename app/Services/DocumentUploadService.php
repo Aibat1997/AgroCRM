@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\FileSystem\UploadDocument;
-use App\Services\Contracts\DocumentUploadServiceInterface;
+use App\Contracts\DocumentUploadServiceInterface;
 use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;

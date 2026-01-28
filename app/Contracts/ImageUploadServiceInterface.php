@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Contracts;
+namespace App\Contracts;
 
 use Illuminate\Http\UploadedFile;
 
-interface DocumentUploadServiceInterface
+interface ImageUploadServiceInterface
 {
     public function upload(UploadedFile $file, string $directory): string;
 }
