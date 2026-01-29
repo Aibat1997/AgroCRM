@@ -2,7 +2,9 @@
 
 namespace App\DTO;
 
-class CottonPreparationWeigherDTO
+use App\Contracts\ClientDataProviderInterface;
+
+class CottonPreparationWeigherDTO implements ClientDataProviderInterface
 {
     public function __construct(
         public readonly int $invoice_number,
@@ -40,6 +42,15 @@ class CottonPreparationWeigherDTO
             'gross_weight' => $this->gross_weight,
             'container_weight' => $this->container_weight,
             'weighing_date' => $this->weighing_date,
+        ];
+    }
+
+    public function getClientData(): array
+    {
+        return [
+            'name' => $this->supplier_name,
+            'identifier' => $this->supplier_identifier,
+            'phone' => $this->supplier_phone,
         ];
     }
 }

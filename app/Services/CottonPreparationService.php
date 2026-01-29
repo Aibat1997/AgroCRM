@@ -2,11 +2,9 @@
 
 namespace App\Services;
 
-use App\DTO\ClientDTO;
 use App\DTO\CottonPreparationLaboratorianDTO;
 use App\DTO\CottonPreparationWeigherDTO;
 use App\Enums\CottonPreparationStatus;
-use App\Models\Client;
 use App\Models\CottonPreparation;
 
 class CottonPreparationService
@@ -21,7 +19,7 @@ class CottonPreparationService
 
     public function storeWeigherData(CottonPreparationWeigherDTO $dto, int $weigher_id): CottonPreparation
     {
-        $client = $this->findOrCreateClient($dto);
+        $client = $this->clientService->findOrCreateByIdentifier($dto);
 
         $cottonPreparation = CottonPreparation::create([
             'client_id' => $client->id,
@@ -62,25 +60,5 @@ class CottonPreparationService
         ]);
 
         return $cottonPreparation;
-    }
-
-    /**
-     * Find existing client or create a new one
-     */
-    private function findOrCreateClient(CottonPreparationWeigherDTO $dto): Client
-    {
-        $client = Client::where('identifier', $dto->supplier_identifier)->first();
-
-        if (!$client) {
-            $clientDTO = new ClientDTO(
-                name: $dto->supplier_name,
-                identifier: $dto->supplier_identifier,
-                phone: $dto->supplier_phone
-            );
-
-            $client = $this->clientService->store($clientDTO);
-        }
-
-        return $client;
     }
 }

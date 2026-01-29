@@ -2,9 +2,10 @@
 
 namespace App\DTO;
 
+use App\Contracts\ClientDataProviderInterface;
 use Illuminate\Http\UploadedFile;
 
-class RealEstateRentalDTO
+class RealEstateRentalDTO implements ClientDataProviderInterface
 {
     public function __construct(
         public readonly int $real_estate_id,
@@ -54,6 +55,15 @@ class RealEstateRentalDTO
             'unit_id' => $this->unit_id,
             'contract' => $this->contract,
             'note' => $this->note,
+        ];
+    }
+
+    public function getClientData(): array
+    {
+        return [
+            'name' => $this->tenant_name,
+            'identifier' => $this->tenant_identifier,
+            'phone' => $this->tenant_phone,
         ];
     }
 }

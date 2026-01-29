@@ -2,10 +2,8 @@
 
 namespace App\Services;
 
-use App\DTO\ClientDTO;
 use App\DTO\DebtDTO;
 use App\Enums\DebtStatus;
-use App\Models\Client;
 use App\Models\Debt;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -25,7 +23,7 @@ class DebtService
     public function store(DebtDTO $dto): Debt
     {
         try {
-            $client = $this->findOrCreateClient($dto);
+            $client = $this->clientService->findOrCreateByIdentifier($dto);
 
             return Debt::create([
                 'company_id' => $dto->company_id,
@@ -55,7 +53,7 @@ class DebtService
     public function update(DebtDTO $dto, Debt $debt): Debt
     {
         try {
-            $client = $this->findOrCreateClient($dto);
+            $client = $this->clientService->findOrCreateByIdentifier($dto);
 
             $updateData = [
                 'company_id' => $dto->company_id,
@@ -80,25 +78,5 @@ class DebtService
             ]);
             throw $e;
         }
-    }
-
-    /**
-     * Find existing client or create a new one
-     */
-    private function findOrCreateClient(DebtDTO $dto): Client
-    {
-        $client = Client::where('identifier', $dto->client_identifier)->first();
-
-        if (!$client) {
-            $clientDTO = new ClientDTO(
-                name: $dto->client_name,
-                identifier: $dto->client_identifier,
-                phone: $dto->client_phone
-            );
-
-            $client = $this->clientService->store($clientDTO);
-        }
-
-        return $client;
     }
 }
