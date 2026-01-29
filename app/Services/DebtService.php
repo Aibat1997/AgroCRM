@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTO\DebtDTO;
 use App\Enums\DebtStatus;
+use App\Models\CottonPreparation;
 use App\Models\Debt;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -78,5 +79,27 @@ class DebtService
             ]);
             throw $e;
         }
+    }
+
+    function getDebtPayingWithCottonInfo(CottonPreparation $cottonPreparation): array
+    {
+        $baseQuery = Debt::where('client_id', $cottonPreparation->client_id)->where('status', DebtStatus::ACTIVE->value);
+        $advanceDebts = (clone $baseQuery)->where('percent', 0)->sum('amount');
+        $percentDebts = (clone $baseQuery)->where('percent', '>', 0)
+            ->selectRaw('percent, SUM(amount) as total_amount, COUNT(*) as count')
+            ->groupBy('percent')
+            ->get();
+
+        foreach ($percentDebts as $percentDebtsItem) {
+            $precentPricePerKg = $cottonPreparation->price_per_kg - (($cottonPreparation->price_per_kg * $percentDebtsItem->percent) / 100);
+            $totalDebtAmount = $percentDebtsItem->total_amount;
+            $percentDebtsItem->debt_cotton_kg = (int) ($totalDebtAmount / $precentPricePerKg);
+        }
+
+        return [
+            'all_debts' => $percentDebts->sum('total_amount') + $advanceDebts,
+            'percent_debts' => $percentDebts,
+            'advance_debts' => $advanceDebts,
+        ];
     }
 }

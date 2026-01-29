@@ -7,6 +7,7 @@ use App\Enums\DebtStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Debt\DebtRequest;
 use App\Http\Resources\DebtResource;
+use App\Models\CottonPreparation;
 use App\Models\Debt;
 use App\Services\DebtService;
 use Illuminate\Http\Request;
@@ -52,6 +53,18 @@ class DebtController extends Controller
         $debt->update(['status' => $request->input('status')]);
 
         return $this->return_success(new DebtResource($debt));
+    }
+
+    public function payingWithCotton(Request $request)
+    {
+        $request->validate([
+            'cotton_preparation_id' => 'required|integer|exists:cotton_preparations,id',
+        ]);
+
+        $cottonPreparation = CottonPreparation::find($request->input('cotton_preparation_id'));
+        $debtInfo = $this->debtService->getDebtPayingWithCottonInfo($cottonPreparation);
+
+        return $this->return_success(['debtInfo' => $debtInfo]);
     }
 
     public function destroy(Debt $debt)
