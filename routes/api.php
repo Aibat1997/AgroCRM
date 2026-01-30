@@ -29,6 +29,7 @@ Route::name('api.')->group(function () {
     Route::post('login', [AuthorizationController::class, 'login'])->middleware('throttle:3,1');
 
     Route::get('roles', [RoleController::class, 'index']);
+    Route::get('registration-roles', [RoleController::class, 'registrationRoles']);
     Route::get('units', [UnitController::class, 'index']);
     Route::get('currencies', [CurrencyController::class, 'index']);
     Route::get('real-estate-types', [RealEstateTypeController::class, 'index']);
@@ -72,7 +73,7 @@ Route::name('api.')->group(function () {
         Route::apiResource('real-estate-rental', RealEstateRentalController::class)->except(['index']);
 
         Route::get('user-tasks', [UserTaskController::class, 'index']);
-        Route::apiResource('user-task', UserTaskController::class)->except(['index']);
+        Route::apiResource('user-task', UserTaskController::class)->except(['index', 'update']);
 
         Route::get('applications', [ApplicationController::class, 'index']);
         Route::apiResource('application', ApplicationController::class)->except(['index']);

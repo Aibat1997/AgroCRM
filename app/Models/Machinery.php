@@ -18,7 +18,6 @@ class Machinery extends Model
      */
     protected $fillable = [
         'company_id',
-        'driver_id',
         'title',
         'identifier',
         'quantity',
@@ -34,15 +33,5 @@ class Machinery extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id', 'id');
-    }
-
-    /**
-     * Get the driver that owns the Machinery
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function driver(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'driver_id', 'id');
     }
 }

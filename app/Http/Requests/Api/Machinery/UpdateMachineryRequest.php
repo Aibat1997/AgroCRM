@@ -25,7 +25,6 @@ class UpdateMachineryRequest extends FormRequest
 
         return [
             'company_id' => 'required|integer|exists:companies,id',
-            'driver_id' => 'nullable|integer|exists:users,id',
             'title' => 'required|string',
             'identifier' => 'nullable|string|unique:machineries,identifier,' . $machineryId . ',id,deleted_at,NULL',
             'quantity' => 'required|integer|min:1',

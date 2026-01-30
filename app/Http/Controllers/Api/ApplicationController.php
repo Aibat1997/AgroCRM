@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\UserRoleId;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Application\StoreApplicationRequest;
 use App\Http\Requests\Api\Application\UpdateApplicationRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Models\Application;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +16,15 @@ class ApplicationController extends Controller
 {
     public function index(Request $request)
     {
-        $applications = Application::with('user')->filter($request->all())->paginate(15);
+        /** @var User $user */
+        $user = Auth::user();
+
+        if ($user->role_id == UserRoleId::OWNER) {
+            $applications = Application::with('user')->filter($request->all())->paginate(15);
+        } else {
+            $applications = Application::with('user')->where('user_id', $user->id)->paginate(15);
+        }
+
         return ApplicationResource::collection($applications)->additional(['success' => true]);
     }
 

@@ -17,7 +17,6 @@ class MachineryResource extends JsonResource
         return [
             'id' => $this->id,
             'company' => new CompanyResource($this->company),
-            'driver' => new MinimalUserResource($this->driver),
             'title' => $this->title,
             'identifier' => $this->identifier,
             'quantity' => $this->quantity,

@@ -11,6 +11,7 @@ use App\Models\UserTask;
 use App\Services\UserTaskService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class UserTaskController extends Controller
 {
@@ -37,6 +38,7 @@ class UserTaskController extends Controller
 
     public function update(UpdateUserTaskRequest $request, UserTask $userTask)
     {
+        Gate::authorize('update', $userTask);
         $dto = UserTaskDTO::fromArray($request->validated());
         $this->userTaskService->update($dto, $userTask);
 
@@ -45,7 +47,9 @@ class UserTaskController extends Controller
 
     public function destroy(UserTask $userTask)
     {
+        Gate::authorize('delete', $userTask);
         $userTask->delete();
+
         return $this->return_success();
     }
 
