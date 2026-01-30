@@ -13,7 +13,7 @@ class MachineryController extends Controller
 {
     public function index(Request $request)
     {
-        $machineries = Machinery::with(['company', 'driver'])->filter($request->all())->paginate(15);
+        $machineries = Machinery::with('company')->filter($request->all())->paginate(15);
         return MachineryResource::collection($machineries)->additional(['success' => true]);
     }
 
