@@ -16,12 +16,11 @@ class CottonPreparationResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'client' => new ClientResource($this->client),
             'weigher' => new MinimalUserResource($this->weigher),
             'laboratorian' => new MinimalUserResource($this->laboratorian),
             'invoice_number' => $this->invoice_number,
             'transport' => $this->transport,
-            'supplier' => $this->supplier,
-            'supplier_identifier' => $this->supplier_identifier,
             'gross_weight' => $this->gross_weight,
             'container_weight' => $this->container_weight,
             'physical_weight' => $this->physical_weight,

@@ -19,7 +19,7 @@ class CottonPreparationController extends Controller
 
     public function index(Request $request)
     {
-        $cottonPreparations = CottonPreparation::with(['weigher', 'laboratorian'])->filter($request->all())->paginate(15);
+        $cottonPreparations = CottonPreparation::with(['weigher', 'laboratorian', 'client'])->filter($request->all())->paginate(15);
         return CottonPreparationResource::collection($cottonPreparations)->additional(['success' => true]);
     }
 
