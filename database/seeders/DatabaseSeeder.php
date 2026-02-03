@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             RealEstateTypeSeeder::class,
             PaymentFrequencySeeder::class,
             CottonPurchasePriceSeeder::class,
+            TransactionTypeSeeder::class,
         ]);
     }
 }

@@ -62,4 +62,14 @@ class Company extends Model
     {
         return $this->hasMany(Machinery::class, 'company_id', 'id');
     }
+
+    /**
+     * Get all of the transactions for the Company
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'company_id', 'id');
+    }
 }
