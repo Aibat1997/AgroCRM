@@ -23,6 +23,7 @@ class WarehouseItem extends Model
         'quantity',
         'unit_id',
         'currency_id',
+        'currency_rate',
         'original_unit_price',
         'unit_price',
         'supplier',

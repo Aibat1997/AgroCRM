@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('warehouse_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('warehouse_id')->constrained('warehouses')->onDelete('cascade');
-            $table->string('title');
-            $table->unsignedMediumInteger('quantity')->default(0);
+            $table->string('title')->index();
+            $table->unsignedMediumInteger('quantity');
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
             $table->foreignId('currency_id')->constrained('currencies')->onDelete('cascade');
-            $table->unsignedMediumInteger('original_unit_price')->default(0);
-            $table->unsignedMediumInteger('unit_price')->default(0);
+            $table->decimal('currency_rate', 5, 2)->unsigned();
+            $table->unsignedMediumInteger('original_unit_price');
+            $table->unsignedMediumInteger('unit_price');
             $table->string('supplier')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

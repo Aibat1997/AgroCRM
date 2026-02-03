@@ -17,7 +17,7 @@ trait WarehouseItemScope
         })->when($warehouseId, function (Builder $q, int $warehouseId) {
             $q->where('warehouse_id', $warehouseId);
         })->when($title, function (Builder $q, string $title) {
-            $q->where('title', 'LIKE', "%{$title}%");
+            $q->where('title', 'LIKE', "{$title}%");
         });
     }
 }

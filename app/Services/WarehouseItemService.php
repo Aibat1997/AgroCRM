@@ -20,14 +20,15 @@ class WarehouseItemService
 
     /**
      * Create a new warehouse item
-     *
+     * 
+     * @var Currency $currency 
      * @throws Exception
      */
     public function store(WarehouseItemDTO $dto): WarehouseItem
     {
         try {
             $imageUrl = $this->handleImageUpload($dto->image);
-            $unitPrice = $this->priceInCurrency($dto->original_unit_price, $dto->currency_id);
+            $currency = $this->getCurrency($dto->currency_id);
 
             return WarehouseItem::create([
                 'warehouse_id' => $dto->warehouse_id,
@@ -35,8 +36,9 @@ class WarehouseItemService
                 'quantity' => $dto->quantity,
                 'unit_id' => $dto->unit_id,
                 'currency_id' => $dto->currency_id,
+                'currency_rate' => $currency->in_local_currency,
                 'original_unit_price' => $dto->original_unit_price,
-                'unit_price' => $unitPrice,
+                'unit_price' => $dto->original_unit_price * $currency->in_local_currency,
                 'supplier' => $dto->supplier,
                 'image' => $imageUrl,
             ]);
@@ -51,18 +53,21 @@ class WarehouseItemService
 
     /**
      * Update an existing warehouse item
-     *
+     * 
+     * @var Currency $currency 
      * @throws ModelNotFoundException|Exception
      */
     public function update(WarehouseItemDTO $dto, WarehouseItem $warehouseItem): WarehouseItem
     {
         try {
+            $currency = $this->getCurrency($dto->currency_id);
             $updateData = [
                 'warehouse_id' => $dto->warehouse_id,
                 'title' => $dto->title,
                 'quantity' => $dto->quantity,
                 'unit_id' => $dto->unit_id,
                 'currency_id' => $dto->currency_id,
+                'currency_rate' => $currency->in_local_currency,
                 'original_unit_price' => $dto->original_unit_price,
                 'supplier' => $dto->supplier,
             ];
@@ -75,7 +80,7 @@ class WarehouseItemService
                 $dto->currency_id !== $warehouseItem->currency_id ||
                 $dto->original_unit_price !== $warehouseItem->original_unit_price
             ) {
-                $updateData['unit_price'] = $this->priceInCurrency($dto->original_unit_price, $dto->currency_id);
+                $updateData['unit_price'] = $dto->original_unit_price * $currency->in_local_currency;
             }
 
             $warehouseItem->update($updateData);
@@ -108,23 +113,19 @@ class WarehouseItemService
         }
     }
 
-    /**
-     * Calculate unit price in local currency
-     */
-    private function priceInCurrency(float $price, int $currencyId): float
+    private function getCurrency(int $currencyId): Currency
     {
         try {
-            /** @var Currency $currency */
             $currency = $this->currencyCacheService->getCurrencyById($currencyId);
 
             if ($currency === null) {
                 throw new ModelNotFoundException("Currency with ID {$currencyId} not found.");
             }
 
-            return $price * $currency->in_local_currency;
+            return $currency;
         } catch (Exception $e) {
-            Log::error('Failed to calculate unit price', ['error' => $e->getMessage()]);
-            throw new Exception('Failed to calculate unit price: ' . $e->getMessage());
+            Log::error('Failed to get currency', ['error' => $e->getMessage()]);
+            throw new Exception('Failed to get currency: ' . $e->getMessage());
         }
     }
 }
