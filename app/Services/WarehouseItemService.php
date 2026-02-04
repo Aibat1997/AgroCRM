@@ -60,14 +60,13 @@ class WarehouseItemService
     public function update(WarehouseItemDTO $dto, WarehouseItem $warehouseItem): WarehouseItem
     {
         try {
-            $currency = $this->getCurrency($dto->currency_id);
             $updateData = [
                 'warehouse_id' => $dto->warehouse_id,
                 'title' => $dto->title,
                 'quantity' => $dto->quantity,
                 'unit_id' => $dto->unit_id,
                 'currency_id' => $dto->currency_id,
-                'currency_rate' => $currency->in_local_currency,
+                'currency_rate' => $warehouseItem->currency_rate,
                 'original_unit_price' => $dto->original_unit_price,
                 'supplier' => $dto->supplier,
             ];
@@ -76,11 +75,16 @@ class WarehouseItemService
                 $updateData['image'] = $this->handleImageUpload($dto->image);
             }
 
+            if ($dto->currency_id !== $warehouseItem->currency_id) {
+                $currency = $this->getCurrency($dto->currency_id);
+                $updateData['currency_rate'] = $currency->in_local_currency;
+            }
+
             if (
                 $dto->currency_id !== $warehouseItem->currency_id ||
                 $dto->original_unit_price !== $warehouseItem->original_unit_price
             ) {
-                $updateData['unit_price'] = $dto->original_unit_price * $currency->in_local_currency;
+                $updateData['unit_price'] = $dto->original_unit_price * $updateData['currency_rate'];
             }
 
             $warehouseItem->update($updateData);
