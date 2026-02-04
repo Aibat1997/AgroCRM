@@ -21,7 +21,7 @@ trait UserScope
         })->when($companyId, function (Builder $q, array $companyId) {
             $q->whereIn('company_id', $companyId);
         })->when($name, function (Builder $q, string $name) {
-            $q->where('name', 'LIKE', '%' . $name . '%');
+            $q->where('name', 'LIKE', "{$name}%");
         })->when($phone, function (Builder $q, string $phone) {
             $q->where('phone', $phone);
         });

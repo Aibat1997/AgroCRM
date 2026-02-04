@@ -16,11 +16,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('title');
+            $table->string('title')->index();
             $table->text('description')->nullable();
-            $table->date('start_date');
-            $table->date('finish_date');
-            $table->string('status')->default(UserTaskStatus::IN_PROGRESS->value);
+            $table->date('start_date')->index();
+            $table->date('finish_date')->index();
+            $table->string('status')->default(UserTaskStatus::IN_PROGRESS->value)->index();
             $table->timestamps();
             $table->softDeletes();
         });

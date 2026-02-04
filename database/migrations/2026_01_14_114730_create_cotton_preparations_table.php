@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('client_id')->constrained('clients')->onDelete('restrict');
             $table->foreignId('weigher_id')->constrained('users')->onDelete('restrict');
             $table->foreignId('laboratorian_id')->nullable()->constrained('users')->onDelete('restrict');
-            $table->unsignedMediumInteger('invoice_number');
+            $table->unsignedMediumInteger('invoice_number')->index();
             $table->string('transport');
             $table->unsignedMediumInteger('gross_weight');
             $table->unsignedMediumInteger('container_weight');
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->unsignedInteger('total_price')->nullable();
             $table->date('weighing_date');
             $table->date('laboratory_date')->nullable();
-            $table->string('status')->default(CottonPreparationStatus::AWAITING_LABORATORIAN->value);
+            $table->string('status')->default(CottonPreparationStatus::AWAITING_LABORATORIAN->value)->index();
             $table->timestamps();
             $table->softDeletes();
         });

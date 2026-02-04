@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('real_estate_id')->constrained('real_estates')->onDelete('cascade');
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
-            $table->date('from_date');
-            $table->date('to_date')->nullable();
+            $table->date('from_date')->index();
+            $table->date('to_date')->nullable()->index();
             $table->foreignId('payment_frequency_id')->constrained('payment_frequencies')->onDelete('cascade');
             $table->unsignedMediumInteger('amount');
             $table->decimal('area', 8, 2)->nullable();

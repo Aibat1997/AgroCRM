@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('real_estates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('real_estate_type_id')->constrained('real_estate_types')->onDelete('cascade');
-            $table->string('address');
+            $table->string('address')->index();
             $table->decimal('area', 8, 2);
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
-            $table->string('cadastral_number')->nullable();
+            $table->string('cadastral_number')->nullable()->index();
             $table->date('rented_from')->nullable();
             $table->date('rented_to')->nullable();
             $table->text('note')->nullable();

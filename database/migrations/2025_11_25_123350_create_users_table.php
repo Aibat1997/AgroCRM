@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('role_id')->constrained('user_roles')->onDelete('restrict');
             $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('restrict');
-            $table->string('name');
-            $table->string('phone');
+            $table->string('name')->index();
+            $table->string('phone')->index();
             $table->string('avatar')->nullable();
             $table->unsignedMediumInteger('salary')->nullable();
             $table->string('device_token')->nullable();

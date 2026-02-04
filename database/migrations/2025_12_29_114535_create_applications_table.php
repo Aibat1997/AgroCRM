@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->text('description');
-            $table->string('status')->default(ApplicationStatus::PENDING->value);
+            $table->text('description')->fulltext();
+            $table->string('status')->default(ApplicationStatus::PENDING->value)->index();
             $table->timestamps();
             $table->softDeletes();
         });

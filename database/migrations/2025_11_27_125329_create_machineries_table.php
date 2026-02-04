@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('machineries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
-            $table->string('title');
-            $table->string('identifier')->nullable();
+            $table->string('title')->index();
+            $table->string('identifier')->nullable()->index();
             $table->unsignedMediumInteger('quantity')->default(0);
             $table->text('note')->nullable();
             $table->text('comment')->nullable();

@@ -19,7 +19,9 @@ trait RealEstateRentalScope
         })->when($realEstateId, function (Builder $q, int $realEstateId) {
             $q->where('real_estate_id', $realEstateId);
         })->when($tenantName, function (Builder $q, string $tenantName) {
-            $q->where('tenant_name', 'LIKE', '%' . $tenantName . '%');
+            $q->whereHas('client', function (Builder $query) use ($tenantName) {
+                $query->where('name', 'LIKE', "{$tenantName}%");
+            });
         })->when($fromDate, function (Builder $q, string $fromDate) {
             $q->whereDate('from_date', '>=', $fromDate);
         })->when($toDate, function (Builder $q, string $toDate) {

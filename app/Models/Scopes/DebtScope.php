@@ -10,26 +10,34 @@ trait DebtScope
     {
         $id = (array)($filters['id'] ?? []);
         $companyId = $filters['company_id'] ?? null;
-        $clientId = $filters['client_id'] ?? null;
+        $clientName = $filters['client_name'] ?? null;
         $fromDueDate = $filters['from_due_date'] ?? null;
         $toDueDate = $filters['to_due_date'] ?? null;
-        $amount = $filters['amount'] ?? null;
+        $fromAmount = $filters['from_amount'] ?? null;
+        $toAmount = $filters['to_amount'] ?? null;
         $isClientOwes = $filters['is_client_owes'] ?? null;
+        $status = $filters['status'] ?? null;
 
         $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($companyId, function (Builder $q, int $companyId) {
             $q->where('company_id', $companyId);
-        })->when($clientId, function (Builder $q, int $clientId) {
-            $q->where('client_id', $clientId);
+        })->when($clientName, function (Builder $q, string $clientName) {
+            $q->whereHas('client', function (Builder $query) use ($clientName) {
+                $query->where('name', 'LIKE', "{$clientName}%");
+            });
         })->when($fromDueDate, function (Builder $q, string $fromDueDate) {
             $q->where('due_date', '>=', $fromDueDate);
         })->when($toDueDate, function (Builder $q, string $toDueDate) {
             $q->where('due_date', '<=', $toDueDate);
-        })->when($amount, function (Builder $q, int $amount) {
-            $q->where('amount', $amount);
+        })->when($fromAmount, function (Builder $q, int $fromAmount) {
+            $q->where('amount', '>=', $fromAmount);
+        })->when($toAmount, function (Builder $q, int $toAmount) {
+            $q->where('amount', '<=', $toAmount);
         })->when(isset($isClientOwes), function (Builder $q, bool $isClientOwes) {
             $q->where('is_client_owes', $isClientOwes);
+        })->when($status, function (Builder $q, string $status) {
+            $q->where('status', $status);
         });
     }
 }

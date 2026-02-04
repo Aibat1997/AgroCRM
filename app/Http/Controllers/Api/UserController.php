@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    function profile()
+    public function profile()
     {
         $user = Auth::user();
         return $this->return_success(new UserResource($user));
