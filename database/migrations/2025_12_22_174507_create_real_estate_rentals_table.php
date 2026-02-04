@@ -21,7 +21,6 @@ return new class extends Migration
             $table->unsignedMediumInteger('amount');
             $table->decimal('area', 8, 2)->nullable();
             $table->foreignId('unit_id')->nullable()->constrained('units')->onDelete('cascade');
-            $table->string('contract')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
@@ -69,12 +69,10 @@ class Transaction extends Model
     }
 
     /**
-     * Get all of the files for the Transaction
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Get all of the Transaction's files.
      */
-    public function files(): HasMany
+    public function files(): MorphMany
     {
-        return $this->hasMany(TransactionFile::class, 'transaction_id', 'id');
+        return $this->morphMany(File::class, 'fileable');
     }
 }

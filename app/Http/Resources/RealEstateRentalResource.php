@@ -24,7 +24,7 @@ class RealEstateRentalResource extends JsonResource
             'amount' => $this->amount,
             'area' => $this->area,
             'unit' =>  new UnitResource($this->unit),
-            'contract' => $this->contract,
+            'contract' => new FileResource($this->file),
             'note' => $this->note,
             'created_at' => $this->created_at,
         ];

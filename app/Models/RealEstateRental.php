@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Attributes\RealEstateRentalAttribute;
 use App\Models\Scopes\RealEstateRentalScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RealEstateRental extends Model
 {
-    use SoftDeletes, RealEstateRentalScope, RealEstateRentalAttribute;
+    use SoftDeletes, RealEstateRentalScope;
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +26,6 @@ class RealEstateRental extends Model
         'amount',
         'area',
         'unit_id',
-        'contract',
         'note',
     ];
 
@@ -75,5 +74,13 @@ class RealEstateRental extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_id', 'id');
+    }
+
+    /**
+     * Get the RealEstateRental's file.
+     */
+    public function file(): MorphOne
+    {
+        return $this->morphOne(File::class, 'fileable');
     }
 }

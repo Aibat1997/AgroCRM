@@ -8,6 +8,7 @@ use App\Contracts\DocumentUploadServiceInterface;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class RealEstateRentalService
@@ -25,21 +26,30 @@ class RealEstateRentalService
     public function store(RealEstateRentalDTO $dto): RealEstateRental
     {
         try {
-            $documentUrl = $this->handleDocumentUpload($dto->contract);
             $client = $this->clientService->findOrCreateByIdentifier($dto);
 
-            return RealEstateRental::create([
-                'real_estate_id' => $dto->real_estate_id,
-                'client_id' => $client->id,
-                'from_date' => $dto->from_date,
-                'to_date' => $dto->to_date,
-                'payment_frequency_id' => $dto->payment_frequency_id,
-                'amount' => $dto->amount,
-                'area' => $dto->area,
-                'unit_id' => $dto->unit_id,
-                'contract' => $documentUrl,
-                'note' => $dto->note,
-            ]);
+            return DB::transaction(function () use ($dto, $client): RealEstateRental {
+                $realEstateRental = RealEstateRental::create([
+                    'real_estate_id' => $dto->real_estate_id,
+                    'client_id' => $client->id,
+                    'from_date' => $dto->from_date,
+                    'to_date' => $dto->to_date,
+                    'payment_frequency_id' => $dto->payment_frequency_id,
+                    'amount' => $dto->amount,
+                    'area' => $dto->area,
+                    'unit_id' => $dto->unit_id,
+                    'note' => $dto->note,
+                ]);
+
+                if (!is_null($dto->contract)) {
+                    $realEstateRental->file()->create([
+                        'original_name' => $dto->contract->getClientOriginalName(),
+                        'url' => $this->handleDocumentUpload($dto->contract),
+                    ]);
+                }
+
+                return $realEstateRental;
+            });
         } catch (Exception $e) {
             Log::error('Failed to store real estate rental', [
                 'error' => $e->getMessage(),
@@ -59,25 +69,28 @@ class RealEstateRentalService
         try {
             $client = $this->clientService->findOrCreateByIdentifier($dto);
 
-            $updateData = [
-                'real_estate_id' => $dto->real_estate_id,
-                'client_id' => $client->id,
-                'from_date' => $dto->from_date,
-                'to_date' => $dto->to_date,
-                'payment_frequency_id' => $dto->payment_frequency_id,
-                'amount' => $dto->amount,
-                'area' => $dto->area,
-                'unit_id' => $dto->unit_id,
-                'note' => $dto->note,
-            ];
+            return DB::transaction(function () use ($dto, $client, $realEstateRental) {
+                $realEstateRental->update([
+                    'real_estate_id' => $dto->real_estate_id,
+                    'client_id' => $client->id,
+                    'from_date' => $dto->from_date,
+                    'to_date' => $dto->to_date,
+                    'payment_frequency_id' => $dto->payment_frequency_id,
+                    'amount' => $dto->amount,
+                    'area' => $dto->area,
+                    'unit_id' => $dto->unit_id,
+                    'note' => $dto->note,
+                ]);
 
-            if (!is_null($dto->contract)) {
-                $updateData['contract'] = $this->handleDocumentUpload($dto->contract);
-            }
+                if (!is_null($dto->contract)) {
+                    $realEstateRental->file()->updateOrCreate([
+                        'original_name' => $dto->contract->getClientOriginalName(),
+                        'url' => $this->handleDocumentUpload($dto->contract)
+                    ]);
+                }
 
-            $realEstateRental->update(array_filter($updateData));
-
-            return $realEstateRental;
+                return $realEstateRental;
+            });
         } catch (Exception $e) {
             Log::error('Failed to update real estate rental', [
                 'error' => $e->getMessage(),
@@ -91,12 +104,8 @@ class RealEstateRentalService
     /**
      * Handle document upload with error handling
      */
-    private function handleDocumentUpload(?UploadedFile $document = null): ?string
+    private function handleDocumentUpload(UploadedFile $document): string
     {
-        if ($document === null) {
-            return null;
-        }
-
         try {
             return $this->documentUploadService->upload($document, 'estate_rentals/contracts');
         } catch (Exception $e) {
