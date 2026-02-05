@@ -42,44 +42,33 @@ Route::name('api.')->group(function () {
 
         Route::get('user', [UserController::class, 'profile']);
 
-        Route::apiResource('company', CompanyController::class)->except(['index']);
+        Route::apiResource('companies', CompanyController::class)->except(['index']);
 
-        Route::get('employees', [EmployeeController::class, 'index']);
-        Route::apiResource('employee', EmployeeController::class)->except(['index']);
+        Route::apiResource('employees', EmployeeController::class);
 
-        Route::get('clients', [ClientController::class, 'index']);
-        Route::apiResource('client', ClientController::class)->except(['index']);
+        Route::apiResource('clients', ClientController::class);
 
-        Route::get('warehouses', [WarehouseController::class, 'index']);
-        Route::apiResource('warehouse', WarehouseController::class)->except(['index']);
+        Route::apiResource('warehouses', WarehouseController::class);
 
-        Route::get('warehouse-items', [WarehouseItemController::class, 'index']);
-        Route::apiResource('warehouse-item', WarehouseItemController::class)->except(['index']);
+        Route::apiResource('warehouse-items', WarehouseItemController::class);
 
-        Route::get('machineries', [MachineryController::class, 'index']);
-        Route::apiResource('machinery', MachineryController::class)->except(['index']);
+        Route::apiResource('machineries', MachineryController::class);
 
-        Route::get('real-estates', [RealEstateController::class, 'index']);
-        Route::apiResource('real-estate', RealEstateController::class)->except(['index']);
+        Route::apiResource('real-estates', RealEstateController::class);
 
-        Route::get('cotton-preparations', [CottonPreparationController::class, 'index']);
         Route::post('cotton-preparation-weigher', [CottonPreparationController::class, 'storeWeigherData'])->can('storeWeigherData', CottonPreparation::class);
         Route::post('cotton-preparation-laboratorian/{cottonPreparation}', [CottonPreparationController::class, 'storeLaboratorianData'])->can('storeLaboratorianData', CottonPreparation::class);
-        Route::apiResource('cotton-preparation', CottonPreparationController::class)->except(['index', 'store']);
+        Route::apiResource('cotton-preparations', CottonPreparationController::class)->except('store');
 
         Route::post('cotton-purchase-price', [CottonPurchasePriceController::class, 'store'])->can('create', CottonPurchasePrice::class);
 
-        Route::get('real-estate-rentals', [RealEstateRentalController::class, 'index']);
-        Route::apiResource('real-estate-rental', RealEstateRentalController::class)->except(['index']);
+        Route::apiResource('real-estate-rentals', RealEstateRentalController::class);
 
-        Route::get('user-tasks', [UserTaskController::class, 'index']);
-        Route::apiResource('user-task', UserTaskController::class)->except(['index', 'update']);
+        Route::apiResource('user-tasks', UserTaskController::class)->except('update');
 
-        Route::get('applications', [ApplicationController::class, 'index']);
-        Route::apiResource('application', ApplicationController::class)->except(['index']);
+        Route::apiResource('applications', ApplicationController::class);
 
-        Route::get('debts', [DebtController::class, 'index']);
-        Route::apiResource('debt', DebtController::class)->except(['index']);
+        Route::apiResource('debts', DebtController::class);
         Route::post('debt/{debt}/status', [DebtController::class, 'updateStatus']);
         Route::get('debt-paying-with-cotton', [DebtController::class, 'payingWithCotton']);
     });
