@@ -30,6 +30,8 @@ class UpdateRealEstateRequest extends FormRequest
             'rented_from' => 'nullable|date',
             'rented_to' => 'nullable|date|after:rented_from',
             'note' => 'nullable|string',
+            'files' => 'nullable|array',
+            'files.*' => 'file|mimes:pdf,doc,docx',
         ];
     }
 }

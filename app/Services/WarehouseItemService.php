@@ -21,7 +21,6 @@ class WarehouseItemService
     /**
      * Create a new warehouse item
      * 
-     * @var Currency $currency 
      * @throws Exception
      */
     public function store(WarehouseItemDTO $dto): WarehouseItem

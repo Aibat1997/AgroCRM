@@ -69,7 +69,7 @@ class RealEstateRentalService
         try {
             $client = $this->clientService->findOrCreateByIdentifier($dto);
 
-            return DB::transaction(function () use ($dto, $client, $realEstateRental) {
+            return DB::transaction(function () use ($dto, $client, $realEstateRental): RealEstateRental {
                 $realEstateRental->update([
                     'real_estate_id' => $dto->real_estate_id,
                     'client_id' => $client->id,

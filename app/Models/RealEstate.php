@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Scopes\RealEstateScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RealEstate extends Model
@@ -52,5 +53,13 @@ class RealEstate extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_id', 'id');
+    }
+
+    /**
+     * Get all of the RealEstate's files.
+     */
+    public function files(): MorphMany
+    {
+        return $this->morphMany(File::class, 'fileable');
     }
 }

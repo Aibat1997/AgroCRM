@@ -24,6 +24,7 @@ class RealEstateResource extends JsonResource
             'rented_from' => $this->rented_from,
             'rented_to' => $this->rented_to,
             'note' => $this->note,
+            'files' => FileResource::collection($this->files),
         ];
     }
 }
