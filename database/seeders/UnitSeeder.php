@@ -31,6 +31,11 @@ class UnitSeeder extends Seeder
                 'type' => UnitType::COUNT,
             ],
             [
+                'title_ru' => 'мешок',
+                'title_kk' => 'мешок',
+                'type' => UnitType::COUNT,
+            ],
+            [
                 'title_ru' => 'т',
                 'title_kk' => 'т',
                 'type' => UnitType::WEIGHT,

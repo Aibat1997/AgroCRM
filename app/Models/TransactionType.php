@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Attributes\TitleAttribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TransactionType extends Model
@@ -26,4 +27,14 @@ class TransactionType extends Model
         'title_ru',
         'title_kk',
     ];
+
+    /**
+     * Get all of the form_fields for the TransactionType
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function form_fields(): HasMany
+    {
+        return $this->hasMany(TransactionFormField::class, 'transaction_type_id', 'id');
+    }
 }

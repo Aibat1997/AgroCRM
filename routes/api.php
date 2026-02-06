@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\RealEstateController;
 use App\Http\Controllers\Api\RealEstateRentalController;
 use App\Http\Controllers\Api\RealEstateTypeController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\UserTaskController;
@@ -71,5 +72,7 @@ Route::name('api.')->group(function () {
         Route::apiResource('debts', DebtController::class);
         Route::post('debt/{debt}/status', [DebtController::class, 'updateStatus']);
         Route::get('debt-paying-with-cotton', [DebtController::class, 'payingWithCotton']);
+
+        Route::apiResource('transactions', TransactionController::class);
     });
 });
