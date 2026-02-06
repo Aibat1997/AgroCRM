@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Attributes\TransactionFormFieldAttribute;
+use App\Models\Scopes\TransactionFormFieldScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TransactionFormField extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, TransactionFormFieldAttribute, TransactionFormFieldScope;
 
     /**
      * The attributes that are mass assignable.
@@ -38,7 +40,6 @@ class TransactionFormField extends Model
     {
         return [
             'field_attributes' => 'array',
-            'field_validation' => 'array',
             'is_required' => 'boolean',
         ];
     }
