@@ -54,7 +54,6 @@ class WarehouseItemService
     /**
      * Update an existing warehouse item
      * 
-     * @var Currency $currency 
      * @throws ModelNotFoundException|Exception
      */
     public function update(WarehouseItemDTO $dto, WarehouseItem $warehouseItem): WarehouseItem
@@ -77,6 +76,7 @@ class WarehouseItemService
             }
 
             if ($dto->currency_id !== $warehouseItem->currency_id) {
+                /** @var Currency $currency */
                 $currency = $this->getCurrency($dto->currency_id);
                 $updateData['currency_rate'] = $currency->in_local_currency;
             }
