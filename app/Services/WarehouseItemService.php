@@ -32,6 +32,7 @@ class WarehouseItemService
             return WarehouseItem::create([
                 'warehouse_id' => $dto->warehouse_id,
                 'title' => $dto->title,
+                'article_number' => $dto->article_number,
                 'quantity' => $dto->quantity,
                 'unit_id' => $dto->unit_id,
                 'currency_id' => $dto->currency_id,
@@ -62,6 +63,7 @@ class WarehouseItemService
             $updateData = [
                 'warehouse_id' => $dto->warehouse_id,
                 'title' => $dto->title,
+                'article_number' => $dto->article_number,
                 'quantity' => $dto->quantity,
                 'unit_id' => $dto->unit_id,
                 'currency_id' => $dto->currency_id,

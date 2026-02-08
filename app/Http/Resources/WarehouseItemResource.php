@@ -17,6 +17,7 @@ class WarehouseItemResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'article_number' => $this->article_number,
             'quantity' => $this->quantity,
             'unit' =>  new UnitResource($this->unit),
             'currency' =>  new CurrencyResource($this->currency),

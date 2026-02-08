@@ -11,6 +11,7 @@ trait WarehouseItemScope
         $id = (array)($filters['id'] ?? []);
         $warehouseId = $filters['warehouse_id'] ?? null;
         $title = $filters['title'] ?? null;
+        $articleNumber = $filters['article_number'] ?? null;
 
         $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
@@ -18,6 +19,8 @@ trait WarehouseItemScope
             $q->where('warehouse_id', $warehouseId);
         })->when($title, function (Builder $q, string $title) {
             $q->where('title', 'LIKE', "{$title}%");
+        })->when($articleNumber, function (Builder $q, string $articleNumber) {
+            $q->where('article_number', 'LIKE', "{$articleNumber}%");
         });
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('warehouse_id')->constrained('warehouses')->onDelete('cascade');
             $table->string('title')->index();
+            $table->string('article_number')->nullable()->index();
             $table->unsignedMediumInteger('quantity');
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
             $table->foreignId('currency_id')->constrained('currencies')->onDelete('cascade');
