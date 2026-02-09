@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedMediumInteger('amount');
             $table->string('description');
             $table->boolean('is_income');
-            $table->date('transaction_date');
+            $table->dateTime('committed_at');
             $table->timestamps();
             $table->softDeletes();
         });

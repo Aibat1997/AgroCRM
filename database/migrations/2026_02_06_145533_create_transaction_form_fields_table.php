@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('field_label_ru');
             $table->string('field_label_kk');
             $table->string('field_tag');
-            $table->string('field_name');
+            $table->string('field_name')->index();
             $table->string('field_type')->nullable();
             $table->string('field_values_url')->nullable();
             $table->string('field_attributes')->nullable();

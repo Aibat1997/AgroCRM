@@ -20,7 +20,7 @@ class TransactionFormFieldSeeder extends Seeder
                 'field_label_ru' => 'Название товара',
                 'field_label_kk' => 'Тауардың атауы',
                 'field_tag' => 'input',
-                'field_name' => 'title',
+                'field_name' => 'warehouse_item_title',
                 'field_type' => 'text',
                 'field_values_url' => null,
                 'field_attributes' => json_encode([
@@ -35,7 +35,7 @@ class TransactionFormFieldSeeder extends Seeder
                 'field_label_ru' => 'Артикул товара',
                 'field_label_kk' => 'Тауардың артикуласы',
                 'field_tag' => 'input',
-                'field_name' => 'article_number',
+                'field_name' => 'warehouse_item_article_number',
                 'field_type' => 'text',
                 'field_values_url' => null,
                 'field_attributes' => json_encode([

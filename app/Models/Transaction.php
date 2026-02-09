@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,7 +24,7 @@ class Transaction extends Model
         'amount',
         'description',
         'is_income',
-        'transaction_date',
+        'committed_at',
     ];
 
     /**
@@ -74,5 +75,15 @@ class Transaction extends Model
     public function files(): MorphMany
     {
         return $this->morphMany(File::class, 'fileable');
+    }
+
+    /**
+     * Get all of the transaction details for the Transaction
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactionDetails(): HasMany
+    {
+        return $this->hasMany(TransactionDetail::class, 'transaction_id', 'id');
     }
 }
