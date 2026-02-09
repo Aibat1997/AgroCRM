@@ -16,7 +16,7 @@ class RealEstateRentalController extends Controller
 
     public function index(Request $request)
     {
-        $realEstateRentals = RealEstateRental::with(['real_estate', 'payment_frequency', 'file'])->filter($request->all())->paginate(15);
+        $realEstateRentals = RealEstateRental::with('file')->filter($request->all())->paginate(15);
         return RealEstateRentalResource::collection($realEstateRentals)->additional(['success' => true]);
     }
 
