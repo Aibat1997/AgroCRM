@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('company_balances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
-            $table->decimal('balance', 15, 2)->default(0);
+            $table->bigInteger('balance')->default(0);
             $table->softDeletes();
         });
     }
