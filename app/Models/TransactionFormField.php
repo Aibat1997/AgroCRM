@@ -45,11 +45,11 @@ class TransactionFormField extends Model
     }
 
     /**
-     * Get the transaction_type that owns the TransactionFormField
+     * Get the transaction type that owns the TransactionFormField
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function transaction_type(): BelongsTo
+    public function transactionType(): BelongsTo
     {
         return $this->belongsTo(TransactionType::class, 'transaction_type_id', 'id');
     }

@@ -33,14 +33,14 @@ class RealEstate extends Model
      *
      * @var array
      */
-    protected $with = ['real_estate_type', 'unit'];
+    protected $with = ['realEstateType', 'unit'];
 
     /**
-     * Get the real_estate_type that owns the RealEstate
+     * Get the real estate type that owns the RealEstate
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function real_estate_type(): BelongsTo
+    public function realEstateType(): BelongsTo
     {
         return $this->belongsTo(RealEstateType::class, 'real_estate_type_id', 'id');
     }

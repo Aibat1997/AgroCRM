@@ -16,11 +16,11 @@ class RealEstateRentalResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'real_estate' => new MinimalRealEstateResource($this->real_estate),
+            'real_estate' => new MinimalRealEstateResource($this->realEstate),
             'client' => new ClientResource($this->client),
             'from_date' => $this->from_date,
             'to_date' => $this->to_date,
-            'payment_frequency' => new PaymentFrequencyResource($this->payment_frequency),
+            'payment_frequency' => new PaymentFrequencyResource($this->paymentFrequency),
             'amount' => $this->amount,
             'area' => $this->area,
             'unit' =>  new UnitResource($this->unit),

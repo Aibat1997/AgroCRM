@@ -16,7 +16,7 @@ class RealEstateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'real_estate_type' => new RealEstateTypeResource($this->real_estate_type),
+            'real_estate_type' => new RealEstateTypeResource($this->realEstateType),
             'address' => $this->address,
             'area' => $this->area,
             'unit' =>  new UnitResource($this->unit),

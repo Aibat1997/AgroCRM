@@ -29,11 +29,11 @@ class TransactionType extends Model
     ];
 
     /**
-     * Get all of the form_fields for the TransactionType
+     * Get all of the form fields for the TransactionType
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function form_fields(): HasMany
+    public function formFields(): HasMany
     {
         return $this->hasMany(TransactionFormField::class, 'transaction_type_id', 'id');
     }
