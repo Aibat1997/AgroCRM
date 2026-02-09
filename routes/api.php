@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\DebtController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\MachineryController;
 use App\Http\Controllers\Api\PaymentFrequencyController;
+use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\RealEstateController;
 use App\Http\Controllers\Api\RealEstateRentalController;
 use App\Http\Controllers\Api\RealEstateTypeController;
@@ -39,6 +40,7 @@ Route::name('api.')->group(function () {
     Route::get('payment-frequencies', [PaymentFrequencyController::class, 'index']);
     Route::get('cotton-purchase-price', [CottonPurchasePriceController::class, 'index']);
     Route::get('transaction-form-fields', [TransactionFormFieldController::class, 'index']);
+    Route::get('payment-methods', [PaymentMethodController::class, 'index']);
 
     Route::middleware(['auth:api'])->group(function () {
         Route::post('logout', [AuthorizationController::class, 'logout']);

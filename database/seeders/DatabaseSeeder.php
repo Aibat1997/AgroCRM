@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             CottonPurchasePriceSeeder::class,
             TransactionTypeSeeder::class,
             TransactionFormFieldSeeder::class,
+            PaymentMethodSeeder::class,
         ]);
     }
 }
