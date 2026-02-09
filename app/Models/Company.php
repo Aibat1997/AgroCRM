@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Company extends Model
 {
@@ -71,5 +72,15 @@ class Company extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class, 'company_id', 'id');
+    }
+
+    /**
+     * Get the balance associated with the Company
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function balance(): HasOne
+    {
+        return $this->hasOne(CompanyBalance::class, 'company_id', 'id');
     }
 }

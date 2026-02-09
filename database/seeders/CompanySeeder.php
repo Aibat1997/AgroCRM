@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Company;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class CompanySeeder extends Seeder
 {
@@ -13,7 +12,7 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('companies')->insert([
+        $companies = [
             [
                 'parent_id' => null,
                 'name' => 'МАКТАЛЫ AGRO',
@@ -54,6 +53,10 @@ class CompanySeeder extends Seeder
                 'parent_id' => 2,
                 'name' => 'KAVS Макталы',
             ],
-        ]);
+        ];
+
+        foreach ($companies as $data) {
+            Company::create($data);
+        }
     }
 }
