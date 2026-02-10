@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\RealEstateTypeController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\TransactionFormFieldController;
+use App\Http\Controllers\Api\TransactionTypeController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\UserTaskController;
@@ -39,6 +40,7 @@ Route::name('api.')->group(function () {
     Route::get('companies', [CompanyController::class, 'index']);
     Route::get('payment-frequencies', [PaymentFrequencyController::class, 'index']);
     Route::get('cotton-purchase-price', [CottonPurchasePriceController::class, 'index']);
+    Route::get('transaction-types', [TransactionTypeController::class, 'index']);
     Route::get('transaction-form-fields', [TransactionFormFieldController::class, 'index']);
     Route::get('payment-methods', [PaymentMethodController::class, 'index']);
 

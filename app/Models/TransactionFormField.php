@@ -55,6 +55,7 @@ class TransactionFormField extends Model
      */
     public function transactionTypes(): BelongsToMany
     {
-        return $this->belongsToMany(TransactionType::class, 'transaction_type_form_fields', 'transaction_form_field_id', 'transaction_type_id');
+        return $this->belongsToMany(TransactionType::class, 'transaction_type_form_fields', 'transaction_form_field_id', 'transaction_type_id')
+            ->withPivot('is_required', 'sort_num');
     }
 }
