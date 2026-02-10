@@ -16,6 +16,20 @@ class TransactionFormFieldSeeder extends Seeder
         DB::table('transaction_form_fields')->insert([
             [
                 'parent_id' => null,
+                'field_title_ru' => 'Склад',
+                'field_title_kk' => 'Склад',
+                'field_tag' => 'select',
+                'field_name' => 'warehouse_id',
+                'field_type' => null,
+                'field_values_url' => '/api/warehouses',
+                'field_attributes' => json_encode([
+                    'placeholder' => 'Выберите склад',
+                    'multiple' => false,
+                ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
+                'field_validation' => "integer|exists:warehouses,id",
+            ],
+            [
+                'parent_id' => null,
                 'field_title_ru' => 'Название товара',
                 'field_title_kk' => 'Тауардың атауы',
                 'field_tag' => 'input',

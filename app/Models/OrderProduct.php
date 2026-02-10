@@ -37,8 +37,8 @@ class OrderProduct extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function wareHouseItem(): BelongsTo
+    public function warehouseItem(): BelongsTo
     {
-        return $this->belongsTo(WareHouseItem::class, 'warehouse_item_id', 'id');
+        return $this->belongsTo(WarehouseItem::class, 'warehouse_item_id', 'id');
     }
 }
