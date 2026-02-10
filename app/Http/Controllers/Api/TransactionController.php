@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\DTO\TransactionDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Transaction\TransactionRequest;
+use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class TransactionController extends Controller
 
     public function index(Request $request)
     {
-        //
+        $transactions = Transaction::with(['transactionType', 'company', 'user', 'transactionDetails'])->latest('committed_at')->paginate(15);
+        return TransactionResource::collection($transactions)->additional(['success' => true]);
     }
 
     public function store(TransactionRequest $request)
@@ -26,12 +28,12 @@ class TransactionController extends Controller
         $dto = TransactionDTO::fromArray($request->validated());
         $transaction = $this->transactionService->store($dto, $user);
 
-        return response()->json($transaction, 201);
+        return $this->return_success(new TransactionResource($transaction));
     }
 
     public function show(Transaction $transaction)
     {
-        //
+        return $this->return_success(new TransactionResource($transaction));
     }
 
     public function update(TransactionRequest $request, Transaction $transaction)
@@ -39,12 +41,13 @@ class TransactionController extends Controller
         $dto = TransactionDTO::fromArray($request->validated());
         $this->transactionService->update($dto, $transaction);
 
-        return response()->json($transaction, 200);
+        return $this->return_success(new TransactionResource($transaction));
     }
 
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+        return $this->return_success();
     }
 
     public function restore(Transaction $transaction)
