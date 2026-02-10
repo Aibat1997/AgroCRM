@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Scopes\TransactionTypeFormFieldScope;
 
 class TransactionTypeFormField extends Model
 {
+    use TransactionTypeFormFieldScope;
+
     /**
      * Indicates if the model should be timestamped.
      *

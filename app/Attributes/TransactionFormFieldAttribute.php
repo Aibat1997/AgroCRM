@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 trait TransactionFormFieldAttribute
 {
-    protected function fieldLabel(): Attribute
+    protected function fieldTitle(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this["field_label_" . app()->getLocale()],
+            get: fn() => $this["field_title_" . app()->getLocale()],
         );
     }
 

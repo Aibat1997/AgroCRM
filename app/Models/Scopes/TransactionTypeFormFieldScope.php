@@ -4,7 +4,7 @@ namespace App\Models\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait TransactionFormFieldScope
+trait TransactionTypeFormFieldScope
 {
     public function scopeFilter(Builder $query, $filters = []): void
     {
@@ -14,7 +14,7 @@ trait TransactionFormFieldScope
         $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($transactionTypeId, function (Builder $q, int $transactionTypeId) {
-            $q->whereRelation('transactionTypes', 'transaction_type_id', $transactionTypeId);
+            $q->where('transaction_type_id', $transactionTypeId);
         });
     }
 }
