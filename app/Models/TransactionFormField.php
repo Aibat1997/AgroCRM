@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Attributes\TransactionFormFieldAttribute;
 use App\Models\Scopes\TransactionFormFieldScope;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TransactionFormField extends Model
@@ -13,22 +13,27 @@ class TransactionFormField extends Model
     use SoftDeletes, TransactionFormFieldAttribute, TransactionFormFieldScope;
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'transaction_type_id',
-        'field_label_ru',
-        'field_label_kk',
+        'parent_id',
+        'field_title_ru',
+        'field_title_kk',
         'field_tag',
         'field_name',
         'field_type',
         'field_values_url',
         'field_attributes',
         'field_validation',
-        'is_required',
-        'sort_num',
     ];
 
     /**
@@ -40,17 +45,16 @@ class TransactionFormField extends Model
     {
         return [
             'field_attributes' => 'array',
-            'is_required' => 'boolean',
         ];
     }
 
     /**
-     * Get the transaction type that owns the TransactionFormField
+     * The transaction types that belong to the TransactionFormField
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function transactionType(): BelongsTo
+    public function transactionTypes(): BelongsToMany
     {
-        return $this->belongsTo(TransactionType::class, 'transaction_type_id', 'id');
+        return $this->belongsToMany(TransactionType::class, 'transaction_type_form_fields', 'transaction_form_field_id', 'transaction_type_id');
     }
 }

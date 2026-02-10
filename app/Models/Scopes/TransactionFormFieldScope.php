@@ -14,7 +14,7 @@ trait TransactionFormFieldScope
         $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($transactionTypeId, function (Builder $q, int $transactionTypeId) {
-            $q->where('transaction_type_id', $transactionTypeId);
+            $q->whereRelation('transaction_types', 'transaction_type_id', $transactionTypeId);
         });
     }
 }
