@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class PurchaseTransactionHandler implements TransactionHandlerInterface
 {
+    public function __construct(private readonly StoreTransactionDetailData $detailService) {}
+
     public function handle(TransactionDTO $dto, User $user): Transaction
     {
         return DB::transaction(function () use ($dto, $user): Transaction {
@@ -22,6 +24,10 @@ class PurchaseTransactionHandler implements TransactionHandlerInterface
                 'is_income' => false,
                 'committed_at' => now(),
             ]);
+
+            if (!is_null($dto->additional_fields)) {
+                $this->detailService->handleTransactionDetail($transaction, $dto->additional_fields);
+            }
 
             return $transaction;
         });

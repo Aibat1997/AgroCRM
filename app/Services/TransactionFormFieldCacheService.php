@@ -31,6 +31,11 @@ final class TransactionFormFieldCacheService
         return $this->getTransactionFormFields()->get($id);
     }
 
+    public function getTransactionFormFieldByTypeId(int $typeId): ?Collection
+    {
+        return $this->getTransactionFormFieldsByTypeId()->get($typeId, collect());
+    }
+
     public function clearCache(): void
     {
         Cache::forget(self::CACHE_KEY);

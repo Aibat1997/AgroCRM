@@ -34,15 +34,16 @@ class TransactionService
     private function resolveHandler(int $transactionTypeId): TransactionHandlerInterface
     {
         return match ($transactionTypeId) {
-            TransactionTypeId::PURCHASE->value => new PurchaseTransactionHandler(),
-            TransactionTypeId::SALE->value => new SaleTransactionHandler(),
-            TransactionTypeId::REPAYMENT_OF_A_CREDIT_OR_LOAN->value => new RepaymentOfCreditTransactionHandler(),
-            TransactionTypeId::OBTAINING_A_CREDIT_OR_LOAN->value => new ObtainingCreditTransactionHandler(),
-            TransactionTypeId::PAYMENT_OF_FEES_AND_SERVICES->value => new PaymentOfFeesTransactionHandler(),
-            TransactionTypeId::PROVISION_OF_SERVICES->value => new ProvisionOfServicesTransactionHandler(),
-            TransactionTypeId::PROVISION_OF_FINANCIAL_ASSISTANCE->value => new ProvisionOfFinancialAssistanceTransactionHandler(),
-            TransactionTypeId::RECEIVING_FINANCIAL_ASSISTANCE->value => new ReceivingFinancialAssistanceTransactionHandler(),
-            TransactionTypeId::TAX_PAYMENTS->value => new TaxPaymentsTransactionHandler(),
+            TransactionTypeId::PURCHASE->value => app(PurchaseTransactionHandler::class),
+            TransactionTypeId::SALE->value => app(SaleTransactionHandler::class),
+            TransactionTypeId::REPAYMENT_OF_A_CREDIT_OR_LOAN->value => app(RepaymentOfCreditTransactionHandler::class),
+            TransactionTypeId::OBTAINING_A_CREDIT_OR_LOAN->value => app(ObtainingCreditTransactionHandler::class),
+            TransactionTypeId::PAYMENT_OF_FEES_AND_SERVICES->value => app(PaymentOfFeesTransactionHandler::class),
+            TransactionTypeId::PROVISION_OF_SERVICES->value => app(ProvisionOfServicesTransactionHandler::class),
+            TransactionTypeId::PROVISION_OF_FINANCIAL_ASSISTANCE->value => app(ProvisionOfFinancialAssistanceTransactionHandler::class),
+            TransactionTypeId::RECEIVING_FINANCIAL_ASSISTANCE->value => app(ReceivingFinancialAssistanceTransactionHandler::class),
+            TransactionTypeId::TAX_PAYMENTS->value => app(TaxPaymentsTransactionHandler::class),
+            default => throw new \InvalidArgumentException("Unsupported transaction type ID: $transactionTypeId"),
         };
     }
 }

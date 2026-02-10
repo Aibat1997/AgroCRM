@@ -27,7 +27,7 @@ class TransactionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $transactionFormFields = $this->transactionFormFieldCacheService->getTransactionFormFieldsByTypeId()->get($this->input('transaction_type_id'), collect());
+        $transactionFormFields = $this->transactionFormFieldCacheService->getTransactionFormFieldByTypeId($this->input('transaction_type_id'));
         $additionalFieldRules = [];
 
         foreach ($transactionFormFields as $field) {

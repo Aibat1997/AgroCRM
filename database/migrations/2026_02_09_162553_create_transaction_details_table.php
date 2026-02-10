@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaction_details', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('transaction_id')->constrained('transactions')->onDelete('cascade');
             $table->foreignId('transaction_form_field_id')->constrained('transaction_form_fields')->onDelete('cascade');
             $table->text('field_value');
+
+            $table->primary(['transaction_id', 'transaction_form_field_id']);
         });
     }
 
