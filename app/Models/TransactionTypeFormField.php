@@ -2,20 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Scopes\TransactionTypeFormFieldScope;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class TransactionTypeFormField extends Model
+class TransactionTypeFormField extends Pivot
 {
     use TransactionTypeFormFieldScope;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
