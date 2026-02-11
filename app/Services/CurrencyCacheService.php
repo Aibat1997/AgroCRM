@@ -9,7 +9,7 @@ use App\Models\Currency;
 final class CurrencyCacheService
 {
     private const CACHE_KEY = 'currencies_all';
-    private const CACHE_TTL = 3600 * 3; // 3 hours
+    private const CACHE_TTL = 3600 * 5; // 5 hours
 
     public function getCurrencies(): Collection
     {

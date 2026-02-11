@@ -15,7 +15,7 @@ class CottonPurchasePriceController extends Controller
 
     public function index(Request $request)
     {
-        $cottonPurchasePrice = CottonPurchasePrice::latest()->first();
+        $cottonPurchasePrice = $this->cottonPurchasePriceCacheService->getLatestCottonPurchasePrice();
         return $this->return_success(new CottonPurchasePriceResource($cottonPurchasePrice));
     }
 
