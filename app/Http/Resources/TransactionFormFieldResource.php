@@ -15,14 +15,14 @@ class TransactionFormFieldResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->transactionFormField->id,
-            'field_title' => $this->transactionFormField->field_title,
-            'field_tag' => $this->transactionFormField->field_tag,
-            'field_name' => $this->transactionFormField->field_name,
-            'field_type' => $this->transactionFormField->field_type,
-            'field_values_url' => $this->transactionFormField->field_values_url,
-            'field_attributes' => $this->transactionFormField->field_attributes,
-            'is_required' => $this->is_required,
+            'id' => $this->id,
+            'field_title' => $this->field_title,
+            'field_tag' => $this->field_tag,
+            'field_name' => $this->field_name,
+            'field_type' => $this->field_type,
+            'field_values_url' => $this->field_values_url,
+            'field_attributes' => $this->field_attributes,
+            'is_required' => $this->pivot->is_required,
         ];
     }
 }
