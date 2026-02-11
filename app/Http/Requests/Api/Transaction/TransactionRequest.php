@@ -31,7 +31,7 @@ class TransactionRequest extends FormRequest
         $additionalFieldRules = [];
 
         foreach ($transactionFormFields as $field) {
-            if ($field->is_required) {
+            if ($field->pivot->is_required) {
                 $additionalFieldRules['additional_fields.' . $field->field_name] = 'required|' . $field->field_validation;
             } else {
                 $additionalFieldRules['additional_fields.' . $field->field_name] = 'nullable|' . $field->field_validation;
