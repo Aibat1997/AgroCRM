@@ -20,9 +20,9 @@ class ApplicationController extends Controller
         $user = Auth::user();
 
         if ($user->role_id == UserRoleId::OWNER) {
-            $applications = Application::with('user')->filter($request->all())->paginate(15);
+            $applications = Application::with('author')->filter($request->all())->paginate(15);
         } else {
-            $applications = Application::with('user')->where('user_id', $user->id)->paginate(15);
+            $applications = Application::with('author')->where('author_id', $user->id)->paginate(15);
         }
 
         return ApplicationResource::collection($applications)->additional(['success' => true]);

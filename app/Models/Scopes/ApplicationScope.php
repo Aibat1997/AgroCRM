@@ -9,15 +9,15 @@ trait ApplicationScope
     public function scopeFilter(Builder $query, $filters = []): void
     {
         $id = (array)($filters['id'] ?? []);
-        $userName = $filters['user_name'] ?? null;
+        $authorName = $filters['author_name'] ?? null;
         $description = $filters['description'] ?? null;
         $status = $filters['status'] ?? null;
 
         $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
-        })->when($userName, function (Builder $q, string $userName) {
-            $q->whereHas('user', function (Builder $query) use ($userName) {
-                $query->where('name', 'like', "{$userName}%");
+        })->when($authorName, function (Builder $q, string $authorName) {
+            $q->whereHas('author', function (Builder $query) use ($authorName) {
+                $query->where('name', 'like', "{$authorName}%");
             });
         })->when($description, function (Builder $q, string $description) {
             $q->whereRaw("MATCH(description) AGAINST(? IN BOOLEAN MODE)", [$description]);

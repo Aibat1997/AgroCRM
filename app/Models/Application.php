@@ -18,7 +18,7 @@ class Application extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'user_id',
+        'author_id',
         'description',
         'status',
     ];
@@ -36,12 +36,12 @@ class Application extends Model
     }
 
     /**
-     * Get the user that owns the Application
+     * Get the author that owns the Application
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'author_id', 'id');
     }
 }

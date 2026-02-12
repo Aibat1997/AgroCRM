@@ -16,7 +16,7 @@ class ApplicationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => new MinimalUserResource($this->user),
+            'author' => new MinimalUserResource($this->author),
             'description' => $this->description,
             'status' => $this->status,
         ];

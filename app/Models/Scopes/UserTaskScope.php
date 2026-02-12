@@ -10,7 +10,7 @@ trait UserTaskScope
     {
         $id = (array)($filters['id'] ?? []);
         $authorName = $filters['author_name'] ?? null;
-        $userName = $filters['user_name'] ?? null;
+        $executorName = $filters['executor_name'] ?? null;
         $title = $filters['title'] ?? null;
         $startDate = $filters['start_date'] ?? null;
         $finishDate = $filters['finish_date'] ?? null;
@@ -22,9 +22,9 @@ trait UserTaskScope
             $q->whereHas('author', function (Builder $query) use ($authorName) {
                 $query->where('name', 'like', "{$authorName}%");
             });
-        })->when($userName, function (Builder $q, string $userName) {
-            $q->whereHas('user', function (Builder $query) use ($userName) {
-                $query->where('name', 'like', "{$userName}%");
+        })->when($executorName, function (Builder $q, string $executorName) {
+            $q->whereHas('executor', function (Builder $query) use ($executorName) {
+                $query->where('name', 'like', "{$executorName}%");
             });
         })->when($title, function (Builder $q, string $title) {
             $q->where('title', 'LIKE', "{$title}%");
