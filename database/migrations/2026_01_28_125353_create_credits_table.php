@@ -21,8 +21,8 @@ return new class extends Migration
             $table->foreignId('payment_frequency_id')->constrained('payment_frequencies')->onDelete('cascade');
             $table->unsignedMediumInteger('payment_frequency_amount');
             $table->string('description');
-            $table->string('status')->default(CreditStatus::ACTIVE->value)->index();
             $table->date('receipt_date')->index();
+            $table->string('status')->default(CreditStatus::ACTIVE->value)->index();
             $table->timestamps();
             $table->softDeletes();
         });

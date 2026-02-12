@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Enums\CreditStatus;
+use App\Models\Scopes\CreditScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Credit extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, CreditScope;
 
     /**
      * The attributes that are mass assignable.
@@ -23,8 +25,8 @@ class Credit extends Model
         'payment_frequency_id',
         'payment_frequency_amount',
         'description',
-        'status',
         'receipt_date',
+        'status',
     ];
 
     /**
@@ -37,5 +39,15 @@ class Credit extends Model
         return [
             'status' => CreditStatus::class,
         ];
+    }
+
+    /**
+     * Get the payment frequency that owns the Credit
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function paymentFrequency(): BelongsTo
+    {
+        return $this->belongsTo(PaymentFrequency::class, 'payment_frequency_id', 'id');
     }
 }

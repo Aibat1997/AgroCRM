@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\CottonPreparationController;
 use App\Http\Controllers\Api\CottonPurchasePriceController;
+use App\Http\Controllers\Api\CreditController;
 use App\Http\Controllers\Api\CurrencyController;
 use App\Http\Controllers\Api\DebtController;
 use App\Http\Controllers\Api\EmployeeController;
@@ -79,6 +80,8 @@ Route::name('api.')->group(function () {
         Route::apiResource('debts', DebtController::class);
         Route::post('debt/{debt}/status', [DebtController::class, 'updateStatus']);
         Route::get('debt-paying-with-cotton', [DebtController::class, 'payingWithCotton']);
+
+        Route::apiResource('credits', CreditController::class);
 
         Route::apiResource('transactions', TransactionController::class);
     });
