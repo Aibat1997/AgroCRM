@@ -21,10 +21,16 @@ class TransactionTypeSeeder extends Seeder
                 'title_ru' => 'Продажа',
             ],
             [
-                'title_ru' => 'Выплата кредита/займа',
+                'title_ru' => 'Предоставление займа',
             ],
             [
-                'title_ru' => 'Получение кредита/займа',
+                'title_ru' => 'Поступление средств от заемщика',
+            ],
+            [
+                'title_ru' => 'Получение кредита',
+            ],
+            [
+                'title_ru' => 'Оплата кредита',
             ],
             [
                 'title_ru' => 'Оплата платежей и услуг',
@@ -40,6 +46,9 @@ class TransactionTypeSeeder extends Seeder
             ],
             [
                 'title_ru' => 'Налоговые платежи',
+            ],
+            [
+                'title_ru' => 'Оплата за сырье',
             ],
         ]);
     }
