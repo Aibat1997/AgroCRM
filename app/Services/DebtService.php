@@ -6,14 +6,18 @@ use App\DTO\DebtDTO;
 use App\Enums\DebtStatus;
 use App\Models\CottonPreparation;
 use App\Models\Debt;
+use App\Models\User;
+use App\Services\Transaction\LoanProvisionHandler;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class DebtService
 {
     public function __construct(
         private readonly ClientService $clientService,
+        private readonly LoanProvisionHandler $loanProvisionHandler,
     ) {}
 
     /**
@@ -21,21 +25,27 @@ class DebtService
      *
      * @throws Exception
      */
-    public function store(DebtDTO $dto): Debt
+    public function store(DebtDTO $dto, User $user): Debt
     {
         try {
             $client = $this->clientService->findOrCreateByIdentifier($dto);
 
-            return Debt::create([
-                'company_id' => $dto->company_id,
-                'client_id' => $client->id,
-                'amount' => $dto->amount,
-                'percent' => $dto->percent,
-                'issued_at' => $dto->issued_at,
-                'due_date' => $dto->due_date,
-                'description' => $dto->description,
-                'status' => DebtStatus::ACTIVE->value,
-            ]);
+            return DB::transaction(function () use ($dto, $client, $user): Debt {
+                $debt = Debt::create([
+                    'company_id' => $dto->company_id,
+                    'client_id' => $client->id,
+                    'amount' => $dto->amount,
+                    'percent' => $dto->percent,
+                    'issued_at' => $dto->issued_at,
+                    'due_date' => $dto->due_date,
+                    'description' => $dto->description,
+                    'status' => DebtStatus::ACTIVE->value,
+                ]);
+
+                $this->loanProvisionHandler->handle($debt, $user);
+
+                return $debt;
+            });
         } catch (Exception $e) {
             Log::error('Failed to store debt', [
                 'error' => $e->getMessage(),

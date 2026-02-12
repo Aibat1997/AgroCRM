@@ -6,6 +6,7 @@ use App\Enums\DebtStatus;
 use App\Models\Scopes\DebtScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Debt extends Model
@@ -60,5 +61,13 @@ class Debt extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class, 'client_id', 'id');
+    }
+
+    /**
+     * Get the Debt's transactionable.
+     */
+    public function transactionable(): MorphOne
+    {
+        return $this->morphOne(Transactionable::class, 'transactionable');
     }
 }

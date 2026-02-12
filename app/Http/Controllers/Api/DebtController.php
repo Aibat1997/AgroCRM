@@ -11,6 +11,7 @@ use App\Models\CottonPreparation;
 use App\Models\Debt;
 use App\Services\DebtService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class DebtController extends Controller
@@ -25,8 +26,10 @@ class DebtController extends Controller
 
     public function store(DebtRequest $request)
     {
+        /** @var \App\Models\User $user */
         $dto = DebtDTO::fromArray($request->validated());
-        $debt = $this->debtService->store($dto);
+        $user = Auth::user();
+        $debt = $this->debtService->store($dto, $user);
 
         return $this->return_success(new DebtResource($debt));
     }
