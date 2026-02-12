@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TransactionStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,6 +25,7 @@ class Transaction extends Model
         'amount',
         'description',
         'is_income',
+        'status',
         'committed_at',
     ];
 
@@ -36,6 +38,7 @@ class Transaction extends Model
     {
         return [
             'is_income' => 'boolean',
+            'status' => TransactionStatus::class,
         ];
     }
 

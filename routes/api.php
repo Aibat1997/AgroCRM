@@ -32,19 +32,20 @@ Route::name('api.')->group(function () {
     Route::post('register', [AuthorizationController::class, 'register'])->middleware('throttle:3,1');
     Route::post('login', [AuthorizationController::class, 'login'])->middleware('throttle:3,1');
 
-    Route::get('roles', [RoleController::class, 'index']);
     Route::get('registration-roles', [RoleController::class, 'registrationRoles']);
-    Route::get('units', [UnitController::class, 'index']);
-    Route::get('currencies', [CurrencyController::class, 'index']);
-    Route::get('real-estate-types', [RealEstateTypeController::class, 'index']);
-    Route::get('companies', [CompanyController::class, 'index']);
-    Route::get('payment-frequencies', [PaymentFrequencyController::class, 'index']);
-    Route::get('cotton-purchase-price', [CottonPurchasePriceController::class, 'index']);
-    Route::get('transaction-types', [TransactionTypeController::class, 'index']);
-    Route::get('transaction-form-fields', [TransactionFormFieldController::class, 'index']);
-    Route::get('payment-methods', [PaymentMethodController::class, 'index']);
 
     Route::middleware(['auth:api'])->group(function () {
+        Route::get('roles', [RoleController::class, 'index']);
+        Route::get('units', [UnitController::class, 'index']);
+        Route::get('currencies', [CurrencyController::class, 'index']);
+        Route::get('real-estate-types', [RealEstateTypeController::class, 'index']);
+        Route::get('companies', [CompanyController::class, 'index']);
+        Route::get('payment-frequencies', [PaymentFrequencyController::class, 'index']);
+        Route::get('cotton-purchase-price', [CottonPurchasePriceController::class, 'index']);
+        Route::get('transaction-types', [TransactionTypeController::class, 'index']);
+        Route::get('transaction-form-fields', [TransactionFormFieldController::class, 'index']);
+        Route::get('payment-methods', [PaymentMethodController::class, 'index']);
+
         Route::post('logout', [AuthorizationController::class, 'logout']);
 
         Route::get('user', [UserController::class, 'profile']);

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum OrderStatus: string
+enum TransactionStatus: string
 {
     case PENDING = 'pending';
     case IN_PROGRESS = 'in_progress';

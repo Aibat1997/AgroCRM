@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\TransactionStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->unsignedMediumInteger('amount');
             $table->string('description');
             $table->boolean('is_income');
+            $table->string('status')->default(TransactionStatus::PENDING->value);
             $table->dateTime('committed_at');
             $table->timestamps();
             $table->softDeletes();

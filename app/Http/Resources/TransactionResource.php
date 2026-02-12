@@ -23,6 +23,7 @@ class TransactionResource extends JsonResource
             'description' => $this->description,
             'is_income' => $this->is_income,
             'transaction_details' => TransactionDetailResource::collection($this->transactionDetails),
+            'status' => $this->status,
             'committed_at' => $this->committed_at,
         ];
     }
