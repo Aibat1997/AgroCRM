@@ -16,6 +16,8 @@ class CottonPurchasePriceResource extends JsonResource
     {
         return [
             'price' => $this->price,
+            'purchase_type' => $this->purchase_type,
+            'created_at' => $this->created_at,
         ];
     }
 }

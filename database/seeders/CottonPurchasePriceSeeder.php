@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\CottonPurchasePriceType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,14 @@ class CottonPurchasePriceSeeder extends Seeder
             [
                 'user_id' => 1,
                 'price' => 280,
+                'purchase_type' => CottonPurchasePriceType::COTTON_PRICE->value,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 1,
+                'price' => 140,
+                'purchase_type' => CottonPurchasePriceType::PREPAYMENT_PRICE->value,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

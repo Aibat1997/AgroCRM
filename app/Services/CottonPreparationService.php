@@ -5,6 +5,7 @@ namespace App\Services;
 use App\DTO\CottonPreparationLaboratorianDTO;
 use App\DTO\CottonPreparationWeigherDTO;
 use App\Enums\CottonPreparationStatus;
+use App\Enums\CottonPurchasePriceType;
 use App\Models\CottonPreparation;
 
 class CottonPreparationService
@@ -37,7 +38,7 @@ class CottonPreparationService
 
     public function storeLaboratorianData(CottonPreparationLaboratorianDTO $dto, CottonPreparation $cottonPreparation, int $laboratorian_id): CottonPreparation
     {
-        $price_per_kg = $this->cottonPurchasePrice->getLatestCottonPurchasePrice()->price;
+        $price_per_kg = $this->cottonPurchasePrice->getLatestCottonPurchasePriceByType(CottonPurchasePriceType::COTTON_PRICE)->price;
         $estimated_weight = round(((100 - $dto->contamination) / (100 - self::DEFAULT_CONTAMINATION_RATE)) * $cottonPreparation->physical_weight);
         $conditioned_weight = round(((100 + self::DEFAULT_HUMIDITY_RATE) / (100 + $dto->humidity)) * $estimated_weight);
 
