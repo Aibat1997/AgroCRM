@@ -21,7 +21,6 @@ return new class extends Migration
             $table->date('issued_at')->index();
             $table->date('due_date')->index();
             $table->string('description')->nullable();
-            $table->boolean('is_client_owes')->default(true)->index()->comment('true: client owes company, false: company owes client');
             $table->string('status')->default(DebtStatus::ACTIVE->value)->index();
             $table->timestamps();
             $table->softDeletes();

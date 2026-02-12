@@ -25,7 +25,6 @@ class Debt extends Model
         'issued_at',
         'due_date',
         'description',
-        'is_client_owes',
         'status',
     ];
 
@@ -37,7 +36,6 @@ class Debt extends Model
     protected function casts(): array
     {
         return [
-            'is_client_owes' => 'boolean',
             'status' => DebtStatus::class,
         ];
     }

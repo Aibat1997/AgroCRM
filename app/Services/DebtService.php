@@ -34,7 +34,6 @@ class DebtService
                 'issued_at' => $dto->issued_at,
                 'due_date' => $dto->due_date,
                 'description' => $dto->description,
-                'is_client_owes' => $dto->is_client_owes,
                 'status' => DebtStatus::ACTIVE->value,
             ]);
         } catch (Exception $e) {
@@ -64,7 +63,6 @@ class DebtService
                 'issued_at' => $dto->issued_at,
                 'due_date' => $dto->due_date,
                 'description' => $dto->description,
-                'is_client_owes' => $dto->is_client_owes,
                 'status' => $dto->status,
             ];
 

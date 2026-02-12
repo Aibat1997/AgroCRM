@@ -15,7 +15,6 @@ trait DebtScope
         $toDueDate = $filters['to_due_date'] ?? null;
         $fromAmount = $filters['from_amount'] ?? null;
         $toAmount = $filters['to_amount'] ?? null;
-        $isClientOwes = $filters['is_client_owes'] ?? null;
         $status = $filters['status'] ?? null;
 
         $query->when($id, function (Builder $q, array $id) {
@@ -34,8 +33,6 @@ trait DebtScope
             $q->where('amount', '>=', $fromAmount);
         })->when($toAmount, function (Builder $q, int $toAmount) {
             $q->where('amount', '<=', $toAmount);
-        })->when(isset($isClientOwes), function (Builder $q, bool $isClientOwes) {
-            $q->where('is_client_owes', $isClientOwes);
         })->when($status, function (Builder $q, string $status) {
             $q->where('status', $status);
         });

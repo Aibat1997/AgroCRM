@@ -16,7 +16,6 @@ class DebtDTO implements ClientDataProviderInterface
         public readonly int $percent = 0,
         public readonly string $issued_at,
         public readonly ?string $description = null,
-        public readonly bool $is_client_owes,
         public readonly ?string $status = null,
     ) {}
 
@@ -32,7 +31,6 @@ class DebtDTO implements ClientDataProviderInterface
             percent: (int) ($data['percent'] ?? 0),
             issued_at: today()->toDateString(),
             description: isset($data['description']) ? (string) $data['description'] : null,
-            is_client_owes: (bool) $data['is_client_owes'],
             status: isset($data['status']) ? (string) $data['status'] : null,
         );
     }
@@ -49,7 +47,6 @@ class DebtDTO implements ClientDataProviderInterface
             'percent' => $this->percent,
             'issued_at' => $this->issued_at,
             'description' => $this->description,
-            'is_client_owes' => $this->is_client_owes,
             'status' => $this->status,
         ];
     }

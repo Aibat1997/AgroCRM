@@ -15,7 +15,7 @@ class PaymentFrequencySeeder extends Seeder
     {
         DB::table('payment_frequencies')->insert([
             [
-                'title_ru' => 'помесячно',
+                'title_ru' => 'ежемесячно',
                 'title_kk' => 'ай сайын',
             ],
             [

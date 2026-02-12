@@ -23,7 +23,6 @@ class DebtResource extends JsonResource
             'issued_at' => $this->issued_at,
             'due_date' => $this->due_date,
             'description' => $this->description,
-            'is_client_owes' => $this->is_client_owes,
             'status' => $this->status,
         ];
     }

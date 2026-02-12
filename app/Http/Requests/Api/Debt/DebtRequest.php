@@ -32,7 +32,6 @@ class DebtRequest extends FormRequest
             'due_date' => 'required|date',
             'percent' => 'nullable|integer|min:0|max:20',
             'description' => 'nullable|string',
-            'is_client_owes' => 'required|boolean',
             'status' => ['sometimes', 'required', 'string', Rule::enum(DebtStatus::class)],
         ];
     }
