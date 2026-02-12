@@ -88,7 +88,7 @@ class User extends Authenticatable
      */
     public function tasks(): HasMany
     {
-        return $this->hasMany(UserTask::class, 'user_id', 'id');
+        return $this->hasMany(UserTask::class, 'author_id', 'id');
     }
 
     /**
@@ -98,7 +98,7 @@ class User extends Authenticatable
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class, 'user_id', 'id');
+        return $this->hasMany(Application::class, 'author_id', 'id');
     }
 
     /**
@@ -108,6 +108,6 @@ class User extends Authenticatable
      */
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'user_id', 'id');
+        return $this->hasMany(Transaction::class, 'author_id', 'id');
     }
 }

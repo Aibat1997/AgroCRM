@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaction_type_id')->constrained('transaction_types')->onDelete('cascade');
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
             $table->unsignedMediumInteger('amount');
             $table->string('description');
             $table->boolean('is_income');

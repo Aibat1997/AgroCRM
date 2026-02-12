@@ -18,11 +18,10 @@ class TransactionResource extends JsonResource
             'id' => $this->id,
             'transaction_type' => new TransactionTypeResource($this->transactionType),
             'company' => new CompanyResource($this->company),
-            'user' => new MinimalUserResource($this->user),
+            'author' => new MinimalUserResource($this->author),
             'amount' => $this->amount,
             'description' => $this->description,
             'is_income' => $this->is_income,
-            'transaction_details' => TransactionDetailResource::collection($this->transactionDetails),
             'status' => $this->status,
             'committed_at' => $this->committed_at,
         ];

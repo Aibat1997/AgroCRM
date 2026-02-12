@@ -22,7 +22,7 @@ class Transaction extends Model
     protected $fillable = [
         'transaction_type_id',
         'company_id',
-        'user_id',
+        'author_id',
         'amount',
         'description',
         'is_income',
@@ -64,13 +64,13 @@ class Transaction extends Model
     }
 
     /**
-     * Get the user that owns the Transaction
+     * Get the author that owns the Transaction
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'author_id', 'id');
     }
 
     /**
