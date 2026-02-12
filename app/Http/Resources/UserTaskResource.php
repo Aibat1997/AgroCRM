@@ -17,7 +17,7 @@ class UserTaskResource extends JsonResource
         return [
             'id' => $this->id,
             'author' => new MinimalUserResource($this->author),
-            'user' => new MinimalUserResource($this->user),
+            'executor' => new MinimalUserResource($this->executor),
             'title' => $this->title,
             'description' => $this->description,
             'start_date' => $this->start_date,

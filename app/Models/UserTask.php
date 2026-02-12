@@ -19,7 +19,7 @@ class UserTask extends Model
      */
     protected $fillable = [
         'author_id',
-        'user_id',
+        'executor_id',
         'title',
         'description',
         'start_date',
@@ -50,12 +50,12 @@ class UserTask extends Model
     }
 
     /**
-     * Get the user that owns the UserTask
+     * Get the executor that owns the UserTask
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function executor(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'executor_id', 'id');
     }
 }

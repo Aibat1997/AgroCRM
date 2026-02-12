@@ -13,7 +13,7 @@ class UserTaskDTO
         public readonly ?string $description = null,
         public readonly string $start_date,
         public readonly string $finish_date,
-        public readonly ?int $user_id = null,
+        public readonly ?int $executor_id = null,
         public readonly string $status = self::DEFAULT_STATUS,
     ) {}
 
@@ -24,7 +24,7 @@ class UserTaskDTO
             description: isset($data['description']) ? (string)$data['description'] : null,
             start_date: (string)$data['start_date'],
             finish_date: (string)$data['finish_date'],
-            user_id: isset($data['user_id']) ? (int)$data['user_id'] : null,
+            executor_id: isset($data['executor_id']) ? (int)$data['executor_id'] : null,
             status: isset($data['status']) ? (string)$data['status'] : self::DEFAULT_STATUS,
         );
     }

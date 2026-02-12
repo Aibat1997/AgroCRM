@@ -19,7 +19,7 @@ class UserTaskController extends Controller
 
     public function index(Request $request)
     {
-        $userTasks = UserTask::with(['author', 'user'])->filter($request->all())->paginate(15);
+        $userTasks = UserTask::with(['author', 'executor'])->filter($request->all())->paginate(15);
         return UserTaskResource::collection($userTasks)->additional(['success' => true]);
     }
 

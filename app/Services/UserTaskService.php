@@ -11,7 +11,7 @@ class UserTaskService
     {
         return UserTask::create([
             'author_id' => $authorId,
-            'user_id' => $dto->user_id ?? $authorId,
+            'executor_id' => $dto->executor_id ?? $authorId,
             'title' => $dto->title,
             'description' => $dto->description,
             'start_date' => $dto->start_date,
@@ -23,7 +23,7 @@ class UserTaskService
     public function update(UserTaskDTO $dto, UserTask $userTask): UserTask
     {
         $updatedData = array_filter([
-            'user_id' => $dto->user_id,
+            'executor_id' => $dto->executor_id,
             'title' => $dto->title,
             'description' => $dto->description,
             'start_date' => $dto->start_date,
