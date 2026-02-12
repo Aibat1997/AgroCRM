@@ -18,7 +18,7 @@ class Order extends Model
      */
     protected $fillable = [
         'company_id',
-        'user_id',
+        'author_id',
         'client_id',
         'payment_method_id',
         'total_amount',
@@ -48,13 +48,13 @@ class Order extends Model
     }
 
     /**
-     * Get the user that owns the Order
+     * Get the author that owns the Order
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'author_id', 'id');
     }
 
     /**
