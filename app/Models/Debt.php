@@ -25,6 +25,7 @@ class Debt extends Model
         'issued_at',
         'due_date',
         'description',
+        'paid_with_raw_materials',
         'status',
     ];
 
@@ -36,6 +37,7 @@ class Debt extends Model
     protected function casts(): array
     {
         return [
+            'paid_with_raw_materials' => 'boolean',
             'status' => DebtStatus::class,
         ];
     }

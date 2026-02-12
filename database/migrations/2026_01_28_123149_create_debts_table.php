@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('issued_at')->index();
             $table->date('due_date')->index();
             $table->string('description')->nullable();
+            $table->boolean('paid_with_raw_materials')->default(false);
             $table->string('status')->default(DebtStatus::ACTIVE->value)->index();
             $table->timestamps();
             $table->softDeletes();
