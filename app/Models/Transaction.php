@@ -6,6 +6,7 @@ use App\Enums\TransactionStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -88,5 +89,20 @@ class Transaction extends Model
     public function transactionDetails(): HasMany
     {
         return $this->hasMany(TransactionDetail::class, 'transaction_id', 'id');
+    }
+
+    /**
+     * Get the Transaction's order.
+     */
+    public function order(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            Order::class,
+            Transactionable::class,
+            'transaction_id',
+            'id',
+            'id',
+            'transactionable_id'
+        )->where('transactionable_type', Order::class);
     }
 }
