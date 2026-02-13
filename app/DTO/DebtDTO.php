@@ -13,8 +13,8 @@ class DebtDTO implements ClientDataProviderInterface
         public readonly string $client_phone,
         public readonly int $amount,
         public readonly string $due_date,
-        public readonly int $percent = 0,
         public readonly string $issued_at,
+        public readonly int $percent = 0,
         public readonly ?string $description = null,
         public readonly ?string $status = null,
     ) {}

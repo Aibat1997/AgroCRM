@@ -7,8 +7,8 @@ use Illuminate\Http\UploadedFile;
 class CompanyDTO
 {
     public function __construct(
-        public readonly ?int $parent_id = null,
         public readonly string $name,
+        public readonly ?int $parent_id = null,
         public readonly ?UploadedFile $logo = null,
     ) {}
 

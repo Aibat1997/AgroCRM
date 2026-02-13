@@ -9,12 +9,12 @@ class WarehouseItemDTO
     public function __construct(
         public readonly int $warehouse_id,
         public readonly string $title,
-        public readonly ?string $article_number = null,
         public readonly int $quantity,
         public readonly int $unit_id,
         public readonly int $currency_id,
         public readonly float $original_unit_price,
         public readonly string $supplier,
+        public readonly ?string $article_number = null,
         public readonly ?UploadedFile $image = null,
     ) {}
 
