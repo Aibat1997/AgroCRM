@@ -89,19 +89,19 @@ class DebtService
         }
     }
 
-    function getDebtPayingWithCottonInfo(CottonPreparation $cottonPreparation): array
+    public function getDebtPayingWithCottonInfo(CottonPreparation $cottonPreparation): array
     {
         $baseQuery = Debt::where('client_id', $cottonPreparation->client_id)->where('status', DebtStatus::ACTIVE->value);
         $advanceDebts = (clone $baseQuery)->where('percent', 0)->sum('amount');
         $percentDebts = (clone $baseQuery)->where('percent', '>', 0)
+            ->toBase()
             ->selectRaw('percent, SUM(amount) as total_amount, COUNT(*) as count')
             ->groupBy('percent')
             ->get();
 
         foreach ($percentDebts as $percentDebtsItem) {
-            $precentPricePerKg = $cottonPreparation->price_per_kg - (($cottonPreparation->price_per_kg * $percentDebtsItem->percent) / 100);
-            $totalDebtAmount = $percentDebtsItem->total_amount;
-            $percentDebtsItem->debt_cotton_kg = (int) ($totalDebtAmount / $precentPricePerKg);
+            $percentPricePerKg = $cottonPreparation->price_per_kg - (($cottonPreparation->price_per_kg * $percentDebtsItem->percent) / 100);
+            $percentDebtsItem->debt_cotton_kg = (int) ($percentDebtsItem->total_amount / $percentPricePerKg);
         }
 
         return [

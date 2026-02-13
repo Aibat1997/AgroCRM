@@ -36,9 +36,12 @@ class UserService
                 'avatar' => $imageUrl,
             ]);
         } catch (Exception $e) {
+            $dtoContext = $dto->toArray();
+            $dtoContext['password'] = null;
+
             Log::error('Failed to store user', [
                 'error' => $e->getMessage(),
-                'dto' => $dto->toArray(),
+                'dto' => $dtoContext,
             ]);
             throw $e;
         }
@@ -70,10 +73,13 @@ class UserService
 
             return $user;
         } catch (Exception $e) {
+            $dtoContext = $dto->toArray();
+            $dtoContext['password'] = null;
+
             Log::error('Failed to update user', [
                 'error' => $e->getMessage(),
                 'user_id' => $user->id,
-                'dto' => $dto->toArray(),
+                'dto' => $dtoContext,
             ]);
             throw $e;
         }

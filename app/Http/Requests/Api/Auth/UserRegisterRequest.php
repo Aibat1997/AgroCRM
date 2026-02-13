@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Auth;
 
+use App\Enums\UserRoleId;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRegisterRequest extends FormRequest
@@ -22,7 +23,7 @@ class UserRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role_id' => 'required|integer|exists:user_roles,id',
+            'role_id' => 'required|integer|exists:user_roles,id|not_in:' . UserRoleId::OWNER->value . ',' . UserRoleId::ADMIN->value,
             'company_id' => 'required|integer|exists:companies,id',
             'name' => 'required|string',
             'phone' => 'required|string|size:11|starts_with:7|unique:users,phone,NULL,id,deleted_at,NULL',

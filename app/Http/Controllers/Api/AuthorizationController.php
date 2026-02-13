@@ -7,9 +7,9 @@ use App\Http\Requests\Api\Auth\UserLoginRequest;
 use App\Http\Requests\Api\Auth\UserRegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthorizationController extends Controller
 {
@@ -32,7 +32,7 @@ class AuthorizationController extends Controller
             return $this->return_success(['user_token' => $user_token, 'user' => new UserResource($user)]);
         }
 
-        return $this->return_fail_message(trans('auth.failed'));
+        return $this->return_fail_message(trans('auth.failed'), 401);
     }
 
     public function logout()
