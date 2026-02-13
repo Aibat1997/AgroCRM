@@ -3,31 +3,32 @@
 namespace App\FileSystem;
 
 use Illuminate\Http\UploadedFile;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\FileExtension;
-use Intervention\Image\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Interfaces\ImageInterface;
 
 class UploadImage extends Uploader
 {
     private ImageManager $imageManager;
-    private Image $image;
+
+    private ImageInterface $image;
 
     public function __construct(UploadedFile $file)
     {
         parent::__construct($file);
 
-        $this->imageManager = new ImageManager(new Driver());
+        $this->imageManager = new ImageManager(new Driver);
         $this->image = $this->imageManager->read($file->getRealPath());
     }
 
     public function save(string $path): string
     {
         $path = trim($path, '/');
-        $fileName = $this->newFileName ?? (string)Str::ulid() . '.' . $this->extension;
-        $filePath = $path . '/' . $fileName;
+        $fileName = $this->newFileName ?? (string) Str::ulid().'.'.$this->extension;
+        $filePath = $path.'/'.$fileName;
 
         Storage::disk($this->disk)->put(
             $filePath,
@@ -48,10 +49,7 @@ class UploadImage extends Uploader
 
     public function resize(?int $width = null, ?int $height = null): self
     {
-        $this->image->resize($width, $height, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
+        $this->image->scale($width, $height);
 
         return $this;
     }
@@ -64,10 +62,10 @@ class UploadImage extends Uploader
         return $this;
     }
 
-    private function resizeWatermarkByImage(Image $image, Image $watermark): Image
+    private function resizeWatermarkByImage(ImageInterface $image, ImageInterface $watermark): ImageInterface
     {
         $resizePercentage = 70; // 70% меньше реального изображения
-        $watermarkSize = $image->width() * ((100 - $resizePercentage) / 100);
+        $watermarkSize = (int) ($image->width() * ((100 - $resizePercentage) / 100));
         $watermark->scale($watermarkSize, null);
 
         return $watermark;

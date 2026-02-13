@@ -21,13 +21,15 @@ class DebtController extends Controller
     public function index(Request $request)
     {
         $debts = Debt::with(['company', 'client'])->filter($request->all())->paginate(15);
+
         return DebtResource::collection($debts)->additional(['success' => true]);
     }
 
     public function store(DebtRequest $request)
     {
-        /** @var \App\Models\User $user */
         $dto = DebtDTO::fromArray($request->validated());
+
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $debt = $this->debtService->store($dto, $user);
 
@@ -73,6 +75,7 @@ class DebtController extends Controller
     public function destroy(Debt $debt)
     {
         $debt->delete();
+
         return $this->return_success();
     }
 

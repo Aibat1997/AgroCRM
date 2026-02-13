@@ -5,6 +5,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \App\Models\UserRole
+ */
 class UserRoleResource extends JsonResource
 {
     /**
@@ -17,7 +20,7 @@ class UserRoleResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'code_type' => $this->code_type
+            'code_type' => $this->code_type,
         ];
     }
 }

@@ -5,6 +5,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \App\Models\RealEstate
+ */
 class RealEstateResource extends JsonResource
 {
     /**
@@ -19,7 +22,7 @@ class RealEstateResource extends JsonResource
             'real_estate_type' => new RealEstateTypeResource($this->realEstateType),
             'address' => $this->address,
             'area' => $this->area,
-            'unit' =>  new UnitResource($this->unit),
+            'unit' => new UnitResource($this->unit),
             'cadastral_number' => $this->cadastral_number,
             'rented_from' => $this->rented_from,
             'rented_to' => $this->rented_to,

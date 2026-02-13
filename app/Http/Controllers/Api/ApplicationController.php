@@ -19,7 +19,7 @@ class ApplicationController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        if ($user->role_id == UserRoleId::OWNER) {
+        if ($user->role_id === UserRoleId::OWNER->value) {
             $applications = Application::with('author')->filter($request->all())->paginate(15);
         } else {
             $applications = Application::with('author')->where('author_id', $user->id)->paginate(15);
@@ -45,12 +45,14 @@ class ApplicationController extends Controller
     public function update(UpdateApplicationRequest $request, Application $application)
     {
         $application->update($request->validated());
+
         return $this->return_success(new ApplicationResource($application->fresh()));
     }
 
     public function destroy(Application $application)
     {
         $application->delete();
+
         return $this->return_success();
     }
 

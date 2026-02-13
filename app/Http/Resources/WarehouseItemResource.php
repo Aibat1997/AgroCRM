@@ -5,6 +5,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \App\Models\WarehouseItem
+ */
 class WarehouseItemResource extends JsonResource
 {
     /**
@@ -19,8 +22,8 @@ class WarehouseItemResource extends JsonResource
             'title' => $this->title,
             'article_number' => $this->article_number,
             'quantity' => $this->quantity,
-            'unit' =>  new UnitResource($this->unit),
-            'currency' =>  new CurrencyResource($this->currency),
+            'unit' => new UnitResource($this->unit),
+            'currency' => new CurrencyResource($this->currency),
             'original_unit_price' => $this->original_unit_price,
             'unit_price' => $this->unit_price,
             'supplier' => $this->supplier,
