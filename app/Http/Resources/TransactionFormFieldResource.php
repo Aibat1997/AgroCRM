@@ -25,7 +25,7 @@ class TransactionFormFieldResource extends JsonResource
             'field_type' => $this->field_type,
             'field_values_url' => $this->field_values_url,
             'field_attributes' => $this->field_attributes,
-            'is_required' => $this->pivot->is_required,
+            'is_required' => (bool) data_get($this->resource, 'pivot.is_required', false),
         ];
     }
 }
