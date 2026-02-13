@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CottonPreparation extends Model
 {
-    use SoftDeletes, CottonPreparationScope;
+    use CottonPreparationScope, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'client_id',

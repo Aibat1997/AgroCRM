@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RealEstate extends Model
 {
-    use SoftDeletes, RealEstateScope;
+    use RealEstateScope, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'real_estate_type_id',
@@ -31,7 +31,7 @@ class RealEstate extends Model
     /**
      * The relationships that should always be loaded.
      *
-     * @var array
+     * @var list<string>
      */
     protected $with = ['realEstateType', 'unit'];
 

@@ -6,6 +6,9 @@ use App\Attributes\TitleAttribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read string $title
+ */
 class PaymentMethod extends Model
 {
     use SoftDeletes, TitleAttribute;
@@ -20,7 +23,7 @@ class PaymentMethod extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'title_ru',

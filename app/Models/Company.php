@@ -4,14 +4,17 @@ namespace App\Models;
 
 use App\Attributes\CompanyAttribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read string $logo
+ */
 class Company extends Model
 {
-    use SoftDeletes, CompanyAttribute;
+    use CompanyAttribute, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

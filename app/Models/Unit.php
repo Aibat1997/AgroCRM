@@ -8,6 +8,9 @@ use App\Models\Scopes\UnitScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read string $title
+ */
 class Unit extends Model
 {
     use SoftDeletes, TitleAttribute, UnitScope;
@@ -22,7 +25,7 @@ class Unit extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'title_ru',

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read string $field_title
+ * @property-read string|null $field_values_url
+ */
 class TransactionFormField extends Model
 {
     use SoftDeletes, TransactionFormFieldAttribute, TransactionFormFieldScope;
@@ -22,7 +26,7 @@ class TransactionFormField extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'parent_id',

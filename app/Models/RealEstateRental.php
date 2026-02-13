@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RealEstateRental extends Model
 {
-    use SoftDeletes, RealEstateRentalScope;
+    use RealEstateRentalScope, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +32,7 @@ class RealEstateRental extends Model
     /**
      * The relationships that should always be loaded.
      *
-     * @var array
+     * @var list<string>
      */
     protected $with = ['realEstate', 'paymentFrequency', 'unit'];
 

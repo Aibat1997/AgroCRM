@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read string|null $image
+ */
 class WarehouseItem extends Model
 {
-    use SoftDeletes, WarehouseItemScope, WarehouseItemAttribute;
+    use SoftDeletes, WarehouseItemAttribute, WarehouseItemScope;
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +37,7 @@ class WarehouseItem extends Model
     /**
      * The relationships that should always be loaded.
      *
-     * @var array
+     * @var list<string>
      */
     protected $with = ['warehouse'];
 

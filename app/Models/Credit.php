@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Credit extends Model
 {
-    use SoftDeletes, CreditScope;
+    use CreditScope, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -39,6 +39,16 @@ class Credit extends Model
         return [
             'status' => CreditStatus::class,
         ];
+    }
+
+    /**
+     * Get the company that owns the Credit
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'id');
     }
 
     /**
