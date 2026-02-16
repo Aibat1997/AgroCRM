@@ -78,7 +78,6 @@ Route::name('api.')->group(function () {
         Route::apiResource('applications', ApplicationController::class);
 
         Route::apiResource('debts', DebtController::class);
-        Route::post('debt/{debt}/status', [DebtController::class, 'updateStatus']);
         Route::get('debt-paying-with-cotton', [DebtController::class, 'payingWithCotton']);
 
         Route::apiResource('credits', CreditController::class);

@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
-use App\DTO\DebtDTO;
+use App\DTO\Debt\StoreDebtDTO;
+use App\DTO\Debt\UpdateDebtDTO;
 use App\Enums\DebtStatus;
 use App\Models\CottonPreparation;
 use App\Models\Debt;
 use App\Models\User;
 use App\Services\Transaction\LoanProvisionHandler;
+use App\Services\Transaction\ReceiptOfFundsFromBorrowerHandler;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
@@ -15,22 +17,19 @@ use Illuminate\Support\Facades\Log;
 
 class DebtService
 {
-    public function __construct(
-        private readonly ClientService $clientService,
-        private readonly LoanProvisionHandler $loanProvisionHandler,
-    ) {}
-
     /**
      * Create a new debt
      *
      * @throws Exception
      */
-    public function store(DebtDTO $dto, User $user): Debt
+    public function store(StoreDebtDTO $dto, User $user): Debt
     {
         try {
-            $client = $this->clientService->findOrCreateByIdentifier($dto);
+            $clientService = app(ClientService::class);
+            $loanProvisionHandler = app(LoanProvisionHandler::class);
+            $client = $clientService->findOrCreateByIdentifier($dto);
 
-            return DB::transaction(function () use ($dto, $client, $user): Debt {
+            return DB::transaction(function () use ($dto, $client, $user, $loanProvisionHandler): Debt {
                 $debt = Debt::create([
                     'company_id' => $dto->company_id,
                     'client_id' => $client->id,
@@ -42,7 +41,7 @@ class DebtService
                     'status' => DebtStatus::ACTIVE->value,
                 ]);
 
-                $this->loanProvisionHandler->handle($debt, $user);
+                $loanProvisionHandler->handle($debt, $user);
 
                 return $debt;
             });
@@ -60,27 +59,15 @@ class DebtService
      *
      * @throws ModelNotFoundException|Exception
      */
-    public function update(DebtDTO $dto, Debt $debt): Debt
+    public function update(UpdateDebtDTO $dto, User $user, Debt $debt): Debt
     {
         try {
-            $client = $this->clientService->findOrCreateByIdentifier($dto);
-
-            $updateData = [
-                'company_id' => $dto->company_id,
-                'client_id' => $client->id,
-                'amount' => $dto->amount,
-                'percent' => $dto->percent,
-                'issued_at' => $dto->issued_at,
-                'due_date' => $dto->due_date,
-                'description' => $dto->description,
-                'status' => $dto->status,
-            ];
-
-            $debt->update($updateData);
+            $receiptOfFundsFromBorrowerHandler = app(ReceiptOfFundsFromBorrowerHandler::class);
+            $receiptOfFundsFromBorrowerHandler->handle($dto, $user, $debt);
 
             return $debt;
         } catch (Exception $e) {
-            Log::error('Failed to update debt', [
+            Log::error('Failed to receive funds from borrower', [
                 'error' => $e->getMessage(),
                 'debt_id' => $debt->id,
                 'dto' => $dto->toArray(),

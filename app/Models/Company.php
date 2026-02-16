@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Attributes\CompanyAttribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,6 +12,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property-read string $logo
+ * @property-read ?Company $parent
+ * @property-read Collection<int, Company> $childs
+ * @property-read Collection<int, Warehouse> $warehouses
+ * @property-read Collection<int, Machinery> $machineries
+ * @property-read Collection<int, Transaction> $transactions
+ * @property-read CompanyBalance $balance
  */
 class Company extends Model
 {
@@ -30,7 +37,7 @@ class Company extends Model
     /**
      * Get the parent that owns the Company
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo<Company, $this>
      */
     public function parent(): BelongsTo
     {
@@ -40,7 +47,7 @@ class Company extends Model
     /**
      * Get all of the childs for the Company
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany<Company, $this>
      */
     public function childs(): HasMany
     {
@@ -50,7 +57,7 @@ class Company extends Model
     /**
      * Get all of the warehouses for the Company
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany<Warehouse, $this>
      */
     public function warehouses(): HasMany
     {
@@ -60,7 +67,7 @@ class Company extends Model
     /**
      * Get all of the machineries for the Company
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany<Machinery, $this>
      */
     public function machineries(): HasMany
     {
@@ -70,7 +77,7 @@ class Company extends Model
     /**
      * Get all of the transactions for the Company
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany<Transaction, $this>
      */
     public function transactions(): HasMany
     {
@@ -80,7 +87,7 @@ class Company extends Model
     /**
      * Get the balance associated with the Company
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne<CompanyBalance, $this>
      */
     public function balance(): HasOne
     {

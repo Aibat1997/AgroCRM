@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\DTO\DebtDTO;
-use App\Enums\DebtStatus;
+use App\DTO\Debt\StoreDebtDTO;
+use App\DTO\Debt\UpdateDebtDTO;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Debt\DebtRequest;
+use App\Http\Requests\Api\Debt\StoreDebtRequest;
+use App\Http\Requests\Api\Debt\UpdateDebtRequest;
 use App\Http\Resources\DebtResource;
 use App\Models\CottonPreparation;
 use App\Models\Debt;
 use App\Services\DebtService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 
 class DebtController extends Controller
 {
@@ -25,12 +26,11 @@ class DebtController extends Controller
         return DebtResource::collection($debts)->additional(['success' => true]);
     }
 
-    public function store(DebtRequest $request)
+    public function store(StoreDebtRequest $request)
     {
-        $dto = DebtDTO::fromArray($request->validated());
-
         /** @var \App\Models\User $user */
         $user = Auth::user();
+        $dto = StoreDebtDTO::fromArray($request->validated());
         $debt = $this->debtService->store($dto, $user);
 
         return $this->return_success(new DebtResource($debt));
@@ -41,21 +41,14 @@ class DebtController extends Controller
         return $this->return_success(new DebtResource($debt));
     }
 
-    public function update(DebtRequest $request, Debt $debt)
+    public function update(UpdateDebtRequest $request, Debt $debt)
     {
-        $dto = DebtDTO::fromArray($request->validated());
-        $this->debtService->update($dto, $debt);
+        Gate::authorize('update', $debt);
 
-        return $this->return_success(new DebtResource($debt));
-    }
-
-    public function updateStatus(Request $request, Debt $debt)
-    {
-        $request->validate([
-            'status' => ['required', 'string', Rule::enum(DebtStatus::class)],
-        ]);
-
-        $debt->update(['status' => $request->input('status')]);
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $dto = UpdateDebtDTO::fromArray($request->validated());
+        $this->debtService->update($dto, $user, $debt);
 
         return $this->return_success(new DebtResource($debt));
     }

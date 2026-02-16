@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property DebtStatus $status
+ * @property-read Company $company
+ * @property-read Client $client
+ * @property-read ?Transactionable $transactionable
+ */
 class Debt extends Model
 {
     use SoftDeletes, DebtScope;
@@ -46,7 +52,7 @@ class Debt extends Model
     /**
      * Get the company that owns the Debt
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo<Company, $this>
      */
     public function company(): BelongsTo
     {
@@ -56,7 +62,7 @@ class Debt extends Model
     /**
      * Get the client that owns the Debt
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo<Client, $this>
      */
     public function client(): BelongsTo
     {
@@ -65,6 +71,8 @@ class Debt extends Model
 
     /**
      * Get the Debt's transactionable.
+     * 
+     * @return MorphOne<Transactionable, $this>
      */
     public function transactionable(): MorphOne
     {

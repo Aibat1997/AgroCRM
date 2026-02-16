@@ -4,8 +4,6 @@ namespace App\Services\Transaction;
 
 use App\Enums\TransactionStatus;
 use App\Enums\TransactionTypeId;
-use App\Models\Client;
-use App\Models\Company;
 use App\Models\Debt;
 use App\Models\Transaction;
 use App\Models\User;
@@ -16,11 +14,9 @@ class LoanProvisionHandler
     public function handle(Debt $debt, User $user): Transaction
     {
         return DB::transaction(function () use ($debt, $user): Transaction {
-            /** @var Company $company */
             $company = $debt->company;
-
-            /** @var Client $client */
             $client = $debt->client;
+            $companyBalance = $company->balance;
 
             $transaction = Transaction::create([
                 'transaction_type_id' => TransactionTypeId::LOAN_PROVISION->value,
@@ -33,7 +29,6 @@ class LoanProvisionHandler
                 'committed_at' => now(),
             ]);
 
-            $companyBalance = $company->balance()->firstOrFail();
             $companyBalance->decrement('balance', $debt->amount);
             $debt->transactionable()->create(['transaction_id' => $transaction->id]);
 

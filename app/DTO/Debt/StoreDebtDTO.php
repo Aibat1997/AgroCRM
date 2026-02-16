@@ -1,10 +1,10 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\Debt;
 
 use App\Contracts\ClientDataProviderInterface;
 
-class DebtDTO implements ClientDataProviderInterface
+class StoreDebtDTO implements ClientDataProviderInterface
 {
     public function __construct(
         public readonly int $company_id,
