@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read CottonPreparationStatus $status
+ */
 class CottonPreparation extends Model
 {
     use CottonPreparationScope, SoftDeletes;

@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read TransactionStatus $status
+ */
 class Transaction extends Model
 {
     use SoftDeletes;

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read UserTaskStatus $status
+ */
 class UserTask extends Model
 {
     use SoftDeletes, UserTaskScope;

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read string $field_title
+ * @property-read string|null $field_values_url
+ */
 class TransactionFormField extends Model
 {
     use SoftDeletes, TransactionFormFieldAttribute, TransactionFormFieldScope;
