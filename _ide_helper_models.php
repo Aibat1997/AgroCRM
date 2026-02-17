@@ -840,7 +840,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutTrashed()
  */
-	class User extends \Eloquent implements \Laravel\Passport\Contracts\OAuthenticatable {}
+	class User extends \Eloquent {}
 }
 
 namespace App\Models{
