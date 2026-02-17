@@ -6,7 +6,9 @@ use App\DTO\ClientDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Client\StoreClientRequest;
 use App\Http\Requests\Api\Client\UpdateClientRequest;
-use App\Http\Resources\ClientResource;
+use App\Http\Resources\Client\ClientCollection;
+use App\Http\Resources\Client\ClientResource;
+use App\Http\Resources\EmptyResource;
 use App\Models\Client;
 use App\Services\ClientService;
 use Illuminate\Http\Request;
@@ -18,7 +20,7 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $clients = Client::filter($request->all())->paginate(15);
-        return ClientResource::collection($clients)->additional(['success' => true]);
+        return new ClientCollection($clients);
     }
 
     public function store(StoreClientRequest $request)
@@ -26,12 +28,12 @@ class ClientController extends Controller
         $dto = ClientDTO::fromArray($request->validated());
         $client = $this->clientService->store($dto);
 
-        return $this->return_success(new ClientResource($client));
+        return new ClientResource($client);
     }
 
     public function show(Client $client)
     {
-        return $this->return_success(new ClientResource($client));
+        return new ClientResource($client);
     }
 
     public function update(UpdateClientRequest $request, Client $client)
@@ -39,13 +41,13 @@ class ClientController extends Controller
         $dto = ClientDTO::fromArray($request->validated());
         $this->clientService->update($dto, $client);
 
-        return $this->return_success(new ClientResource($client));
+        return new ClientResource($client);
     }
 
     public function destroy(Client $client)
     {
         $client->delete();
-        return $this->return_success();
+        return EmptyResource::success();
     }
 
     public function restore(Client $client)
