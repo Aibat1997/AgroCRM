@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * @property-read string|null $image
- */
 class WarehouseItem extends Model
 {
     use SoftDeletes, WarehouseItemAttribute, WarehouseItemScope;

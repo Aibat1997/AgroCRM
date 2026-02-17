@@ -6,9 +6,6 @@ use App\Attributes\TitleAttribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * @property-read string $title
- */
 class UserRole extends Model
 {
     use SoftDeletes, TitleAttribute;

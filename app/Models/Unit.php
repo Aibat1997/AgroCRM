@@ -8,9 +8,6 @@ use App\Models\Scopes\UnitScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * @property-read string $title
- */
 class Unit extends Model
 {
     use SoftDeletes, TitleAttribute, UnitScope;
