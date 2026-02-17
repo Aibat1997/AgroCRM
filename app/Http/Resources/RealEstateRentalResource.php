@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\Client\ClientResource;
+use App\Http\Resources\File\FileResource;
 use App\Http\Resources\PaymentFrequency\PaymentFrequencyResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Currency;
 
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\Currency
  */
-class CurrencyResource extends JsonResource
+class CurrencyResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

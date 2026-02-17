@@ -7,7 +7,9 @@ use App\DTO\Debt\UpdateDebtDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Debt\StoreDebtRequest;
 use App\Http\Requests\Api\Debt\UpdateDebtRequest;
-use App\Http\Resources\DebtResource;
+use App\Http\Resources\Debt\DebtCollection;
+use App\Http\Resources\Debt\DebtResource;
+use App\Http\Resources\EmptyResource;
 use App\Models\CottonPreparation;
 use App\Models\Debt;
 use App\Services\DebtService;
@@ -22,8 +24,7 @@ class DebtController extends Controller
     public function index(Request $request)
     {
         $debts = Debt::with(['company', 'client'])->filter($request->all())->paginate(15);
-
-        return DebtResource::collection($debts)->additional(['success' => true]);
+        return new DebtCollection($debts);
     }
 
     public function store(StoreDebtRequest $request)
@@ -33,12 +34,12 @@ class DebtController extends Controller
         $dto = StoreDebtDTO::fromArray($request->validated());
         $debt = $this->debtService->store($dto, $user);
 
-        return $this->return_success(new DebtResource($debt));
+        return new DebtResource($debt);
     }
 
     public function show(Debt $debt)
     {
-        return $this->return_success(new DebtResource($debt));
+        return new DebtResource($debt);
     }
 
     public function update(UpdateDebtRequest $request, Debt $debt)
@@ -50,7 +51,7 @@ class DebtController extends Controller
         $dto = UpdateDebtDTO::fromArray($request->validated());
         $this->debtService->update($dto, $user, $debt);
 
-        return $this->return_success(new DebtResource($debt));
+        return new DebtResource($debt);
     }
 
     public function payingWithCotton(Request $request)
@@ -68,8 +69,7 @@ class DebtController extends Controller
     public function destroy(Debt $debt)
     {
         $debt->delete();
-
-        return $this->return_success();
+        return EmptyResource::success();
     }
 
     public function restore(Debt $debt)
