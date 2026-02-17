@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Machinery;
 
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\Company\CompanyResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\Machinery
  */
-class MachineryResource extends JsonResource
+class MachineryResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

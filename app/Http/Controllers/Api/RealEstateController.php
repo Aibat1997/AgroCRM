@@ -6,7 +6,9 @@ use App\DTO\RealEstateDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\RealEstate\StoreRealEstateRequest;
 use App\Http\Requests\Api\RealEstate\UpdateRealEstateRequest;
-use App\Http\Resources\RealEstateResource;
+use App\Http\Resources\EmptyResource;
+use App\Http\Resources\RealEstate\RealEstateCollection;
+use App\Http\Resources\RealEstate\RealEstateResource;
 use App\Models\RealEstate;
 use App\Services\RealEstateService;
 use Illuminate\Http\Request;
@@ -18,7 +20,7 @@ class RealEstateController extends Controller
     public function index(Request $request)
     {
         $realEstates = RealEstate::filter($request->all())->paginate(15);
-        return RealEstateResource::collection($realEstates)->additional(['success' => true]);
+        return new RealEstateCollection($realEstates);
     }
 
     public function store(StoreRealEstateRequest $request)
@@ -26,12 +28,12 @@ class RealEstateController extends Controller
         $dto = RealEstateDTO::fromArray($request->validated());
         $realEstate = $this->realEstateService->store($dto);
 
-        return $this->return_success(new RealEstateResource($realEstate));
+        return new RealEstateResource($realEstate);
     }
 
     public function show(RealEstate $realEstate)
     {
-        return $this->return_success(new RealEstateResource($realEstate));
+        return new RealEstateResource($realEstate);
     }
 
     public function update(UpdateRealEstateRequest $request, RealEstate $realEstate)
@@ -39,13 +41,13 @@ class RealEstateController extends Controller
         $dto = RealEstateDTO::fromArray($request->validated());
         $this->realEstateService->update($dto, $realEstate);
 
-        return $this->return_success(new RealEstateResource($realEstate));
+        return new RealEstateResource($realEstate);
     }
 
     public function destroy(RealEstate $realEstate)
     {
         $realEstate->delete();
-        return $this->return_success();
+        return EmptyResource::success();
     }
 
     public function restore(RealEstate $realEstate)

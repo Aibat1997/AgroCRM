@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Http\Resources\Client\ClientResource;
 use App\Http\Resources\File\FileResource;
 use App\Http\Resources\PaymentFrequency\PaymentFrequencyResource;
+use App\Http\Resources\RealEstate\MinimalRealEstateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

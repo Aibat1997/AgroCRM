@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\RealEstateType;
 
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\RealEstateType
  */
-class RealEstateTypeResource extends JsonResource
+class RealEstateTypeResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
