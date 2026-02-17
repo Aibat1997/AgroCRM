@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\CottonPurchasePriceType;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CottonPurchasePriceResource;
+use App\Http\Resources\CottonPurchasePrice\CottonPurchasePriceCollection;
+use App\Http\Resources\CottonPurchasePrice\CottonPurchasePriceResource;
 use App\Models\CottonPurchasePrice;
 use App\Services\CottonPurchasePriceCacheService;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class CottonPurchasePriceController extends Controller
     public function index(Request $request)
     {
         $cottonPurchasePrices = $this->cottonPurchasePriceCacheService->getLatestCottonPurchasePrices();
-        return $this->return_success(CottonPurchasePriceResource::collection($cottonPurchasePrices));
+        return new CottonPurchasePriceCollection($cottonPurchasePrices);
     }
 
     public function store(Request $request)
@@ -37,6 +38,6 @@ class CottonPurchasePriceController extends Controller
         $this->cottonPurchasePriceCacheService->clearCache();
         $this->cottonPurchasePriceCacheService->warmupCache();
 
-        return $this->return_success(new CottonPurchasePriceResource($cottonPurchasePrice));
+        return new CottonPurchasePriceResource($cottonPurchasePrice);
     }
 }

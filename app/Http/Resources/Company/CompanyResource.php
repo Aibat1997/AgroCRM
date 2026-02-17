@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Company;
 
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin \App\Models\User
+ * @mixin \App\Models\Company
  */
-class MinimalUserResource extends JsonResource
+class CompanyResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
@@ -20,8 +20,8 @@ class MinimalUserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'phone' => $this->phone,
-            'avatar' => $this->avatar,
+            'logo' => $this->logo,
+            'childs' => CompanyResource::collection($this->whenLoaded('childs')),
         ];
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\CottonPurchasePrice;
 
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\CottonPurchasePrice
  */
-class CottonPurchasePriceResource extends JsonResource
+class CottonPurchasePriceResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

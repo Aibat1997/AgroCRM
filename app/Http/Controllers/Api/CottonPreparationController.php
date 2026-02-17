@@ -7,7 +7,8 @@ use App\DTO\CottonPreparationWeigherDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CottonPreparation\StoreLaboratorianDataRequest;
 use App\Http\Requests\Api\CottonPreparation\StoreWeigherDataRequest;
-use App\Http\Resources\CottonPreparationResource;
+use App\Http\Resources\CottonPreparation\CottonPreparationCollection;
+use App\Http\Resources\CottonPreparation\CottonPreparationResource;
 use App\Models\CottonPreparation;
 use App\Services\CottonPreparationService;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class CottonPreparationController extends Controller
     public function index(Request $request)
     {
         $cottonPreparations = CottonPreparation::with(['weigher', 'laboratorian', 'client'])->filter($request->all())->paginate(15);
-        return CottonPreparationResource::collection($cottonPreparations)->additional(['success' => true]);
+        return new CottonPreparationCollection($cottonPreparations);
     }
 
     public function storeWeigherData(StoreWeigherDataRequest $request)
@@ -28,7 +29,7 @@ class CottonPreparationController extends Controller
         $dto = CottonPreparationWeigherDTO::fromArray($request->validated());
         $weigherData = $this->cottonPreparationService->storeWeigherData($dto, Auth::id());
 
-        return $this->return_success(new CottonPreparationResource($weigherData));
+        return new CottonPreparationResource($weigherData);
     }
 
     public function storeLaboratorianData(StoreLaboratorianDataRequest $request, CottonPreparation $cottonPreparation)
@@ -36,12 +37,12 @@ class CottonPreparationController extends Controller
         $dto = CottonPreparationLaboratorianDTO::fromArray($request->validated());
         $laboratorianData = $this->cottonPreparationService->storeLaboratorianData($dto, $cottonPreparation, Auth::id());
 
-        return $this->return_success(new CottonPreparationResource($laboratorianData));
+        return new CottonPreparationResource($laboratorianData);
     }
 
     public function show(CottonPreparation $cottonPreparation)
     {
-        return $this->return_success(new CottonPreparationResource($cottonPreparation));
+        return new CottonPreparationResource($cottonPreparation);
     }
 
     public function update(Request $request, CottonPreparation $cottonPreparation)

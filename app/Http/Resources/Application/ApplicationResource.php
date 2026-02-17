@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Application;
 
+use App\Http\Resources\BaseResource;
+use App\Http\Resources\User\MinimalUserResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\Application
  */
-class ApplicationResource extends JsonResource
+class ApplicationResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

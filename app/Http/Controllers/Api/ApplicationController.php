@@ -6,7 +6,9 @@ use App\Enums\UserRoleId;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Application\StoreApplicationRequest;
 use App\Http\Requests\Api\Application\UpdateApplicationRequest;
-use App\Http\Resources\ApplicationResource;
+use App\Http\Resources\Application\ApplicationCollection;
+use App\Http\Resources\Application\ApplicationResource;
+use App\Http\Resources\EmptyResource;
 use App\Models\Application;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,7 +27,7 @@ class ApplicationController extends Controller
             $applications = Application::with('author')->where('author_id', $user->id)->paginate(15);
         }
 
-        return ApplicationResource::collection($applications)->additional(['success' => true]);
+        return new ApplicationCollection($applications);
     }
 
     public function store(StoreApplicationRequest $request)
@@ -34,26 +36,24 @@ class ApplicationController extends Controller
         $user = Auth::user();
         $application = $user->applications()->create($request->validated());
 
-        return $this->return_success(new ApplicationResource($application->fresh()));
+        return new ApplicationResource($application->fresh());
     }
 
     public function show(Application $application)
     {
-        return $this->return_success(new ApplicationResource($application));
+        return new ApplicationResource($application);
     }
 
     public function update(UpdateApplicationRequest $request, Application $application)
     {
         $application->update($request->validated());
-
-        return $this->return_success(new ApplicationResource($application->fresh()));
+        return new ApplicationResource($application->fresh());
     }
 
     public function destroy(Application $application)
     {
         $application->delete();
-
-        return $this->return_success();
+        return EmptyResource::success();
     }
 
     public function restore(Application $application)

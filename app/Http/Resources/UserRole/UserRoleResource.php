@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\UserRole;
 
-use App\Http\Resources\Company\CompanyResource;
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin \App\Models\Warehouse
+ * @mixin \App\Models\UserRole
  */
-class WarehouseResource extends JsonResource
+class UserRoleResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
@@ -21,7 +20,7 @@ class WarehouseResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'company' => new CompanyResource($this->whenLoaded('company')),
+            'code_type' => $this->code_type,
         ];
     }
 }

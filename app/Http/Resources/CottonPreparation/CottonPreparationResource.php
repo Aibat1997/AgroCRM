@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\CottonPreparation;
 
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\Client\ClientResource;
+use App\Http\Resources\User\MinimalUserResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\CottonPreparation
  */
-class CottonPreparationResource extends JsonResource
+class CottonPreparationResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

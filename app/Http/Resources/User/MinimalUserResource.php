@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin \App\Models\UserRole
+ * @mixin \App\Models\User
  */
-class UserRoleResource extends JsonResource
+class MinimalUserResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
@@ -19,8 +19,9 @@ class UserRoleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'code_type' => $this->code_type,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'avatar' => $this->avatar,
         ];
     }
 }
