@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\TransactionFormFieldResource;
+use App\Http\Resources\TransactionFormField\TransactionFormFieldCollection;
 use App\Services\TransactionFormFieldCacheService;
 use Illuminate\Http\Request;
 
@@ -18,6 +18,6 @@ class TransactionFormFieldController extends Controller
         ]);
 
         $transactionFormFields = $this->transactionFormFieldCacheService->getTransactionFormFieldByTypeId($request->input('transaction_type_id'));
-        return $this->return_success(TransactionFormFieldResource::collection($transactionFormFields));
+        return new TransactionFormFieldCollection($transactionFormFields);
     }
 }

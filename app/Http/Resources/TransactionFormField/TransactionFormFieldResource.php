@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\TransactionFormField;
 
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\TransactionFormField
  */
-class TransactionFormFieldResource extends JsonResource
+class TransactionFormFieldResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

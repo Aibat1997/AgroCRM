@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Warehouse;
 
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\Company\CompanyResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\Warehouse
  */
-class WarehouseResource extends JsonResource
+class WarehouseResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

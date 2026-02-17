@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\TransactionFormField\TransactionFormFieldResource;
 use App\Services\TransactionFormFieldCacheService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

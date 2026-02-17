@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\WarehouseItem;
 
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\Currency\CurrencyResource;
 use App\Http\Resources\Unit\UnitResource;
+use App\Http\Resources\Warehouse\WarehouseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\WarehouseItem
  */
-class WarehouseItemResource extends JsonResource
+class WarehouseItemResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
