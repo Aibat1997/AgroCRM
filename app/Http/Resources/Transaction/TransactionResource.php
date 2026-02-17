@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Transaction;
 
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\Company\CompanyResource;
+use App\Http\Resources\TransactionType\TransactionTypeResource;
 use App\Http\Resources\User\MinimalUserResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\Transaction
  */
-class TransactionResource extends JsonResource
+class TransactionResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

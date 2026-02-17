@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\RealEstateRental;
 
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\Client\ClientResource;
 use App\Http\Resources\File\FileResource;
 use App\Http\Resources\PaymentFrequency\PaymentFrequencyResource;
 use App\Http\Resources\RealEstate\MinimalRealEstateResource;
+use App\Http\Resources\Unit\UnitResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\RealEstateRental
  */
-class RealEstateRentalResource extends JsonResource
+class RealEstateRentalResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

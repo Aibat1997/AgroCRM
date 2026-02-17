@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\PaymentMethod;
 
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin \App\Models\TransactionType
+ * @mixin \App\Models\PaymentMethod
  */
-class TransactionTypeResource extends JsonResource
+class PaymentMethodResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
