@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Credit;
 
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\Company\CompanyResource;
+use App\Http\Resources\PaymentFrequency\PaymentFrequencyResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin \App\Models\Credit
  */
-class CreditResource extends JsonResource
+class CreditResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
