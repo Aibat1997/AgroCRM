@@ -9,7 +9,7 @@ trait TitleAttribute
     protected function title(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this["title_" . app()->getLocale()],
+            get: fn(): string => $this["title_" . app()->getLocale()],
         );
     }
 }

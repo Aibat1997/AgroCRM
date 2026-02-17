@@ -9,7 +9,7 @@ trait FileAttribute
     protected function url(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => asset($value),
+            get: fn(string $value): string => asset($value),
         );
     }
 }

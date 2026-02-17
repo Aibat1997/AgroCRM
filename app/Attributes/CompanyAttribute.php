@@ -9,7 +9,7 @@ trait CompanyAttribute
     protected function logo(): Attribute
     {
         return Attribute::make(
-            get: fn(?string $value) => $value ? asset($value) : asset('api-assets/d-company.png'),
+            get: fn(?string $value): string => $value ? asset($value) : asset('api-assets/d-company.png'),
         );
     }
 }

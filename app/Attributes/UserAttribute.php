@@ -9,7 +9,7 @@ trait UserAttribute
     protected function avatar(): Attribute
     {
         return Attribute::make(
-            get: fn(?string $value) => $value ? asset($value) : asset('api-assets/d-user.png'),
+            get: fn(?string $value): string => $value ? asset($value) : asset('api-assets/d-user.png'),
         );
     }
 }

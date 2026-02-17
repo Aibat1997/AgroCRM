@@ -9,7 +9,7 @@ trait WarehouseItemAttribute
     protected function image(): Attribute
     {
         return Attribute::make(
-            get: fn(?string $value) => $value ? asset($value) : $value,
+            get: fn(?string $value): ?string => $value ? asset($value) : $value,
         );
     }
 }

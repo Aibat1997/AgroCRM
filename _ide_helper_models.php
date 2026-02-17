@@ -73,7 +73,7 @@ namespace App\Models{
  * @property int $id
  * @property int|null $parent_id
  * @property string $name
- * @property string|null $logo
+ * @property string $logo
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -267,7 +267,7 @@ namespace App\Models{
  * @property string $symbol
  * @property int $sort_num
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read mixed $title
+ * @property-read string $title
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Currency newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Currency newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Currency onlyTrashed()
@@ -462,7 +462,7 @@ namespace App\Models{
  * @property string $title_ru
  * @property string|null $title_kk
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read mixed $title
+ * @property-read string $title
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentFrequency newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentFrequency newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentFrequency onlyTrashed()
@@ -483,7 +483,7 @@ namespace App\Models{
  * @property string $title_ru
  * @property string|null $title_kk
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read mixed $title
+ * @property-read string $title
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentMethod newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentMethod newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentMethod onlyTrashed()
@@ -589,7 +589,7 @@ namespace App\Models{
  * @property string $title_ru
  * @property string|null $title_kk
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read mixed $title
+ * @property-read string $title
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RealEstateType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RealEstateType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RealEstateType onlyTrashed()
@@ -678,7 +678,7 @@ namespace App\Models{
  * @property array<array-key, mixed>|null $field_attributes
  * @property string|null $field_validation
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read mixed $field_title
+ * @property-read string $field_title
  * @property-read \App\Models\TransactionTypeFormField|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TransactionType> $transactionTypes
  * @property-read int|null $transaction_types_count
@@ -713,7 +713,7 @@ namespace App\Models{
  * @property-read \App\Models\TransactionTypeFormField|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TransactionFormField> $formFields
  * @property-read int|null $form_fields_count
- * @property-read mixed $title
+ * @property-read string $title
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TransactionType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TransactionType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TransactionType onlyTrashed()
@@ -766,7 +766,7 @@ namespace App\Models{
  * @property string|null $title_kk
  * @property \App\Enums\UnitType $type
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read mixed $title
+ * @property-read string $title
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Unit filter($filters = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Unit newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Unit newQuery()
@@ -790,7 +790,7 @@ namespace App\Models{
  * @property int|null $company_id
  * @property string $name
  * @property string $phone
- * @property string|null $avatar
+ * @property string $avatar
  * @property int|null $salary
  * @property string|null $device_token
  * @property string $password
@@ -850,7 +850,7 @@ namespace App\Models{
  * @property string|null $title_kk
  * @property string $code_type
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read mixed $title
+ * @property-read string $title
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserRole newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserRole newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserRole onlyTrashed()
