@@ -406,6 +406,7 @@ namespace App\Models{
  * @property-read \App\Models\Client|null $client
  * @property-read \App\Models\Company $company
  * @property-read \App\Models\PaymentMethod|null $paymentMethod
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order filter($filters = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order onlyTrashed()
