@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait ClientScope
 {
-    public function scopeFilter(Builder $query, $filters = []): void
+    public function scopeFilter(Builder $query, $filters = []): Builder
     {
         $id = (array)($filters['id'] ?? []);
         $name = $filters['name'] ?? null;
         $phone = $filters['phone'] ?? null;
         $identifier = $filters['identifier'] ?? null;
 
-        $query->when($id, function (Builder $q, array $id) {
+        return $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($name, function (Builder $q, string $name) {
             $q->where('name', 'LIKE', '%' . $name . '%');

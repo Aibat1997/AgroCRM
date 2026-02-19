@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait RealEstateScope
 {
-    public function scopeFilter(Builder $query, $filters = []): void
+    public function scopeFilter(Builder $query, $filters = []): Builder
     {
         $id = (array)($filters['id'] ?? []);
         $realEstateTypeId = $filters['real_estate_type_id'] ?? null;
         $address = $filters['address'] ?? null;
         $cadastralNumber = $filters['cadastral_number'] ?? null;
 
-        $query->when($id, function (Builder $q, array $id) {
+        return $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($address, function (Builder $q, string $address) {
             $q->where('address', 'LIKE', '%' . $address . '%');

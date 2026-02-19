@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait CreditScope
 {
-    public function scopeFilter(Builder $query, $filters = []): void
+    public function scopeFilter(Builder $query, $filters = []): Builder
     {
         $id = (array)($filters['id'] ?? []);
         $companyId = $filters['company_id'] ?? null;
         $status = $filters['status'] ?? null;
 
-        $query->when($id, function (Builder $q, array $id) {
+        return $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($companyId, function (Builder $q, int $companyId) {
             $q->where('company_id', $companyId);

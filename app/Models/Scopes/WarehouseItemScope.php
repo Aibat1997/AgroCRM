@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait WarehouseItemScope
 {
-    public function scopeFilter(Builder $query, $filters = []): void
+    public function scopeFilter(Builder $query, $filters = []): Builder
     {
         $id = (array)($filters['id'] ?? []);
         $warehouseId = $filters['warehouse_id'] ?? null;
         $title = $filters['title'] ?? null;
         $articleNumber = $filters['article_number'] ?? null;
 
-        $query->when($id, function (Builder $q, array $id) {
+        return $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($warehouseId, function (Builder $q, int $warehouseId) {
             $q->where('warehouse_id', $warehouseId);

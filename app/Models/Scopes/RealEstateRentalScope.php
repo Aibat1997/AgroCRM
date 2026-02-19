@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait RealEstateRentalScope
 {
-    public function scopeFilter(Builder $query, $filters = []): void
+    public function scopeFilter(Builder $query, $filters = []): Builder
     {
         $id = (array)($filters['id'] ?? []);
         $realEstateId = $filters['real_estate_id'] ?? null;
@@ -14,7 +14,7 @@ trait RealEstateRentalScope
         $fromDate = $filters['from_date'] ?? null;
         $toDate = $filters['to_date'] ?? null;
 
-        $query->when($id, function (Builder $q, array $id) {
+        return $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($realEstateId, function (Builder $q, int $realEstateId) {
             $q->where('real_estate_id', $realEstateId);

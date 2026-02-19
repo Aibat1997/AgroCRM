@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait UserScope
 {
-    public function scopeFilter(Builder $query, $filters = []): void
+    public function scopeFilter(Builder $query, $filters = []): Builder
     {
         $id = (array)($filters['id'] ?? []);
         $roleId = (array)($filters['role_id'] ?? []);
@@ -14,7 +14,7 @@ trait UserScope
         $name = $filters['name'] ?? null;
         $phone = $filters['phone'] ?? null;
 
-        $query->when($id, function (Builder $q, array $id) {
+        return $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($roleId, function (Builder $q, array $roleId) {
             $q->whereIn('role_id', $roleId);

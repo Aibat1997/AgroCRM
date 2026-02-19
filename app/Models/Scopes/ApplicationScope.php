@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait ApplicationScope
 {
-    public function scopeFilter(Builder $query, $filters = []): void
+    public function scopeFilter(Builder $query, $filters = []): Builder
     {
         $id = (array)($filters['id'] ?? []);
         $authorName = $filters['author_name'] ?? null;
         $description = $filters['description'] ?? null;
         $status = $filters['status'] ?? null;
 
-        $query->when($id, function (Builder $q, array $id) {
+        return $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($authorName, function (Builder $q, string $authorName) {
             $q->whereHas('author', function (Builder $query) use ($authorName) {

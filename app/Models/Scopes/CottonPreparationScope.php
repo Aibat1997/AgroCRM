@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait CottonPreparationScope
 {
-    public function scopeFilter(Builder $query, $filters = []): void
+    public function scopeFilter(Builder $query, $filters = []): Builder
     {
         $id = (array)($filters['id'] ?? []);
         $invoiceNumber = $filters['invoice_number'] ?? null;
@@ -14,7 +14,7 @@ trait CottonPreparationScope
         $supplierIdentifier = $filters['supplier_identifier'] ?? null;
         $status = $filters['status'] ?? null;
 
-        $query->when($id, function (Builder $q, array $id) {
+        return $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($invoiceNumber, function (Builder $q, string $invoiceNumber) {
             $q->where('invoice_number', $invoiceNumber);

@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait TransactionTypeFormFieldScope
 {
-    public function scopeFilter(Builder $query, $filters = []): void
+    public function scopeFilter(Builder $query, $filters = []): Builder
     {
         $id = (array)($filters['id'] ?? []);
         $transactionTypeId = $filters['transaction_type_id'] ?? null;
 
-        $query->when($id, function (Builder $q, array $id) {
+        return $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
         })->when($transactionTypeId, function (Builder $q, int $transactionTypeId) {
             $q->where('transaction_type_id', $transactionTypeId);
