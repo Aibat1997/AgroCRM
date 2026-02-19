@@ -18,7 +18,8 @@ return new class extends Migration
             $table->unsignedMediumInteger('unit_price');
             $table->integer('quantity');
             $table->timestamps();
-            $table->softDeletes();
+
+            $table->unique(['order_id', 'warehouse_item_id'], 'order_products_unique');
         });
     }
 

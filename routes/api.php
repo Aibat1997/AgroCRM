@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\CurrencyController;
 use App\Http\Controllers\Api\DebtController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\MachineryController;
+use App\Http\Controllers\Api\OrderProductController;
 use App\Http\Controllers\Api\PaymentFrequencyController;
 use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\RealEstateController;
@@ -83,5 +84,7 @@ Route::name('api.')->group(function () {
         Route::apiResource('credits', CreditController::class);
 
         Route::apiResource('transactions', TransactionController::class);
+
+        Route::post('order-product', [OrderProductController::class, 'store']);
     });
 });
