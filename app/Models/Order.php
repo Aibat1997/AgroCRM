@@ -7,6 +7,7 @@ use App\Models\Scopes\OrderScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -47,7 +48,7 @@ class Order extends Model
     /**
      * Get the company that owns the Order
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo<Company, $this>
      */
     public function company(): BelongsTo
     {
@@ -92,5 +93,15 @@ class Order extends Model
     public function products(): HasMany
     {
         return $this->hasMany(OrderProduct::class, 'order_id', 'id');
+    }
+
+    /**
+     * Get the Order's transactionable.
+     * 
+     * @return MorphOne<Transactionable, $this>
+     */
+    public function transactionable(): MorphOne
+    {
+        return $this->morphOne(Transactionable::class, 'transactionable');
     }
 }

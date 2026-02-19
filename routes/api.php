@@ -87,6 +87,8 @@ Route::name('api.')->group(function () {
         Route::apiResource('transactions', TransactionController::class);
 
         Route::get('orders', [OrderController::class, 'index']);
-        Route::post('order-product', [OrderProductController::class, 'store']);
+
+        Route::post('sale-products', [OrderProductController::class, 'saleProducts']);
+        Route::post('purchase-products', [OrderProductController::class, 'purchaseProducts']);
     });
 });

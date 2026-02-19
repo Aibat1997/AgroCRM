@@ -120,7 +120,7 @@ class User extends Authenticatable
     /**
      * Get the activeOrder associated with the User
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne<Order, $this>
      */
     public function activeOrder(): HasOne
     {
