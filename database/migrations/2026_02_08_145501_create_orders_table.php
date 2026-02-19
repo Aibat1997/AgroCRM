@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('client_id')->nullable()->constrained('clients')->onDelete('cascade');
             $table->foreignId('payment_method_id')->nullable()->constrained('payment_methods')->onDelete('cascade');
             $table->unsignedMediumInteger('total_amount')->default(0)->index();
+            $table->boolean('is_purchase')->nullable()->index();
             $table->string('status')->default(OrderStatus::PENDING->value)->index();
             $table->timestamps();
             $table->softDeletes();

@@ -27,6 +27,7 @@ class Order extends Model
         'client_id',
         'payment_method_id',
         'total_amount',
+        'is_purchase',
         'status',
     ];
 
@@ -38,6 +39,7 @@ class Order extends Model
     protected function casts(): array
     {
         return [
+            'is_purchase' => 'boolean',
             'status' => OrderStatus::class,
         ];
     }

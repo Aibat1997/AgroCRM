@@ -398,6 +398,7 @@ namespace App\Models{
  * @property int|null $client_id
  * @property int|null $payment_method_id
  * @property int $total_amount
+ * @property bool $is_purchase
  * @property \App\Enums\OrderStatus $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -406,6 +407,8 @@ namespace App\Models{
  * @property-read \App\Models\Client|null $client
  * @property-read \App\Models\Company $company
  * @property-read \App\Models\PaymentMethod|null $paymentMethod
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderProduct> $products
+ * @property-read int|null $products_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order filter($filters = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
@@ -417,6 +420,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereIsPurchase($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order wherePaymentMethodId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereTotalAmount($value)
@@ -801,6 +805,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Order|null $activeOrder
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Application> $applications
  * @property-read int|null $applications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Passport\Client> $clients
@@ -810,6 +815,8 @@ namespace App\Models{
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Passport\Client> $oauthApps
  * @property-read int|null $oauth_apps_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
+ * @property-read int|null $orders_count
  * @property-read \App\Models\UserRole $role
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $tasks
  * @property-read int|null $tasks_count

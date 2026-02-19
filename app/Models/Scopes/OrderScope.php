@@ -15,6 +15,7 @@ trait OrderScope
         $paymentMethodId = $filters['payment_method_id'] ?? null;
         $fromAmount = $filters['from_amount'] ?? null;
         $toAmount = $filters['to_amount'] ?? null;
+        $isPurchase = (bool)($filters['is_purchase'] ?? null);
         $status = $filters['status'] ?? null;
 
         return $query->when($id, function (Builder $q, array $id) {
@@ -33,6 +34,8 @@ trait OrderScope
             $q->where('total_amount', '>=', $fromAmount);
         })->when($toAmount, function (Builder $q, float $toAmount) {
             $q->where('total_amount', '<=', $toAmount);
+        })->when(isset($isPurchase), function (Builder $q) use ($isPurchase) {
+            $q->where('is_purchase', $isPurchase);
         })->when($status, function (Builder $q, string $status) {
             $q->where('status', $status);
         });
