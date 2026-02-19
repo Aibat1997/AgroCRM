@@ -2,12 +2,12 @@
 
 namespace App\DTO;
 
-class OrderItemDTO
+class OrderProductDTO
 {
     public function __construct(
-        public readonly int $id,
+        public readonly int $warehouse_item_id,
         public readonly int $quantity,
-        public readonly float $price
+        public readonly float $unit_price
     ) {}
 
     /**
@@ -16,15 +16,15 @@ class OrderItemDTO
     public static function fromArray(array $data): self
     {
         return new self(
-            id: $data['id'],
+            warehouse_item_id: $data['id'],
             quantity: $data['quantity'],
-            price: $data['price']
+            unit_price: $data['price']
         );
     }
 
     /**
      * @param list<array{ id: int, quantity: int, price: float }> $items
-     * @return list<OrderItemDTO>
+     * @return list<OrderProductDTO>
      */
     public static function fromArrayList(array $items): array
     {
@@ -34,9 +34,9 @@ class OrderItemDTO
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
+            'warehouse_item_id' => $this->warehouse_item_id,
             'quantity' => $this->quantity,
-            'price' => $this->price,
+            'unit_price' => $this->unit_price,
         ];
     }
 }

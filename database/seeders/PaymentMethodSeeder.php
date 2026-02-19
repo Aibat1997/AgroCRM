@@ -26,6 +26,9 @@ class PaymentMethodSeeder extends Seeder
             [
                 'title_ru' => 'В долг',
             ],
+            [
+                'title_ru' => 'Счет на оплату',
+            ],
         ]);
     }
 }

@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderProduct extends Model
 {
-    use SoftDeletes;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +19,13 @@ class OrderProduct extends Model
         'unit_price',
         'quantity',
     ];
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['warehouseItem'];
 
     /**
      * Get the order that owns the OrderProduct

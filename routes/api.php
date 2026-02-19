@@ -86,9 +86,10 @@ Route::name('api.')->group(function () {
 
         Route::apiResource('transactions', TransactionController::class);
 
-        Route::get('orders', [OrderController::class, 'index']);
-
         Route::post('sale-products', [OrderProductController::class, 'saleProducts']);
         Route::post('purchase-products', [OrderProductController::class, 'purchaseProducts']);
+
+        Route::apiResource('orders', OrderController::class)->only(['index', 'show']);
+        Route::post('confirm-sale-order/{order}', [OrderController::class, 'confirmSaleOrder']);
     });
 });

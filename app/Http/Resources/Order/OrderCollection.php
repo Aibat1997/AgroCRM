@@ -11,5 +11,5 @@ class OrderCollection extends BaseCollection
      *
      * @var string
      */
-    public $collects = OrderResource::class;
+    public $collects = MinimalOrderResource::class;
 }
