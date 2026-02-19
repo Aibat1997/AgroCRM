@@ -12,6 +12,7 @@ trait MachineryScope
         $companyId = $filters['company_id'] ?? null;
         $title = $filters['title'] ?? null;
         $identifier = $filters['identifier'] ?? null;
+        $isDriven = $filters['is_driven'] ?? null;
 
         return $query->when($id, function (Builder $q, array $id) {
             $q->whereIn('id', $id);
@@ -21,6 +22,12 @@ trait MachineryScope
             $q->where('title', 'LIKE', "{$title}%");
         })->when($identifier, function (Builder $q, string $identifier) {
             $q->where('identifier', $identifier);
+        })->when(isset($isDriven), function (Builder $q) use ($isDriven) {
+            if ($isDriven) {
+                $q->whereNull('identifier');
+            } else {
+                $q->whereNotNull('identifier');
+            }
         });
     }
 }
