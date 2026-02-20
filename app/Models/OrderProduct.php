@@ -26,7 +26,7 @@ class OrderProduct extends Model
     /**
      * The relationships that should always be loaded.
      *
-     * @var array
+     * @var list<string>
      */
     protected $with = ['warehouseItem'];
 

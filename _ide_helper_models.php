@@ -398,7 +398,7 @@ namespace App\Models{
  * @property int|null $client_id
  * @property int|null $payment_method_id
  * @property int $total_amount
- * @property bool $is_purchase
+ * @property bool|null $is_purchase
  * @property \App\Enums\OrderStatus $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -409,6 +409,7 @@ namespace App\Models{
  * @property-read \App\Models\PaymentMethod|null $paymentMethod
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderProduct> $products
  * @property-read int|null $products_count
+ * @property-read \App\Models\Transactionable|null $transactionable
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order filter($filters = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
@@ -436,27 +437,31 @@ namespace App\Models{
  * @property int $id
  * @property int $order_id
  * @property int $warehouse_item_id
- * @property int $unit_price
+ * @property int $currency_id
+ * @property numeric $currency_rate
+ * @property numeric $currency_price
+ * @property int $price
  * @property int $quantity
+ * @property string|null $supplier
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Currency $currency
  * @property-read \App\Models\Order $order
  * @property-read \App\Models\WarehouseItem $warehouseItem
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereCurrencyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereCurrencyPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereCurrencyRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereQuantity($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereUnitPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereSupplier($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct whereWarehouseItemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct withTrashed(bool $withTrashed = true)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderProduct withoutTrashed()
  */
 	class OrderProduct extends \Eloquent {}
 }
@@ -947,16 +952,11 @@ namespace App\Models{
  * @property string|null $article_number
  * @property int $quantity
  * @property int $unit_id
- * @property int $currency_id
- * @property numeric $currency_rate
- * @property numeric $original_unit_price
- * @property int $unit_price
- * @property string|null $supplier
+ * @property int|null $min_sell_price
  * @property string|null $image
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Currency $currency
  * @property-read \App\Models\Unit $unit
  * @property-read \App\Models\Warehouse $warehouse
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem filter($filters = [])
@@ -966,17 +966,13 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereArticleNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereCurrencyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereCurrencyRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereOriginalUnitPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereMinSellPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereQuantity($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereSupplier($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereUnitId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereUnitPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem whereWarehouseId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WarehouseItem withTrashed(bool $withTrashed = true)

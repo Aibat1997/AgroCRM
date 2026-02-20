@@ -88,7 +88,7 @@ class Order extends Model
     /**
      * Get all of the products for the Order
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany<OrderProduct, $this>
      */
     public function products(): HasMany
     {
