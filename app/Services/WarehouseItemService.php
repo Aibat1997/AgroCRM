@@ -133,4 +133,15 @@ class WarehouseItemService
             throw new Exception('Failed to get currency: ' . $e->getMessage());
         }
     }
+
+    public function findOrCreateByArticleNumber(WarehouseItemDTO $dto): WarehouseItem
+    {
+        $warehouseItem = WarehouseItem::where('article_number', $dto->article_number)->first();
+
+        if (!$warehouseItem) {
+            $warehouseItem = $this->store($dto);
+        }
+
+        return $warehouseItem;
+    }
 }

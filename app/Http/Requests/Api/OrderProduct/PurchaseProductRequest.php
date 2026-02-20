@@ -22,7 +22,15 @@ class PurchaseProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'products' => 'required|array',
+            'products.*.warehouse_id' => 'required|integer|exists:warehouses,id,deleted_at,NULL',
+            'products.*.title' => 'required|string',
+            'products.*.article_number' => 'nullable|string',
+            'products.*.quantity' => 'required|integer|min:1',
+            'products.*.unit_id' => 'required|integer|exists:units,id,deleted_at,NULL',
+            'products.*.currency_id' => 'required|integer|exists:currencies,id,deleted_at,NULL',
+            'products.*.original_unit_price' => 'required|numeric|min:0',
+            'products.*.supplier' => 'nullable|string',
         ];
     }
 }
