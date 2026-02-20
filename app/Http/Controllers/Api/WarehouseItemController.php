@@ -15,12 +15,13 @@ use Illuminate\Http\Request;
 
 class WarehouseItemController extends Controller
 {
-
-    public function __construct(private readonly WarehouseItemService $warehouseItemService) {}
+    public function __construct(
+        private readonly WarehouseItemService $warehouseItemService
+    ) {}
 
     public function index(Request $request)
     {
-        $warehouseItems = WarehouseItem::with(['unit', 'currency'])->filter($request->all())->paginate(15);
+        $warehouseItems = WarehouseItem::with(['warehouse', 'unit'])->filter($request->all())->paginate(15);
         return new WarehouseItemCollection($warehouseItems);
     }
 

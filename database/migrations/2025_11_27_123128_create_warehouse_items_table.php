@@ -18,11 +18,7 @@ return new class extends Migration
             $table->string('article_number')->nullable()->index();
             $table->unsignedMediumInteger('quantity');
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
-            $table->foreignId('currency_id')->constrained('currencies')->onDelete('cascade');
-            $table->decimal('currency_rate', 5, 2)->unsigned();
-            $table->decimal('original_unit_price', 10, 2)->unsigned();
-            $table->unsignedMediumInteger('unit_price');
-            $table->string('supplier')->nullable();
+            $table->unsignedMediumInteger('min_sell_price')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();

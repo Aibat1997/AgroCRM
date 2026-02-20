@@ -26,20 +26,9 @@ class WarehouseItem extends Model
         'article_number',
         'quantity',
         'unit_id',
-        'currency_id',
-        'currency_rate',
-        'original_unit_price',
-        'unit_price',
-        'supplier',
+        'min_sell_price',
         'image',
     ];
-
-    /**
-     * The relationships that should always be loaded.
-     *
-     * @var list<string>
-     */
-    protected $with = ['warehouse'];
 
     /**
      * Get the warehouse that owns the WarehouseItem
@@ -59,15 +48,5 @@ class WarehouseItem extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_id', 'id');
-    }
-
-    /**
-     * Get the currency that owns the WarehouseItem
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function currency(): BelongsTo
-    {
-        return $this->belongsTo(Currency::class, 'currency_id', 'id');
     }
 }

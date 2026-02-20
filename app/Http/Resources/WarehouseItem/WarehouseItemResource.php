@@ -3,7 +3,6 @@
 namespace App\Http\Resources\WarehouseItem;
 
 use App\Http\Resources\BaseResource;
-use App\Http\Resources\Currency\CurrencyResource;
 use App\Http\Resources\Unit\UnitResource;
 use App\Http\Resources\Warehouse\WarehouseResource;
 use Illuminate\Http\Request;
@@ -22,16 +21,13 @@ class WarehouseItemResource extends BaseResource
     {
         return [
             'id' => $this->id,
+            'warehouse' => new WarehouseResource($this->warehouse),
             'title' => $this->title,
             'article_number' => $this->article_number,
             'quantity' => $this->quantity,
             'unit' => new UnitResource($this->unit),
-            'currency' => new CurrencyResource($this->currency),
-            'original_unit_price' => $this->original_unit_price,
-            'unit_price' => $this->unit_price,
-            'supplier' => $this->supplier,
+            'min_sell_price' => $this->min_sell_price,
             'image' => $this->image,
-            'warehouse' => new WarehouseResource($this->whenLoaded('warehouse')),
         ];
     }
 }

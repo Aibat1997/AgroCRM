@@ -11,11 +11,9 @@ class WarehouseItemDTO
         public readonly string $title,
         public readonly int $quantity,
         public readonly int $unit_id,
-        public readonly int $currency_id,
-        public readonly float $original_unit_price,
-        public readonly string $supplier,
-        public readonly ?string $article_number = null,
-        public readonly ?UploadedFile $image = null,
+        public readonly ?int $min_sell_price,
+        public readonly ?string $article_number,
+        public readonly ?UploadedFile $image,
     ) {}
 
     public static function fromArray(array $data): self
@@ -23,12 +21,10 @@ class WarehouseItemDTO
         return new self(
             warehouse_id: (int) $data['warehouse_id'],
             title: (string) $data['title'],
-            article_number: isset($data['article_number']) ? (string) $data['article_number'] : null,
             quantity: (int) $data['quantity'],
             unit_id: (int) $data['unit_id'],
-            currency_id: (int) $data['currency_id'],
-            original_unit_price: (float) $data['original_unit_price'],
-            supplier: (string) $data['supplier'],
+            min_sell_price: isset($data['min_sell_price']) ? (int) $data['min_sell_price'] : null,
+            article_number: isset($data['article_number']) ? (string) $data['article_number'] : null,
             image: $data['image'] ?? null,
         );
     }
@@ -38,12 +34,11 @@ class WarehouseItemDTO
         return [
             'warehouse_id' => $this->warehouse_id,
             'title' => $this->title,
-            'article_number' => $this->article_number,
             'quantity' => $this->quantity,
             'unit_id' => $this->unit_id,
-            'currency_id' => $this->currency_id,
-            'original_unit_price' => $this->original_unit_price,
-            'supplier' => $this->supplier,
+            'min_sell_price' => $this->min_sell_price,
+            'article_number' => $this->article_number,
+            'image' => $this->image,
         ];
     }
 }
