@@ -7,6 +7,7 @@ use App\Exceptions\InvalidOrderProductException;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\WarehouseItem;
+use Illuminate\Support\Facades\DB;
 
 class OrderProductService
 {
@@ -17,6 +18,7 @@ class OrderProductService
      */
     public function addProductsToOrder(array $orderItems, Order $order): void
     {
+        $totalAmount = 0;
         $orderProducts = [];
         $warehouseItemIds = array_map(fn(OrderProductDTO $item) => $item->warehouse_item_id, $orderItems);
         $warehouseItems = WarehouseItem::whereIn('id', $warehouseItemIds)->toBase()->get(['id', 'title', 'quantity', 'unit_price'])->keyBy('id');
@@ -37,8 +39,13 @@ class OrderProductService
                 'unit_price' => $orderItem->unit_price,
                 'quantity' => $orderItem->quantity,
             ];
+
+            $totalAmount += $orderItem->unit_price * $orderItem->quantity;
         }
 
-        OrderProduct::upsert($orderProducts, ['order_id', 'warehouse_item_id'], ['unit_price', 'quantity']);
+        DB::transaction(function () use ($orderProducts, $order, $totalAmount) {
+            OrderProduct::upsert($orderProducts, ['order_id', 'warehouse_item_id'], ['unit_price', 'quantity']);
+            $order->update(['total_amount' => $totalAmount]);
+        });
     }
 }

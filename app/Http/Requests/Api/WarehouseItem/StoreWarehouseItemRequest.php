@@ -24,7 +24,7 @@ class StoreWarehouseItemRequest extends FormRequest
         return [
             'warehouse_id' => 'required|integer|exists:warehouses,id,deleted_at,NULL',
             'title' => 'required|string',
-            'article_number' => 'nullable|string',
+            'article_number' => 'nullable|string|unique:warehouse_items,article_number,NULL,id,deleted_at,NULL',
             'quantity' => 'required|integer',
             'unit_id' => 'required|integer|exists:units,id,deleted_at,NULL',
             'currency_id' => 'required|integer|exists:currencies,id,deleted_at,NULL',

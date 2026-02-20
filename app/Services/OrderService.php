@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTO\ConfirmSaleOrderDTO;
 use App\Enums\OrderStatus;
+use App\Exceptions\InvalidOrderException;
 use App\Helpers\ClientDataHelper;
 use App\Models\Order;
 use App\Models\User;
@@ -22,6 +23,10 @@ class OrderService
 
     public function confirmSaleOrder(ConfirmSaleOrderDTO $dto, Order $order): Order
     {
+        if ($order->status !== OrderStatus::PENDING && $order->is_purchase === false) {
+            throw InvalidOrderException::notConfirmable();
+        }
+
         $saleHandler = app(SaleHandler::class);
         $clientService = app(ClientService::class);
         $client = null;
