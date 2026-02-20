@@ -3,6 +3,7 @@
 namespace App\Http\Resources\OrderProduct;
 
 use App\Http\Resources\BaseResource;
+use App\Http\Resources\Currency\CurrencyResource;
 use App\Http\Resources\WarehouseItem\MinimalWarehouseItemResource;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,13 @@ class OrderProductResource extends BaseResource
     public function toArray(Request $request): array
     {
         return [
-            'unit_price' => $this->unit_price,
-            'quantity' => $this->quantity,
             'warehouse_item' => new MinimalWarehouseItemResource($this->warehouseItem),
+            'currency' => new CurrencyResource($this->currency),
+            'currency_rate' => $this->currency_rate,
+            'currency_price' => $this->currency_price,
+            'price' => $this->price,
+            'quantity' => $this->quantity,
+            'supplier' => $this->supplier,
         ];
     }
 }

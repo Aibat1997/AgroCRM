@@ -23,9 +23,10 @@ class SaleProductRequest extends FormRequest
     {
         return [
             'products' => 'required|array',
-            'products.*.id' => 'required|integer|exists:warehouse_items,id,deleted_at,NULL',
+            'products.*.warehouse_item_id' => 'required|integer|exists:warehouse_items,id,deleted_at,NULL',
+            'products.*.currency_id' => 'required|integer|exists:currencies,id,deleted_at,NULL',
+            'products.*.currency_price' => 'required|numeric|min:0',
             'products.*.quantity' => 'required|integer|min:1',
-            'products.*.price' => 'required|numeric|min:0',
         ];
     }
 }

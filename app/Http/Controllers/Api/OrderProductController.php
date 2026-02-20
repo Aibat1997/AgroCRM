@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\DTO\OrderProductDTO;
+use App\DTO\SaleProductDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\OrderProduct\PurchaseProductRequest;
 use App\Http\Requests\Api\OrderProduct\SaleProductRequest;
@@ -29,9 +29,9 @@ class OrderProductController extends Controller
     public function saleProducts(SaleProductRequest $request)
     {
         $user = Auth::user();
-        $orderItems = OrderProductDTO::fromArrayList($request->validated()['products']);
+        $dto = SaleProductDTO::fromArray($request->validated());
         $order = $this->orderService->getOrCreateActiveOrder($user, false);
-        $this->orderProductService->addProductsToOrder($orderItems, $order);
+        $this->orderProductService->addProductsToOrder($dto, $order);
         $order->load('products.warehouseItem');
 
         return new OrderResource($order);

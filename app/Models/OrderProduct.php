@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderProduct extends Model
 {
@@ -16,8 +15,12 @@ class OrderProduct extends Model
     protected $fillable = [
         'order_id',
         'warehouse_item_id',
-        'unit_price',
+        'currency_id',
+        'currency_rate',
+        'currency_price',
+        'price',
         'quantity',
+        'supplier',
     ];
 
     /**
@@ -45,5 +48,15 @@ class OrderProduct extends Model
     public function warehouseItem(): BelongsTo
     {
         return $this->belongsTo(WarehouseItem::class, 'warehouse_item_id', 'id');
+    }
+
+    /**
+     * Get the currency that owns the OrderProduct
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class, 'currency_id', 'id');
     }
 }
