@@ -5,7 +5,7 @@ namespace App\Services;
 use App\DTO\ConfirmSaleOrderDTO;
 use App\Enums\OrderStatus;
 use App\Exceptions\InvalidOrderException;
-use App\Helpers\ClientDataHelper;
+use App\Factories\ClientDTOFactory;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\Transaction\SaleHandler;
@@ -29,10 +29,11 @@ class OrderService
 
         $saleHandler = app(SaleHandler::class);
         $clientService = app(ClientService::class);
+        $clientDTO = ClientDTOFactory::fromConfirmSaleOrder($dto);
         $client = null;
 
-        if (ClientDataHelper::hasRequiredClientData($dto)) {
-            $client = $clientService->findOrCreateByIdentifier($dto);
+        if ($clientDTO) {
+            $client = $clientService->findOrCreateByIdentifier($clientDTO);
         }
 
         DB::transaction(function () use ($order, $dto, $client, $saleHandler) {

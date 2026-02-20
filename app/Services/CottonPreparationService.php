@@ -6,6 +6,7 @@ use App\DTO\CottonPreparationLaboratorianDTO;
 use App\DTO\CottonPreparationWeigherDTO;
 use App\Enums\CottonPreparationStatus;
 use App\Enums\CottonPurchasePriceType;
+use App\Factories\ClientDTOFactory;
 use App\Models\CottonPreparation;
 
 class CottonPreparationService
@@ -20,7 +21,8 @@ class CottonPreparationService
 
     public function storeWeigherData(CottonPreparationWeigherDTO $dto, int $weigher_id): CottonPreparation
     {
-        $client = $this->clientService->findOrCreateByIdentifier($dto);
+        $clientDTO = ClientDTOFactory::fromCottonPreparationWeigher($dto);
+        $client = $this->clientService->findOrCreateByIdentifier($clientDTO);
 
         $cottonPreparation = CottonPreparation::create([
             'client_id' => $client->id,

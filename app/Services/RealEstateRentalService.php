@@ -5,6 +5,8 @@ namespace App\Services;
 use App\DTO\RealEstateRentalDTO;
 use App\Models\RealEstateRental;
 use App\Contracts\DocumentUploadServiceInterface;
+use App\Factories\ClientDTOFactory;
+use App\Models\Client;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
@@ -26,7 +28,7 @@ class RealEstateRentalService
     public function store(RealEstateRentalDTO $dto): RealEstateRental
     {
         try {
-            $client = $this->clientService->findOrCreateByIdentifier($dto);
+            $client = $this->getClient($dto);
 
             return DB::transaction(function () use ($dto, $client): RealEstateRental {
                 $realEstateRental = RealEstateRental::create([
@@ -67,7 +69,7 @@ class RealEstateRentalService
     public function update(RealEstateRentalDTO $dto, RealEstateRental $realEstateRental): RealEstateRental
     {
         try {
-            $client = $this->clientService->findOrCreateByIdentifier($dto);
+            $client = $this->getClient($dto);
 
             return DB::transaction(function () use ($dto, $client, $realEstateRental): RealEstateRental {
                 $realEstateRental->update([
@@ -112,5 +114,11 @@ class RealEstateRentalService
             Log::error('Document upload failed', ['error' => $e->getMessage()]);
             throw new Exception('Failed to upload document: ' . $e->getMessage());
         }
+    }
+
+    private function getClient(RealEstateRentalDTO $dto): Client
+    {
+        $clientDTO = ClientDTOFactory::fromRealEstateRental($dto);
+        return $this->clientService->findOrCreateByIdentifier($clientDTO);
     }
 }

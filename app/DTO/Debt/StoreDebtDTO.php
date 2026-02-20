@@ -2,9 +2,7 @@
 
 namespace App\DTO\Debt;
 
-use App\Contracts\ClientDataProviderInterface;
-
-class StoreDebtDTO implements ClientDataProviderInterface
+class StoreDebtDTO
 {
     public function __construct(
         public readonly int $company_id,
@@ -48,15 +46,6 @@ class StoreDebtDTO implements ClientDataProviderInterface
             'issued_at' => $this->issued_at,
             'description' => $this->description,
             'status' => $this->status,
-        ];
-    }
-
-    public function getClientData(): array
-    {
-        return [
-            'name' => $this->client_name,
-            'identifier' => $this->client_identifier,
-            'phone' => $this->client_phone,
         ];
     }
 }

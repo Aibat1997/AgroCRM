@@ -5,6 +5,7 @@ namespace App\Services;
 use App\DTO\Debt\StoreDebtDTO;
 use App\DTO\Debt\UpdateDebtDTO;
 use App\Enums\DebtStatus;
+use App\Factories\ClientDTOFactory;
 use App\Models\CottonPreparation;
 use App\Models\Debt;
 use App\Models\User;
@@ -27,7 +28,8 @@ class DebtService
         try {
             $clientService = app(ClientService::class);
             $loanProvisionHandler = app(LoanProvisionHandler::class);
-            $client = $clientService->findOrCreateByIdentifier($dto);
+            $clientDTO = ClientDTOFactory::fromStoreDebt($dto);
+            $client = $clientService->findOrCreateByIdentifier($clientDTO);
 
             return DB::transaction(function () use ($dto, $client, $user, $loanProvisionHandler): Debt {
                 $debt = Debt::create([

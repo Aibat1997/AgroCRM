@@ -2,9 +2,7 @@
 
 namespace App\DTO;
 
-use App\Contracts\ClientDataProviderInterface;
-
-class ConfirmSaleOrderDTO implements ClientDataProviderInterface
+class ConfirmSaleOrderDTO
 {
     public function __construct(
         public readonly int $payment_method_id,
@@ -17,9 +15,9 @@ class ConfirmSaleOrderDTO implements ClientDataProviderInterface
     {
         return new self(
             payment_method_id: $data['payment_method_id'],
-            client_name: $data['client_name'] ?? null,
-            client_identifier: $data['client_identifier'] ?? null,
-            client_phone: $data['client_phone'] ?? null,
+            client_name: isset($data['client_name']) ? (string) $data['client_name'] : null,
+            client_identifier: isset($data['client_identifier']) ? (string) $data['client_identifier'] : null,
+            client_phone: isset($data['client_phone']) ? (string) $data['client_phone'] : null,
         );
     }
 
@@ -30,15 +28,6 @@ class ConfirmSaleOrderDTO implements ClientDataProviderInterface
             'client_name' => $this->client_name,
             'client_identifier' => $this->client_identifier,
             'client_phone' => $this->client_phone,
-        ];
-    }
-
-    public function getClientData(): array
-    {
-        return [
-            'name' => $this->client_name,
-            'identifier' => $this->client_identifier,
-            'phone' => $this->client_phone,
         ];
     }
 }
